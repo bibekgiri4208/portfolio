@@ -7,26 +7,29 @@ const navMenu = document.querySelector('.nav-menu');
 const themeToggle = document.querySelector('.theme-toggle');
 const navbar = document.querySelector('.navbar');
 
+// Optimized scroll handler with requestAnimationFrame
+let ticking = false;
+
 const updateNavbarAppearance = () => {
-  if (!navbar) {
-    return;
-  }
-
-  const lastScrollY = window.scrollY;
+  if (!navbar) return;
+  
   const isDark = document.body.classList.contains('dark-mode');
-
-  if (lastScrollY > 100) {
-    navbar.style.background = isDark ? 'rgba(3, 7, 18, 0.95)' : 'rgba(255, 255, 255, 0.98)';
-    navbar.style.boxShadow = isDark
-      ? '0 8px 32px rgba(0, 0, 0, 0.5)'
-      : '0 8px 32px rgba(0, 0, 0, 0.12)';
-  } else {
-    navbar.style.background = isDark ? 'rgba(3, 7, 18, 0.88)' : 'rgba(255, 255, 255, 0.95)';
-    navbar.style.boxShadow = isDark
-      ? '0 4px 16px rgba(0, 0, 0, 0.4)'
-      : '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
-  }
+  const scrolled = window.scrollY > 50;
+  
+  // Use class-based styling instead of inline styles for better performance
+  navbar.classList.toggle('navbar-scrolled', scrolled);
 };
+
+// Throttled scroll listener using requestAnimationFrame
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    window.requestAnimationFrame(() => {
+      updateNavbarAppearance();
+      ticking = false;
+    });
+    ticking = true;
+  }
+}, { passive: true });
 
 // ============================================
 // THEME TOGGLE (LIGHT/DARK)
@@ -99,6 +102,7 @@ if (projectsTrack && projectsWrapper && prevButton && nextButton && dotsContaine
   let cardsPerView = 1;
   let totalPages = 1;
   let stepWidth = 0;
+  let resizeTimer;
 
   const getGap = () => {
     const styles = window.getComputedStyle(projectsTrack);
@@ -136,10 +140,8 @@ if (projectsTrack && projectsWrapper && prevButton && nextButton && dotsContaine
   };
 
   const recalc = () => {
-    if (!cards.length) {
-      return;
-    }
-
+    if (!cards.length) return;
+    
     stepWidth = cards[0].offsetWidth + getGap();
     cardsPerView = Math.max(1, Math.floor((projectsWrapper.clientWidth + getGap()) / stepWidth));
     totalPages = Math.max(1, Math.ceil(cards.length / cardsPerView));
@@ -162,7 +164,14 @@ if (projectsTrack && projectsWrapper && prevButton && nextButton && dotsContaine
     }
   });
 
-  window.addEventListener('resize', recalc);
+  // Debounced resize handler
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      recalc();
+    }, 150);
+  }, { passive: true });
+  
   recalc();
 }
 
@@ -200,7 +209,7 @@ if (contactForm) {
     e.preventDefault();
     
     const submitButton = contactForm.querySelector('button[type="submit"]');
-    const originalText = submitButton.textContent;
+    const originalHTML = submitButton.innerHTML;
     
     // Show success state
     submitButton.innerHTML = '<i class="fas fa-check"></i><span>Message Sent!</span>';
@@ -212,7 +221,7 @@ if (contactForm) {
     
     // Restore button after 3 seconds
     setTimeout(() => {
-      submitButton.innerHTML = '<span>Send Message</span><i class="fas fa-paper-plane"></i>';
+      submitButton.innerHTML = originalHTML;
       submitButton.style.background = '';
       submitButton.disabled = false;
     }, 3000);
@@ -237,20 +246,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ============================================
-// NAVBAR BACKGROUND ON SCROLL
-// ============================================
-
-window.addEventListener('scroll', () => {
-  updateNavbarAppearance();
-});
-
-// ============================================
 // PAGE LOAD ANIMATION
 // ============================================
 
 window.addEventListener('load', () => {
-  document.body.style.opacity = '1';
-  
   // Trigger animations for elements already in view
   document.querySelectorAll('.skill-card, .project-card, .stat-card').forEach(el => {
     const rect = el.getBoundingClientRect();
@@ -259,7 +258,3 @@ window.addEventListener('load', () => {
     }
   });
 });
-
-// Set initial opacity
-document.body.style.opacity = '0';
-document.body.style.transition = 'opacity 0.5s ease-in';
