@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio - Creative Developer</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Improved Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <span class="logo">Bibek</span>
+      </div>
+      <ul class="nav-menu">
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="hero-container">
+      <!-- Profile Image & Main Content -->
+      <div class="hero-content">
+        <div class="profile-image-container">
+          <!-- Add your profile image here -->
+          <div class="profile-image-wrapper">
+            <img src="assets/img/profile-pic.png" alt="Bibek Giri - Full Stack Developer" class="profile-image">
+            <div class="profile-image-border"></div>
+          </div>
+          <div class="profile-badge">
+            <i class="fas fa-code"></i>
+            <span>Full Stack Developer</span>
+          </div>
+        </div>
+        
+        <div class="hero-text-content">
+          <div class="hero-accent-line"></div>
+          <h1 class="hero-title">
+            <span class="hero-title-line">Crafting Digital</span>
+            <span class="hero-title-line">Experiences</span>
+          </h1>
+          <p class="hero-description">I design and develop beautiful web pages with modern and stylish looks. Passionate about creating user-centric solutions with clean code and thoughtful design.</p>
+          
+          <div class="hero-stats-grid">
+            <div class="stat-item">
+              <div class="stat-num">10+</div>
+              <div class="stat-text">Projects</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">3+</div>
+              <div class="stat-text">Years</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-num">3</div>
+              <div class="stat-text">Clients</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="hero-cta-group">
+        <a href="#projects" class="cta-btn primary-btn">
+          <span>Explore Work</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="#contact" class="cta-btn secondary-btn">
+          <span>Contact Me</span>
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+
+      <!-- Floating Elements for Visual Interest -->
+      <div class="hero-floating-elements">
+        <div class="floating-element element-1"></div>
+        <div class="floating-element element-2"></div>
+        <div class="floating-element element-3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>I'm a passionate full-stack developer with a strong background in creating stunning, user-centric web experiences. I believe in the power of clean code and thoughtful design to solve real-world problems.</p>
+          <p>With experience across modern web technologies and a commitment to continuous learning, I turn complex ideas into elegant digital solutions. When I'm not coding, I'm exploring new design trends, contributing to open-source, or working on creative side projects.</p>
+          <div class="about-signature">
+            <span>Bibek Giri</span>
+          </div>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <h3>5+</h3>
+            <p>Years in Development</p>
+          </div>
+          <div class="stat-card">
+            <h3>50+</h3>
+            <p>Projects Delivered</p>
+          </div>
+          <div class="stat-card">
+            <h3>30+</h3>
+            <p>Satisfied Clients</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="skills">
+    <div class="container">
+      <h2 class="section-title">Skills & Expertise</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <h3>Frontend</h3>
+          <p>HTML5, CSS3, JavaScript, React, Vue.js, TypeScript</p>
+          <div class="skill-progress">
+            <div class="progress-bar" style="width: 95%"></div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">
+            <i class="fas fa-server"></i>
+          </div>
+          <h3>Backend</h3>
+          <p>Node.js, Python, Express, MongoDB, PostgreSQL, REST APIs</p>
+          <div class="skill-progress">
+            <div class="progress-bar" style="width: 90%"></div>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">
+            <i class="fas fa-pencil-ruler"></i>
+          </div>
+          <h3>Design</h3>
+          <p>UI/UX, Figma, Web Design, Prototyping, Responsive Design</p>
+          <div class="skill-progress">
+            <div class="progress-bar" style="width: 85%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects">
+    <div class="container">
+      <h2 class="section-title">Featured Work</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image" style="background-image: url('assets/img/hangman.jpg');">
+            <div class="project-overlay">
+              <a href="project.html" class="project-link">View Project <i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Hangman Game</h3>
+            <p>A game where you have limited number of chances to guess the correct word before the prop gets hanged. With every incorrect guesses the prop gets closer to getting hanged.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image" style="background-image: url('assets/img/tictactoe.png');">
+            <div class="project-overlay">
+              <a href="project.html" class="project-link">View Project <i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Tic Tac Toe</h3>
+            <p>A classic Tic Tac Toe game with a modern UI and responsive design for an engaging gaming experience.</p>
+            <div class="project-tags">
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-image" style="background-image: url('assets/img/project-3.jpg');">
+            <div class="project-overlay">
+              <a href="project.html" class="project-link">View Project <i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+          <div class="project-info">
+            <h3>Analytics Dashboard</h3>
+            <p>An interactive business intelligence dashboard with custom charts, real-time data visualization, and actionable insights for data-driven decision making.</p>
+            <div class="project-tags">
+              <span class="tag">JavaScript</span>
+              <span class="tag">Chart.js</span>
+              <span class="tag">D3.js</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="section-title">Let's Connect</h2>
+      <div class="contact-content">
+        <form class="contact-form">
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" placeholder="Enter your full name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" placeholder="Enter your email address" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" placeholder="Tell me about your project..." rows="5" required></textarea>
+          </div>
+          <button type="submit" class="cta-button">
+            <span>Send Message</span>
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+        <div class="social-links">
+          <a href="#" class="social-icon" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-icon" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="social-icon" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon" title="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2026 Bibek Giri. All rights reserved. | Built with passion ✨</p>
+    <p class="footer-subtext">Crafted with modern web technologies and attention to detail</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
