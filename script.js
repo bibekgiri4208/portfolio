@@ -4,19 +4,167 @@
 
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
+const themeToggle = document.querySelector('.theme-toggle');
+const navbar = document.querySelector('.navbar');
 
-hamburger.addEventListener('click', () => {
-  navMenu.classList.toggle('active');
-  hamburger.classList.toggle('active');
-});
+const updateNavbarAppearance = () => {
+  if (!navbar) {
+    return;
+  }
+
+  const lastScrollY = window.scrollY;
+  const isDark = document.body.classList.contains('dark-mode');
+
+  if (lastScrollY > 100) {
+    navbar.style.background = isDark ? 'rgba(3, 7, 18, 0.95)' : 'rgba(255, 255, 255, 0.98)';
+    navbar.style.boxShadow = isDark
+      ? '0 8px 32px rgba(0, 0, 0, 0.5)'
+      : '0 8px 32px rgba(0, 0, 0, 0.12)';
+  } else {
+    navbar.style.background = isDark ? 'rgba(3, 7, 18, 0.88)' : 'rgba(255, 255, 255, 0.95)';
+    navbar.style.boxShadow = isDark
+      ? '0 4px 16px rgba(0, 0, 0, 0.4)'
+      : '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+  }
+};
+
+// ============================================
+// THEME TOGGLE (LIGHT/DARK)
+// ============================================
+
+const applyTheme = theme => {
+  const isDark = theme === 'dark';
+  document.body.classList.toggle('dark-mode', isDark);
+
+  if (themeToggle) {
+    themeToggle.innerHTML = isDark
+      ? '<i class="fas fa-sun"></i>'
+      : '<i class="fas fa-moon"></i>';
+    themeToggle.setAttribute(
+      'aria-label',
+      isDark ? 'Enable light mode' : 'Enable dark mode'
+    );
+    themeToggle.setAttribute(
+      'title',
+      isDark ? 'Switch to light mode' : 'Switch to dark mode'
+    );
+  }
+
+  updateNavbarAppearance();
+};
+
+const savedTheme = localStorage.getItem('theme') || 'light';
+applyTheme(savedTheme);
+
+if (themeToggle) {
+  themeToggle.addEventListener('click', () => {
+    const nextTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+    applyTheme(nextTheme);
+    localStorage.setItem('theme', nextTheme);
+  });
+}
+
+if (hamburger && navMenu) {
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    hamburger.classList.toggle('active');
+  });
+}
 
 // Close menu when clicking on a link
 document.querySelectorAll('.nav-link').forEach(link => {
   link.addEventListener('click', () => {
-    navMenu.classList.remove('active');
-    hamburger.classList.remove('active');
+    if (navMenu) {
+      navMenu.classList.remove('active');
+    }
+    if (hamburger) {
+      hamburger.classList.remove('active');
+    }
   });
 });
+
+// ============================================
+// PROJECTS SLIDER
+// ============================================
+
+const projectsTrack = document.querySelector('.projects-track');
+const projectsWrapper = document.querySelector('.projects-track-wrapper');
+const prevButton = document.querySelector('.slider-btn-prev');
+const nextButton = document.querySelector('.slider-btn-next');
+const dotsContainer = document.querySelector('.slider-dots');
+
+if (projectsTrack && projectsWrapper && prevButton && nextButton && dotsContainer) {
+  const cards = Array.from(projectsTrack.querySelectorAll('.project-card'));
+  let currentPage = 0;
+  let cardsPerView = 1;
+  let totalPages = 1;
+  let stepWidth = 0;
+
+  const getGap = () => {
+    const styles = window.getComputedStyle(projectsTrack);
+    return parseFloat(styles.gap || styles.columnGap || '0') || 0;
+  };
+
+  const buildDots = () => {
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < totalPages; i += 1) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'slider-dot';
+      dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      dot.addEventListener('click', () => {
+        currentPage = i;
+        updateSlider();
+      });
+      dotsContainer.appendChild(dot);
+    }
+  };
+
+  const updateControls = () => {
+    const dots = dotsContainer.querySelectorAll('.slider-dot');
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('active', index === currentPage);
+    });
+    prevButton.disabled = currentPage === 0;
+    nextButton.disabled = currentPage >= totalPages - 1;
+  };
+
+  const updateSlider = () => {
+    const offset = currentPage * cardsPerView * stepWidth;
+    projectsTrack.style.transform = `translateX(-${offset}px)`;
+    updateControls();
+  };
+
+  const recalc = () => {
+    if (!cards.length) {
+      return;
+    }
+
+    stepWidth = cards[0].offsetWidth + getGap();
+    cardsPerView = Math.max(1, Math.floor((projectsWrapper.clientWidth + getGap()) / stepWidth));
+    totalPages = Math.max(1, Math.ceil(cards.length / cardsPerView));
+    currentPage = Math.min(currentPage, totalPages - 1);
+    buildDots();
+    updateSlider();
+  };
+
+  prevButton.addEventListener('click', () => {
+    if (currentPage > 0) {
+      currentPage -= 1;
+      updateSlider();
+    }
+  });
+
+  nextButton.addEventListener('click', () => {
+    if (currentPage < totalPages - 1) {
+      currentPage += 1;
+      updateSlider();
+    }
+  });
+
+  window.addEventListener('resize', recalc);
+  recalc();
+}
 
 // ============================================
 // SCROLL ANIMATIONS
@@ -92,19 +240,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // NAVBAR BACKGROUND ON SCROLL
 // ============================================
 
-const navbar = document.querySelector('.navbar');
-let lastScrollY = 0;
-
 window.addEventListener('scroll', () => {
-  lastScrollY = window.scrollY;
-  
-  if (lastScrollY > 100) {
-    navbar.style.background = 'rgba(255, 255, 255, 0.98)';
-    navbar.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.12)';
-  } else {
-    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-    navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
-  }
+  updateNavbarAppearance();
 });
 
 // ============================================

@@ -26,6 +26,9 @@
         <li><a href="#projects" class="nav-link">Projects</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
+      <button class="theme-toggle" type="button" aria-label="Enable dark mode" title="Toggle theme">
+        <i class="fas fa-moon"></i>
+      </button>
       <div class="hamburger">
         <span></span>
         <span></span>
@@ -111,15 +114,15 @@
         </div>
         <div class="about-stats">
           <div class="stat-card">
-            <h3>5+</h3>
+            <h3>3+</h3>
             <p>Years in Development</p>
           </div>
           <div class="stat-card">
-            <h3>50+</h3>
+            <h3>10+</h3>
             <p>Projects Delivered</p>
           </div>
           <div class="stat-card">
-            <h3>30+</h3>
+            <h3>3</h3>
             <p>Satisfied Clients</p>
           </div>
         </div>
@@ -137,7 +140,7 @@
             <i class="fas fa-code"></i>
           </div>
           <h3>Frontend</h3>
-          <p>HTML5, CSS3, JavaScript, React, Vue.js, TypeScript</p>
+          <p>HTML5, CSS3, JavaScript</p>
           <div class="skill-progress">
             <div class="progress-bar" style="width: 95%"></div>
           </div>
@@ -147,7 +150,7 @@
             <i class="fas fa-server"></i>
           </div>
           <h3>Backend</h3>
-          <p>Node.js, Python, Express, MongoDB, PostgreSQL, REST APIs</p>
+          <p>Node.js, Python</p>
           <div class="skill-progress">
             <div class="progress-bar" style="width: 90%"></div>
           </div>
@@ -157,7 +160,7 @@
             <i class="fas fa-pencil-ruler"></i>
           </div>
           <h3>Design</h3>
-          <p>UI/UX, Figma, Web Design, Prototyping, Responsive Design</p>
+          <p>UI/UX, Figma, Web Design, Prototyping</p>
           <div class="skill-progress">
             <div class="progress-bar" style="width: 85%"></div>
           </div>
@@ -170,58 +173,52 @@
   <section id="projects" class="projects">
     <div class="container">
       <h2 class="section-title">Featured Work</h2>
-      <div class="projects-grid">
-        <div class="project-card">
-          <div class="project-image" style="background-image: url('assets/img/hangman.jpg');">
-            <div class="project-overlay">
-              <a href="project.html" class="project-link">View Project <i class="fas fa-external-link-alt"></i></a>
+      <div class="projects-slider" aria-label="Projects slider">
+        <button class="slider-btn slider-btn-prev" type="button" aria-label="Previous project">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="projects-track-wrapper">
+          <div class="projects-track">
+            <div class="project-card">
+              <div class="project-image" style="background-image: url('assets/img/hangman.jpg');">
+                <div class="project-overlay">
+                  <a href="project.html" class="project-link">View Project <i class="fas fa-external-link-alt"></i></a>
+                </div>
+              </div>
+              <div class="project-info">
+                <h3>Hangman Game</h3>
+                <p>A game where you have limited number of chances to guess the correct word before the prop gets hanged. With every incorrect guesses the prop gets closer to getting hanged.</p>
+                <div class="project-tags">
+                  <span class="tag">HTML</span>
+                  <span class="tag">CSS</span>
+                  <span class="tag">JavaScript</span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="project-info">
-            <h3>Hangman Game</h3>
-            <p>A game where you have limited number of chances to guess the correct word before the prop gets hanged. With every incorrect guesses the prop gets closer to getting hanged.</p>
-            <div class="project-tags">
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
-              <span class="tag">JavaScript</span>
-            </div>
-          </div>
-        </div>
 
-        <div class="project-card">
-          <div class="project-image" style="background-image: url('assets/img/tictactoe.png');">
-            <div class="project-overlay">
-              <a href="project.html" class="project-link">View Project <i class="fas fa-external-link-alt"></i></a>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3>Tic Tac Toe</h3>
-            <p>A classic Tic Tac Toe game with a modern UI and responsive design for an engaging gaming experience.</p>
-            <div class="project-tags">
-              <span class="tag">HTML</span>
-              <span class="tag">CSS</span>
-              <span class="tag">JavaScript</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-image" style="background-image: url('assets/img/project-3.jpg');">
-            <div class="project-overlay">
-              <a href="project.html" class="project-link">View Project <i class="fas fa-external-link-alt"></i></a>
-            </div>
-          </div>
-          <div class="project-info">
-            <h3>Analytics Dashboard</h3>
-            <p>An interactive business intelligence dashboard with custom charts, real-time data visualization, and actionable insights for data-driven decision making.</p>
-            <div class="project-tags">
-              <span class="tag">JavaScript</span>
-              <span class="tag">Chart.js</span>
-              <span class="tag">D3.js</span>
+            <div class="project-card">
+              <div class="project-image" style="background-image: url('assets/img/tictactoe.png');">
+                <div class="project-overlay">
+                  <a href="project.html" class="project-link">View Project <i class="fas fa-external-link-alt"></i></a>
+                </div>
+              </div>
+              <div class="project-info">
+                <h3>Tic Tac Toe</h3>
+                <p>A classic Tic Tac Toe game with a modern UI and responsive design for an engaging gaming experience.</p>
+                <div class="project-tags">
+                  <span class="tag">HTML</span>
+                  <span class="tag">CSS</span>
+                  <span class="tag">JavaScript</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <button class="slider-btn slider-btn-next" type="button" aria-label="Next project">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
+      <div class="slider-dots" aria-label="Project slide indicators"></div>
     </div>
   </section>
 
