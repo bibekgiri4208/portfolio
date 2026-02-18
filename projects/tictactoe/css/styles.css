@@ -1,0 +1,166 @@
+* {
+    color: black;
+    font-family: sans-serif;
+    transition: 0.3s ease-in-out;
+    user-select: none;
+}
+
+.align {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background: url('../img/city.png') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    text-align: center;
+    padding-top: 5vh;
+}
+
+.audio-button {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  padding: 0.3em;
+  background-color: #39d78d;
+  border: 3px solid #000000;
+  color: #000;
+  border-radius: 0.3em;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  z-index: 1000;
+}
+
+.audio-button:hover {
+  background-color: #2db56d;
+}
+
+.audio-button i {
+  pointer-events: none;
+}
+
+
+.turn-container {
+    width: 170px;
+    height: 80px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    position: relative;
+}
+
+.turn-container h3 {
+    margin: 0;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    color: white;
+    font-weight: 800;
+    font-size: 1.6rem;
+
+}
+
+.turn-container .turn-box {
+    border: 3px solid #000;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.turn-container .turn-box:nth-child(even) {
+    border-right: none;
+}
+
+.bg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 85px;
+    height: 40px;
+    background-color: #39d78d;
+    z-index: -1;
+}
+
+.box-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    display: inline-block;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 9);
+    background: rgba(248, 248, 248, 0.8); 
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    height: 250px;
+    width: 250px;
+    margin: 30px auto;
+    border: 2px solid #000;
+    background-color: white; 
+}
+
+.box {
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: 700;
+    border: 2px solid #000;
+}
+
+.box:hover {
+    background-color: #39d78d;
+}
+
+#play-again, #new-game {
+    background-color: #39d78d;
+    padding: 10px 25px;
+    border: 2px solid black;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+    color: black;
+}
+
+#play-again:hover, #new-game:hover {
+    padding: 10px 40px;
+    background-color: #2db56d;
+    color: black;
+}
+
+#play-again, #new-game {
+    display: none;
+}
+
+#leaderboard {
+    list-style: none;
+    padding: 0;
+    margin: 20px auto;
+    text-align: left;
+    max-width: 200px;
+    color: black;
+}
+
+#leaderboard li {
+    background-color: #39d78d;
+    padding: 5px;
+    margin: 5px 0;
+    border-radius: 5px;
+    color: black;
+    text-align: center;
+    border: 2px solid black;
+}
+@media (max-width: 600px) {
+.audio-button {
+  top: 0.5em;
+  left: 0.5em;
+  font-size: 0.9em;
+  padding: 0.4em 0.8em;
+}
+}

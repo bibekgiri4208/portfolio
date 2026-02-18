@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hangman Game Scoreboard</title>
+    <style>
+        .back-button {
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            padding: 0.5em 1em;
+            background-color: #39d78d;
+            border: 3px solid #000000;
+            color: #000;
+            border-radius: 0.3em;
+            font-size: 1em;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #2db56d;
+        }  
+
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #00c5ff;
+        }
+
+        .scoreboard-container {
+            width: 90%;
+            max-width: 600px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+            max-height: 80vh;
+            overflow: hidden;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        table th {
+            background-color: #39d78d;
+            color: #000;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tbody tr:hover {
+            background-color: #e1f7d5;
+        }
+        .table-body {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        @media (max-width: 768px) {
+            .scoreboard-container {
+                width: 100%;
+                padding: 15px;
+            }
+
+            table th, table td {
+                padding: 8px;
+            }
+
+            .back-button {
+                font-size: 0.9em;
+                padding: 0.4em 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="buttons">
+        <a href="index.html" class="back-button">Back</a>
+    </div>
+    <div class="scoreboard-container">
+        <h1>Hangman Game Scoreboard</h1>
+        <div class="table-body">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody id="scoreboard-body">
+                    <!-- Scores will be dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Function to load scores from local storage
+        function loadScores() {
+            const scores = JSON.parse(localStorage.getItem('hm_leaderboard')) || [];
+            const scoreboardBody = document.getElementById('scoreboard-body');
+
+            // Clear the existing table content
+            scoreboardBody.innerHTML = '';
+
+            if (scores.length === 0) {
+                // If no scores, display a message
+                scoreboardBody.innerHTML = '<tr><td colspan="2">No records found</td></tr>';
+            } else {
+                // Populate the table with scores
+                scores.forEach((score, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${score.name}</td>
+                        <td>${score.result}</td>
+                    `;
+                    scoreboardBody.appendChild(row);
+                });
+            }
+        }
+
+        // Load scores on page load
+        document.addEventListener('DOMContentLoaded', loadScores);
+    </script>
+</body>
+</html>
