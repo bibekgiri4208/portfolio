@@ -6,7 +6,7 @@
   <title>Bibek Giri</title>
   
   <!-- Preload critical assets -->
-  <link rel="preload" href="assets/img/profile-pic.png" as="image">
+  <link rel="preload" href="assets/img/profile.jpg" as="image">
   <link rel="preload" href="assets/img/hangman.jpg" as="image">
   <link rel="preload" href="assets/img/tictactoe.png" as="image">
   
@@ -16,7 +16,7 @@
   <!-- Improved Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -25,7 +25,7 @@
   <nav class="navbar">
     <div class="container">
       <div class="nav-brand">
-        <span class="logo">Bibek</span>
+        <span class="logo">BG.</span>
       </div>
       <ul class="nav-menu">
         <li><a href="#home" class="nav-link">Home</a></li>
@@ -63,12 +63,12 @@
         </div>
         
         <div class="hero-text-content">
-          <div class="hero-accent-line"></div>
+          <div class="hero-eyebrow">Available for freelance projects</div>
           <h1 class="hero-title">
-            <span class="hero-title-line">Crafting Digital</span>
-            <span class="hero-title-line">Experiences</span>
+            <span class="hero-title-line">Modern websites</span>
+            <span class="hero-title-line">with clean code.</span>
           </h1>
-          <p class="hero-description">I design and develop beautiful web pages with modern and stylish looks. Passionate about creating user-centric solutions with clean code and thoughtful design.</p>
+          <p class="hero-description"> Hi, I'm Bibek Giri. I build responsive, minimal, and user-friendly websites that feel fast, polished, and easy to use.</p>
           
           <div class="hero-stats-grid">
             <div class="stat-item">
@@ -97,6 +97,10 @@
           <span>Contact Me</span>
           <i class="fas fa-envelope"></i>
         </a>
+        <a href="assets/cv/My_CV.pdf" class="cta-btn secondary-btn" download>
+          <span>Download CV</span>
+          <i class="fas fa-download"></i>
+        </a>
       </div>
 
       <!-- Floating Elements for Visual Interest -->
@@ -111,11 +115,13 @@
   <!-- About Section -->
   <section id="about" class="about">
     <div class="container">
-      <h2 class="section-title">About Me</h2>
+      <p class="section-kicker">About</p>
+      <h2 class="section-title">Focused on simple, useful digital products.</h2>
       <div class="about-grid">
         <div class="about-text">
           <p>I'm a passionate full-stack developer with a strong background in creating stunning, user-centric web experiences. I believe in the power of clean code and thoughtful design to solve real-world problems.</p>
           <p>With experience across modern web technologies and a commitment to continuous learning, I turn complex ideas into elegant digital solutions. When I'm not coding, I'm exploring new design trends, contributing to open-source, or working on creative side projects.</p>
+          <p>I am also learning Game development in Unity engine. Currently working on a Car Racing Game.</p>
           <div class="about-signature">
             <span>Bibek Giri</span>
           </div>
@@ -141,46 +147,61 @@
   <!-- Skills Section -->
   <section id="skills" class="skills">
     <div class="container">
-      <h2 class="section-title">Skills & Expertise</h2>
+      <p class="section-kicker">Skills</p>
+      <h2 class="section-title">Tools I use to bring ideas online.</h2>
       <div class="skills-grid">
-        <div class="skill-card">
-          <div class="skill-icon">
-            <i class="fas fa-code"></i>
-          </div>
-          <h3>Frontend</h3>
-          <p>HTML5, CSS3, JavaScript</p>
-          <div class="skill-progress">
-            <div class="progress-bar" style="width: 95%"></div>
-          </div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon">
-            <i class="fas fa-server"></i>
-          </div>
-          <h3>Backend</h3>
-          <p>Node.js, Python</p>
-          <div class="skill-progress">
-            <div class="progress-bar" style="width: 90%"></div>
-          </div>
-        </div>
-        <div class="skill-card">
-          <div class="skill-icon">
-            <i class="fas fa-pencil-ruler"></i>
-          </div>
-          <h3>Design</h3>
-          <p>UI/UX, Figma, Web Design, Prototyping</p>
-          <div class="skill-progress">
-            <div class="progress-bar" style="width: 85%"></div>
-          </div>
-        </div>
-      </div>
+  <div class="skill-card">
+    <div class="skill-icon">
+      <i class="fas fa-code"></i>
+    </div>
+    <h3>Frontend</h3>
+    <p>HTML5, CSS3, JavaScript</p>
+    <div class="skill-progress">
+      <div class="progress-bar" style="width: 95%"></div>
+    </div>
+  </div>
+
+  <div class="skill-card">
+    <div class="skill-icon">
+      <i class="fas fa-server"></i>
+    </div>
+    <h3>Backend</h3>
+    <p>Node.js, Python</p>
+    <div class="skill-progress">
+      <div class="progress-bar" style="width: 90%"></div>
+    </div>
+  </div>
+
+  <div class="skill-card">
+    <div class="skill-icon">
+      <i class="fas fa-pencil-ruler"></i>
+    </div>
+    <h3>Design</h3>
+    <p>UI/UX, Figma, Web Design, Prototyping</p>
+    <div class="skill-progress">
+      <div class="progress-bar" style="width: 85%"></div>
+    </div>
+  </div>
+
+  <div class="skill-card">
+    <div class="skill-icon">
+      <i class="fas fa-gamepad"></i>
+    </div>
+    <h3>Game Development</h3>
+    <p>Unity, C#, Game Mechanics, UI Systems</p>
+    <div class="skill-progress">
+      <div class="progress-bar" style="width: 80%"></div>
+    </div>
+  </div>
+</div>
     </div>
   </section>
 
   <!-- Projects Section -->
   <section id="projects" class="projects">
     <div class="container">
-      <h2 class="section-title">Featured Work</h2>
+      <p class="section-kicker">Projects</p>
+      <h2 class="section-title">Selected work and experiments.</h2>
       <div class="projects-slider" aria-label="Projects slider">
         <button class="slider-btn slider-btn-prev" type="button" aria-label="Previous project">
           <i class="fas fa-chevron-left"></i>
@@ -233,7 +254,8 @@
   <!-- Contact Section -->
   <section id="contact" class="contact">
     <div class="container">
-      <h2 class="section-title">Let's Connect</h2>
+      <p class="section-kicker">Contact</p>
+      <h2 class="section-title">Have a project in mind?</h2>
       <div class="contact-content">
         <form class="contact-form">
           <div class="form-group">
