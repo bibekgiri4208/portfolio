@@ -199,36 +199,6 @@ document.querySelectorAll('.skill-card, .project-card, .stat-card').forEach(el =
 });
 
 // ============================================
-// FORM SUBMISSION
-// ============================================
-
-const contactForm = document.querySelector('.contact-form');
-
-if (contactForm) {
-  contactForm.addEventListener('submit', e => {
-    e.preventDefault();
-    
-    const submitButton = contactForm.querySelector('button[type="submit"]');
-    const originalHTML = submitButton.innerHTML;
-    
-    // Show success state
-    submitButton.innerHTML = '<i class="fas fa-check"></i><span>Message Sent!</span>';
-    submitButton.style.background = 'linear-gradient(135deg, #4caf50, #45a049)';
-    submitButton.disabled = true;
-    
-    // Reset form
-    contactForm.reset();
-    
-    // Restore button after 3 seconds
-    setTimeout(() => {
-      submitButton.innerHTML = originalHTML;
-      submitButton.style.background = '';
-      submitButton.disabled = false;
-    }, 3000);
-  });
-}
-
-// ============================================
 // SMOOTH SCROLL BEHAVIOR
 // ============================================
 
