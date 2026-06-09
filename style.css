@@ -1053,6 +1053,25 @@ body.dark-mode .footer {
   .project-overlay {
     opacity: 1;
   }
+
+  /* Mobile projects fix */
+  .projects-track-wrapper {
+    overflow: visible;
+  }
+
+  .projects-track {
+    flex-direction: column;
+    transform: none !important;
+  }
+
+  .project-card {
+    width: 100%;
+    flex: 0 0 auto;
+  }
+
+  .slider-dots {
+    display: none;
+  }
 }
 
 @media (max-width: 560px) {
