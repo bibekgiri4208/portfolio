@@ -1,3 +1,0 @@
-CR_Demo.mp4 filter=lfs diff=lfs merge=lfs -text
-Tictactoe_Demo.mp4 filter=lfs diff=lfs merge=lfs -text
-DinoRun_Demo.mp4 filter=lfs diff=lfs merge=lfs -text
