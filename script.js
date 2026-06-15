@@ -237,26 +237,28 @@ document.querySelectorAll('.project-card').forEach(card => {
   const video = card.querySelector('.project-video');
   
   if (video) {
+    const source = video.querySelector('source');
     let playPromise = null;
     let isHovered = false;
 
     card.addEventListener('mouseenter', () => {
       isHovered = true;
 
-      // 1. If video isn't loaded yet because of preload="none"
-      if (video.readyState === 0) {
+      // Force the video element to explicitly take the source URL directly
+      if (!video.src && source) {
+        video.src = source.getAttribute('src');
         video.load();
-        
-        // Wait until the browser has loaded enough metadata/frames to play
-        video.addEventListener('loadedmetadata', () => {
-          // Only play if the user is STILL hovering over the card by the time it loads
-          if (isHovered) {
-            startPlayback();
+      }
+      
+      // Fire playback
+      playPromise = video.play();
+      
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          if (error.name !== "AbortError") {
+            console.log("Playback policy block:", error);
           }
-        }, { once: true }); // { once: true } ensures this listener cleans itself up
-      } else {
-        // If it's already loaded from a previous hover, play it immediately
-        startPlayback();
+        });
       }
     });
 
@@ -264,9 +266,8 @@ document.querySelectorAll('.project-card').forEach(card => {
       isHovered = false;
 
       if (playPromise) {
-        // 3. Safely wait for any running play requests to resolve before pausing
         playPromise.then(() => {
-          if (!isHovered) { // Double check they haven't re-entered quickly
+          if (!isHovered) {
             video.pause();
             video.currentTime = 0;
           }
@@ -278,18 +279,5 @@ document.querySelectorAll('.project-card').forEach(card => {
         video.currentTime = 0;
       }
     });
-
-    // Helper function to handle the async play trigger
-    function startPlayback() {
-      playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          // Ignore harmless AbortErrors from swift mouse movements
-          if (error.name !== "AbortError") {
-            console.log("Playback policy block:", error);
-          }
-        });
-      }
-    }
   }
 });
