@@ -1277,3 +1277,103 @@ body.dark-mode .footer {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* ============================================
+   INTEGRATED HOVER VIDEO & ACTION BUTTONS STYLES
+   ============================================ */
+/* Container for the side-by-side action buttons */
+.project-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+  flex-wrap: wrap;
+}
+
+/* Ensure project links scale correctly side by side */
+.project-link {
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+/* Specific stylistic contrast for the View Demo button */
+.demo-link {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+  border: 1px solid var(--line);
+}
+
+.demo-link:hover {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+}
+
+/* Dark mode configurations for the demo button */
+body.dark-mode .demo-link {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+}
+
+body.dark-mode .demo-link:hover {
+  background: var(--accent);
+  color: #0c0d0f;
+}
+
+/* Video Wrapper Styles */
+.project-image {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  overflow: hidden;
+  background: #000; /* fall-back color during transitions */
+}
+
+/* Image acts as the default fallback cover */
+.card-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity var(--transition);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Video element positioning rules */
+.project-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 0;
+  transition: opacity var(--transition);
+}
+
+/* Visual state alterations when hovering over the card parent */
+.project-card:hover .card-thumb {
+  opacity: 0;
+}
+
+.project-card:hover .project-video {
+  opacity: 1;
+}
+
+/* Clean overlay adjustments to ensure indicators sit on top of the elements */
+.project-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(17, 17, 17, 0.4), transparent 70%);
+  z-index: 2; /* Sits over image and video elements */
+  pointer-events: none;
+}
+
+.project-number {
+  z-index: 3; /* Always viewable over the top of components */
+}

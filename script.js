@@ -228,3 +228,33 @@ window.addEventListener('load', () => {
     }
   });
 });
+
+// ============================================
+// PROJECT CARD VIDEO HOVER PLAYBACK HOOKS
+// ============================================
+
+document.querySelectorAll('.project-card').forEach(card => {
+  const video = card.querySelector('.project-video');
+  
+  if (video) {
+    card.addEventListener('mouseenter', () => {
+      // Lazy load video right when needed
+      if (video.readyState === 0) { 
+        video.load();
+      }
+      
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(error => {
+          console.log("Playback interaction restricted or interrupted:", error);
+        });
+      }
+    });
+
+    card.addEventListener('mouseleave', () => {
+      video.pause();
+      // Instantly wind back video clip runtime to baseline sequence
+      video.currentTime = 0; 
+    });
+  }
+});
