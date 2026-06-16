@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+  <title>Under Development | Bibek Giri</title>
+  <link rel="icon" type="image/png" href="assets/img/Logo.png">
+  
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  
+  <!-- Matching Main Page Fonts Verbatim -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* Mimicking the main portfolio background texture and depth */
+    body.dev-page {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Seamless background decoration matching style.css */
+    body.dev-page::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.36;
+      background-image:
+        linear-gradient(rgba(17, 17, 17, 0.045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 17, 17, 0.045) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    body.dark-mode.dev-page::before {
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+      opacity: 0.28;
+    }
+
+    /* Ambient glow element */
+    .dev-glow {
+      position: absolute;
+      width: min(80vw, 500px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-soft), transparent 65%);
+      z-index: -1;
+      pointer-events: none;
+      filter: blur(40px);
+    }
+
+    /* Enhanced Card Design matching project card design tokens */
+    .dev-card {
+      max-width: 540px;
+      width: 100%;
+      padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 5vw, 3rem);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.68);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      transition: transform 220ms ease;
+    }
+
+    .dev-card:hover {
+      transform: translateY(-4px);
+    }
+
+    body.dark-mode .dev-card {
+      background: rgba(21, 23, 26, 0.72);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
+    }
+
+    /* Custom CSS clip-path accent container */
+    .dev-icon-container {
+      display: inline-block;
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .dev-icon {
+      width: 84px;
+      height: 84px;
+      display: grid;
+      place-items: center;
+      border-radius: 24px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 2.2rem;
+    }
+
+    /* Pulsing structural green status dot */
+    .status-dot {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 14px;
+      height: 14px;
+      background: #10b981; /* Slick emerald status colors */
+      border-radius: 50%;
+      border: 3px solid var(--surface);
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+    }
+
+    body.dark-mode .status-dot {
+      border-color: #15171a;
+    }
+
+    .status-pulse {
+      position: absolute;
+      bottom: 2px;
+      right: 2px;
+      width: 14px;
+      height: 14px;
+      background: #10b981;
+      border-radius: 50%;
+      z-index: -1;
+      animation: statusGlow 2s infinite ease-in-out;
+    }
+
+    /* Kicker styling to match project categorizations exactly */
+    .dev-kicker {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 1.25rem;
+      display: inline-block;
+    }
+
+    .dev-card h1 {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.15;
+      letter-spacing: -0.045em;
+      margin-bottom: 1.2rem;
+    }
+
+    .dev-card p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      margin-bottom: 2.5rem;
+    }
+
+    /* Alignment tweak for standard buttons inside centered card blocks */
+    .dev-card .primary-btn {
+      min-height: 50px;
+      padding: 0 1.75rem;
+    }
+
+    @keyframes statusGlow {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(2.4); opacity: 0; }
+    }
+  </style>
+</head>
+<body class="dev-page">
+
+  <!-- Aesthetic back-layer light blur element -->
+  <div class="dev-glow"></div>
+
+  <main class="dev-card">
+    <div class="dev-icon-container">
+      <div class="dev-icon">
+        <i class="fas fa-cubes"></i>
+      </div>
+      <div class="status-dot"></div>
+      <div class="status-pulse"></div>
+    </div>
+    
+    <div>
+      <span class="dev-kicker">Currently Under Development</span>
+      <h1>Demo Environment Coming Soon</h1>
+      <p>I am currently working on this project. There is still some work left to do,
+        but I will publish the live demo as soon as possible. In the meantime,
+        feel free to explore my other projects or check back later for updates on this one!
+      </p>
+    </div>
+    
+    <a href="index.html" class="cta-btn primary-btn">
+      <i class="fas fa-arrow-left"></i>
+      <span>Return to Projects</span>
+    </a>
+  </main>
+
+  <!-- Persistent Dynamic Mode Synchronization Script Hook -->
+  <script>
+    const applyTheme = theme => {
+      document.body.classList.toggle('dark-mode', theme === 'dark');
+    };
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+  </script>
+</body>
+</html>
