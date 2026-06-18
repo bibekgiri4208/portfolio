@@ -22,15 +22,23 @@
         <span class="logo">BG.</span>
       </div>
       <ul class="nav-menu">
+        <li><a href="#hero" class="nav-link">Behind the Code</a></li>
+        <li><a href="#photography" class="nav-link">Gallery</a></li>
+        <li><a href="#interests" class="nav-link">Interests</a></li>
         <li><a href="index.html#home" class="nav-link">Return to Home</a></li>
       </ul>
       <button class="theme-toggle" type="button" aria-label="Toggle Theme">
         <i class="fas fa-moon"></i>
       </button>
+      <button class="hamburger" type="button" aria-label="Open navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </nav>
 
-  <header class="about-hero-wrapper">
+  <header id="hero" class="about-hero-wrapper">
     <div class="container about-hero-content">
       <span class="section-kicker">Behind the Code</span>
       <h1 class="section-title">My Story & Passions</h1>
@@ -41,13 +49,19 @@
   <main class="container">
     <section class="story-layout-grid">
       <div class="story-bio-card">
-        <p>Hi, I'm <strong>Bibek Giri</strong>. Beyond being a web developer, I'm highly curious about building efficient interfaces, layout frameworks, and interactive visual designs. I enjoy blending logical architecture with physical minimalist aesthetics.</p>
-        <p>I value structured, clean environments, order, and intentional detail engineering—both inside code editors and across my physical space. When I'm not configuring web layouts, you'll likely find me collecting car miniatures, analyzing layout balance systems, or arranging my desktop assets.</p>
+        <p>Hi, I'm <strong>Bibek Giri</strong>. I’m an IT student with a sharp eye for design and a passion for both digital and physical creativity.
+           My academic life revolves around tech, but in my free time, I like to balance that logical mindset with my favorite hobbies: gaming and art.
+            I’ve always been drawn to sketching and drawing, which allows me to express a more hands-on, artistic side outside of my screen time as well as my passion for landscape and street photography.</p>
+        <p>I’m a huge believer that your environment impacts your focus, so I’ve channeled my love for modern, minimalist aesthetics into creating a strictly clean and organized desk setup.
+           My single-monitor and laptop workspace is built around keeping things clutter-free and functional. The only exceptions to the minimalism are a few curated details that reflect my personality—specifically,
+            a growing collection of die-cast model cars, driven by a casual passion for automotive design. Ultimately, whether I'm diving into a game, sketching a new piece, or focusing on my studies,
+             I thrive in spaces where clean design meets technology.</p>
         
         <div class="about-tag-badges">
           <span class="about-tag-badge"><i class="fas fa-car-side"></i> Diecast Collecting</span>
           <span class="about-tag-badge"><i class="fas fa-camera"></i> Street Photography</span>
-          <span class="about-tag-badge"><i class="fas fa-gamepad"></i> Virtual Racing Games</span>
+          <span class="about-tag-badge"><i class="fas fa-palette"></i> Sketch and Drawing</span>
+          <span class="about-tag-badge"><i class="fas fa-gamepad"></i> Video Gaming</span>
           <span class="about-tag-badge"><i class="fas fa-cubes"></i> Minimalist Workspace Setup</span>
         </div>
       </div>
@@ -141,36 +155,53 @@
 
     </section>
 
-    <section id="games" class="about-games-container">
-      <div class="about-section-header">
-        <p class="section-kicker">Interests</p>
-        <h2 class="section-title">Games That Inspired Me</h2>
-      </div>
-      
-      <div class="about-games-grid">
-        <div class="about-game-card">
-          <div class="about-game-cover-box">
-            <img src="assets/img/game1.jpg" alt="Assetto Corsa Simulation" class="about-game-img" />
-          </div>
-          <div class="about-game-info">
-            <span class="about-game-meta">Sim Racing / Physics</span>
-            <h4>Assetto Corsa</h4>
-            <p class="about-game-desc">A benchmark in virtual physics models, inspiring handling mechanics calibrations, structural balance, and simulation feedback tracking.</p>
-          </div>
-        </div>
+<section id="interests" class="about-interests-container">
+  <div class="about-section-header">
+    <p class="section-kicker">Interests</p>
+    <h2 class="section-title">Things I Collect, Create & Use</h2>
+  </div>
 
-        <div class="about-game-card">
-          <div class="about-game-cover-box">
-            <img src="assets/img/game2.jpg" alt="Need For Speed Interface" class="about-game-img" />
-          </div>
-          <div class="about-game-info">
-            <span class="about-game-meta">Arcade Racing / Aesthetics</span>
-            <h4>Need For Speed: Unbound</h4>
-            <p class="about-game-desc">A strong graphic identity design blending street stylization with fast progression curves. Excellent UI rendering execution rules.</p>
-          </div>
-        </div>
+  <div class="about-interests-grid">
+    <div class="about-interest-card">
+      <div class="about-interest-icon">
+        <i class="fas fa-pen-nib"></i>
       </div>
-    </section>
+      <div class="about-interest-info">
+        <span class="about-interest-meta">Creative Work</span>
+        <h4>My Art and Drawings</h4>
+        <p>
+          A collection of sketches, drawings, and creative experiments that show my visual thinking outside of development.
+        </p>
+      </div>
+    </div>
+
+    <div class="about-interest-card">
+      <div class="about-interest-icon">
+        <i class="fas fa-keyboard"></i>
+      </div>
+      <div class="about-interest-info">
+        <span class="about-interest-meta">Workspace Gear</span>
+        <h4>My Setup Peripherals</h4>
+        <p>
+          A closer look at the peripherals and desk accessories I use, including my keyboard, mouse, monitor, and workspace gear.
+        </p>
+      </div>
+    </div>
+
+    <div class="about-interest-card">
+      <div class="about-interest-icon">
+        <i class="fas fa-car-side"></i>
+      </div>
+      <div class="about-interest-info">
+        <span class="about-interest-meta">Miniature Cars</span>
+        <h4>My Diecast Collection</h4>
+        <p>
+          A collection of diecast cars that reflects my interest in automotive design, detailing, and display aesthetics.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
   </main>
 
   <div id="aboutLightbox" class="about-lightbox-screen">
@@ -207,6 +238,30 @@
         localStorage.setItem('theme', nextTheme);
       });
     }
+
+    const hamburgerBtn = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    if (hamburgerBtn && navMenu) {
+    hamburgerBtn.addEventListener('click', () => {
+    hamburgerBtn.classList.toggle('active');
+    navMenu.classList.toggle('active');
+
+    const isOpen = navMenu.classList.contains('active');
+    hamburgerBtn.setAttribute(
+      'aria-label',
+      isOpen ? 'Close navigation menu' : 'Open navigation menu'
+    );
+  });
+
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburgerBtn.classList.remove('active');
+      navMenu.classList.remove('active');
+      hamburgerBtn.setAttribute('aria-label', 'Open navigation menu');
+    });
+  });
+}
 
 const stackCards = Array.from(document.querySelectorAll('.stack-photo-card'));
 const stackPrevBtn = document.querySelector('.stack-gallery-btn.prev');
