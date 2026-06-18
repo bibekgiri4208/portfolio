@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body class="about-page-wrapper">
 
   <nav class="navbar navbar-scrolled">
@@ -21,15 +22,18 @@
       <div class="nav-brand">
         <span class="logo">BG.</span>
       </div>
+
       <ul class="nav-menu">
         <li><a href="#hero" class="nav-link">Behind the Code</a></li>
         <li><a href="#photography" class="nav-link">Gallery</a></li>
         <li><a href="#interests" class="nav-link">Interests</a></li>
         <li><a href="index.html#home" class="nav-link">Return to Home</a></li>
       </ul>
+
       <button class="theme-toggle" type="button" aria-label="Toggle Theme">
         <i class="fas fa-moon"></i>
       </button>
+
       <button class="hamburger" type="button" aria-label="Open navigation menu">
         <span></span>
         <span></span>
@@ -50,12 +54,13 @@
     <section class="story-layout-grid">
       <div class="story-bio-card">
         <p>Hi, I'm <strong>Bibek Giri</strong>. I’m an IT student with a sharp eye for design and a passion for both digital and physical creativity.
-           My academic life revolves around tech, but in my free time, I like to balance that logical mindset with my favorite hobbies: gaming and art.
-            I’ve always been drawn to sketching and drawing, which allows me to express a more hands-on, artistic side outside of my screen time as well as my passion for landscape and street photography.</p>
+          My academic life revolves around tech, but in my free time, I like to balance that logical mindset with my favorite hobbies: gaming and art.
+          I’ve always been drawn to sketching and drawing, which allows me to express a more hands-on, artistic side outside of my screen time as well as my passion for landscape and street photography.</p>
+
         <p>I’m a huge believer that your environment impacts your focus, so I’ve channeled my love for modern, minimalist aesthetics into creating a strictly clean and organized desk setup.
-           My single-monitor and laptop workspace is built around keeping things clutter-free and functional. The only exceptions to the minimalism are a few curated details that reflect my personality—specifically,
-            a growing collection of die-cast model cars, driven by a casual passion for automotive design. Ultimately, whether I'm diving into a game, sketching a new piece, or focusing on my studies,
-             I thrive in spaces where clean design meets technology.</p>
+          My single-monitor and laptop workspace is built around keeping things clutter-free and functional. The only exceptions to the minimalism are a few curated details that reflect my personality—specifically,
+          a growing collection of die-cast model cars, driven by a casual passion for automotive design. Ultimately, whether I'm diving into a game, sketching a new piece, or focusing on my studies,
+          I thrive in spaces where clean design meets technology.</p>
         
         <div class="about-tag-badges">
           <span class="about-tag-badge"><i class="fas fa-car-side"></i> Diecast Collecting</span>
@@ -66,16 +71,18 @@
         </div>
       </div>
 
-    <div class="setup-spec-card">
+      <div class="setup-spec-card">
         <div class="setup-image-placeholder">
-            <img 
-            src="assets/img/Workstation.jpg" alt="Workstation setup preview" class="setup-image" />
-        <div class="setup-image-fallback">
+          <img src="assets/img/Workstation.jpg" alt="Workstation setup preview" class="setup-image" />
+
+          <div class="setup-image-fallback">
             <i class="fas fa-image"></i>
             <span>Add your workstation image</span>
+          </div>
         </div>
-    </div>
+
         <h3 class="setup-card-title"><i class="fas fa-desktop"></i> Workstation Configuration</h3>
+
         <ul class="setup-data-list">
           <li class="setup-list-row">
             <span class="setup-row-label">Laptop</span>
@@ -108,101 +115,150 @@
       </div>
 
       <div class="stack-gallery-wrapper">
-  <button class="stack-gallery-btn prev" type="button" aria-label="Previous image">
-    <i class="fas fa-chevron-left"></i>
-  </button>
+        <button class="stack-gallery-btn prev" type="button" aria-label="Previous image">
+          <i class="fas fa-chevron-left"></i>
+        </button>
 
-  <div class="stack-gallery-stage" aria-label="Stacked photo gallery">
-    <div class="stack-photo-card active" data-index="0" onclick="openLightbox('assets/img/lambo.jpg', 'Urban Geometry', 'Pokhara, Nepal // 2026')">
-      <img src="assets/img/lambo.jpg" alt="Urban Geometry" class="stack-photo-img">
-      <div class="stack-photo-info">
-        <h4>Lambo</h4>
-        <span>Lamborghini Diecast</span>
+        <div class="stack-gallery-stage" aria-label="Stacked photo gallery">
+          <div class="stack-photo-card active" data-index="0" onclick="openLightbox('assets/img/lambo.jpg', 'Lambo', 'Lamborghini Diecast')">
+            <img src="assets/img/lambo.jpg" alt="Lamborghini Diecast" class="stack-photo-img">
+            <div class="stack-photo-info">
+              <h4>Lambo</h4>
+              <span>Lamborghini Diecast</span>
+            </div>
+          </div>
+
+          <div class="stack-photo-card next" data-index="1" onclick="openLightbox('assets/img/dodge.jpg', 'Dodge', 'Dodge SRT Diecast')">
+            <img src="assets/img/dodge.jpg" alt="Dodge SRT Diecast" class="stack-photo-img">
+            <div class="stack-photo-info">
+              <h4>Dodge</h4>
+              <span>Dodge SRT Diecast</span>
+            </div>
+          </div>
+
+          <div class="stack-photo-card far-next" data-index="2" onclick="openLightbox('assets/img/challenger.jpg', 'Challenger', 'Dodge Challenger Diecast')">
+            <img src="assets/img/challenger.jpg" alt="Dodge Challenger Diecast" class="stack-photo-img">
+            <div class="stack-photo-info">
+              <h4>Challenger</h4>
+              <span>Dodge Challenger Diecast</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="stack-gallery-btn next" type="button" aria-label="Next image">
+          <i class="fas fa-chevron-right"></i>
+        </button>
       </div>
-    </div>
 
-    <div class="stack-photo-card next" data-index="1" onclick="openLightbox('assets/img/dodge.jpg', 'Golden Hour Reflections', 'Scenic Frame // 2026')">
-      <img src="assets/img/dodge.jpg" alt="Golden Hour Reflections" class="stack-photo-img">
-      <div class="stack-photo-info">
-        <h4>Dodge</h4>
-        <span>Dodge SRT Diecast</span>
+      <div class="stack-gallery-dots">
+        <button class="stack-dot active" type="button" aria-label="Go to image 1"></button>
+        <button class="stack-dot" type="button" aria-label="Go to image 2"></button>
+        <button class="stack-dot" type="button" aria-label="Go to image 3"></button>
       </div>
-    </div>
-
-    <div class="stack-photo-card far-next" data-index="2" onclick="openLightbox('assets/img/challenger.jpg', 'Low Light Textures', 'Night Street // 2025')">
-      <img src="assets/img/challenger.jpg" alt="Low Light Textures" class="stack-photo-img">
-      <div class="stack-photo-info">
-        <h4>Challenger</h4>
-        <span>Dodge Challenger Diecast</span>
-      </div>
-    </div>
-
-
-  </div>
-
-  <button class="stack-gallery-btn next" type="button" aria-label="Next image">
-    <i class="fas fa-chevron-right"></i>
-  </button>
-</div>
-
-<div class="stack-gallery-dots">
-  <button class="stack-dot active" type="button" aria-label="Go to image 1"></button>
-  <button class="stack-dot" type="button" aria-label="Go to image 2"></button>
-  <button class="stack-dot" type="button" aria-label="Go to image 3"></button>
-  <button class="stack-dot" type="button" aria-label="Go to image 4"></button>
-</div>
-      
-
     </section>
 
-<section id="interests" class="about-interests-container">
-  <div class="about-section-header">
-    <p class="section-kicker">Interests</p>
-    <h2 class="section-title">Things I Collect, Create & Use</h2>
-  </div>
+    <section id="interests" class="about-interests-container">
+      <div class="about-section-header">
+        <p class="section-kicker">Interests</p>
+        <h2 class="section-title">Things I Collect, Create & Use</h2>
+      </div>
 
-  <div class="about-interests-grid">
-    <div class="about-interest-card">
-      <div class="about-interest-icon">
-        <i class="fas fa-pen-nib"></i>
-      </div>
-      <div class="about-interest-info">
-        <span class="about-interest-meta">Creative Work</span>
-        <h4>My Art and Drawings</h4>
-        <p>
-          A collection of sketches, drawings, and creative experiments that show my visual thinking outside of development.
-        </p>
-      </div>
-    </div>
+      <div class="about-interests-grid">
+        <div class="about-interest-card">
+          <div class="about-interest-icon">
+            <i class="fas fa-pen-nib"></i>
+          </div>
 
-    <div class="about-interest-card">
-      <div class="about-interest-icon">
-        <i class="fas fa-keyboard"></i>
-      </div>
-      <div class="about-interest-info">
-        <span class="about-interest-meta">Workspace Gear</span>
-        <h4>My Setup Peripherals</h4>
-        <p>
-          A closer look at the peripherals and desk accessories I use, including my keyboard, mouse, monitor, and workspace gear.
-        </p>
-      </div>
-    </div>
+          <div class="about-interest-info">
+            <span class="about-interest-meta">Creative Work</span>
+            <h4>My Art and Drawings</h4>
+            <p>
+              A collection of sketches, drawings, and creative experiments that show my visual thinking outside of development.
+            </p>
+          </div>
 
-    <div class="about-interest-card">
-      <div class="about-interest-icon">
-        <i class="fas fa-car-side"></i>
+          <button class="interest-view-btn" type="button" data-gallery="art">
+            View
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <div class="about-interest-card">
+          <div class="about-interest-icon">
+            <i class="fas fa-keyboard"></i>
+          </div>
+
+          <div class="about-interest-info">
+            <span class="about-interest-meta">Workspace Gear</span>
+            <h4>My Setup Peripherals</h4>
+            <p>
+              A closer look at the peripherals and desk accessories I use, including my keyboard, mouse, monitor, and workspace gear.
+            </p>
+          </div>
+
+          <button class="interest-view-btn" type="button" data-gallery="setup">
+            View
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+
+        <div class="about-interest-card">
+          <div class="about-interest-icon">
+            <i class="fas fa-car-side"></i>
+          </div>
+
+          <div class="about-interest-info">
+            <span class="about-interest-meta">Miniature Cars</span>
+            <h4>My Diecast Collection</h4>
+            <p>
+              A collection of diecast cars that reflects my interest in automotive design, detailing, and display aesthetics.
+            </p>
+          </div>
+
+          <button class="interest-view-btn" type="button" data-gallery="diecast">
+            View
+            <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
       </div>
-      <div class="about-interest-info">
-        <span class="about-interest-meta">Miniature Cars</span>
-        <h4>My Diecast Collection</h4>
-        <p>
-          A collection of diecast cars that reflects my interest in automotive design, detailing, and display aesthetics.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+    </section>
   </main>
+
+  <div id="interestGalleryModal" class="interest-gallery-modal">
+    <div class="interest-gallery-panel">
+      <button class="interest-gallery-close" type="button" aria-label="Close interest gallery">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="interest-gallery-header">
+        <span id="interestGalleryMeta" class="interest-gallery-meta">Collection</span>
+        <h3 id="interestGalleryTitle">Gallery Title</h3>
+        <p id="interestGalleryIntro">Gallery description goes here.</p>
+      </div>
+
+      <div class="interest-gallery-layout">
+        <div id="interestGalleryList" class="interest-gallery-list">
+          <!-- Images are inserted by JavaScript -->
+        </div>
+
+        <div class="interest-gallery-detail">
+          <div class="interest-detail-preview">
+            <img id="interestDetailImage" src="" alt="Selected gallery preview">
+          </div>
+
+          <div class="interest-detail-text">
+            <span id="interestDetailCount" class="interest-detail-count">01 / 03</span>
+            <h4 id="interestDetailTitle">Selected Image</h4>
+
+            <button id="interestOpenLargeBtn" class="interest-open-large-btn" type="button">
+              Open Large View
+              <i class="fas fa-up-right-from-square"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <div id="aboutLightbox" class="about-lightbox-screen">
     <button class="about-lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
@@ -220,9 +276,11 @@
 
   <script>
     const themeToggleBtn = document.querySelector('.theme-toggle');
+
     const syncThemeMode = theme => {
       const isDark = theme === 'dark';
       document.body.classList.toggle('dark-mode', isDark);
+
       if (themeToggleBtn) {
         themeToggleBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
       }
@@ -243,115 +301,119 @@
     const navMenu = document.querySelector('.nav-menu');
 
     if (hamburgerBtn && navMenu) {
-    hamburgerBtn.addEventListener('click', () => {
-    hamburgerBtn.classList.toggle('active');
-    navMenu.classList.toggle('active');
+      hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.classList.toggle('active');
+        navMenu.classList.toggle('active');
 
-    const isOpen = navMenu.classList.contains('active');
-    hamburgerBtn.setAttribute(
-      'aria-label',
-      isOpen ? 'Close navigation menu' : 'Open navigation menu'
-    );
-  });
+        const isOpen = navMenu.classList.contains('active');
 
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburgerBtn.classList.remove('active');
-      navMenu.classList.remove('active');
-      hamburgerBtn.setAttribute('aria-label', 'Open navigation menu');
-    });
-  });
-}
+        hamburgerBtn.setAttribute(
+          'aria-label',
+          isOpen ? 'Close navigation menu' : 'Open navigation menu'
+        );
+      });
 
-const stackCards = Array.from(document.querySelectorAll('.stack-photo-card'));
-const stackPrevBtn = document.querySelector('.stack-gallery-btn.prev');
-const stackNextBtn = document.querySelector('.stack-gallery-btn.next');
-const stackDots = Array.from(document.querySelectorAll('.stack-dot'));
-const stackStage = document.querySelector('.stack-gallery-stage');
-
-let activeStackIndex = 0;
-let stackTouchStartX = 0;
-let stackTouchEndX = 0;
-
-function updateStackGallery() {
-  if (!stackCards.length) return;
-
-  const totalCards = stackCards.length;
-
-  stackCards.forEach((card, index) => {
-    card.classList.remove('active', 'prev', 'next', 'far-next', 'hidden');
-
-    const prevIndex = (activeStackIndex - 1 + totalCards) % totalCards;
-    const nextIndex = (activeStackIndex + 1) % totalCards;
-    const farNextIndex = (activeStackIndex + 2) % totalCards;
-
-    if (index === activeStackIndex) {
-      card.classList.add('active');
-    } else if (index === prevIndex) {
-      card.classList.add('prev');
-    } else if (index === nextIndex) {
-      card.classList.add('next');
-    } else if (index === farNextIndex) {
-      card.classList.add('far-next');
-    } else {
-      card.classList.add('hidden');
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburgerBtn.classList.remove('active');
+          navMenu.classList.remove('active');
+          hamburgerBtn.setAttribute('aria-label', 'Open navigation menu');
+        });
+      });
     }
-  });
 
-  stackDots.forEach((dot, index) => {
-    dot.classList.toggle('active', index === activeStackIndex);
-  });
-}
+    const stackCards = Array.from(document.querySelectorAll('.stack-photo-card'));
+    const stackPrevBtn = document.querySelector('.stack-gallery-btn.prev');
+    const stackNextBtn = document.querySelector('.stack-gallery-btn.next');
+    const stackDots = Array.from(document.querySelectorAll('.stack-dot'));
+    const stackStage = document.querySelector('.stack-gallery-stage');
 
-function showNextStackImage() {
-  activeStackIndex = (activeStackIndex + 1) % stackCards.length;
-  updateStackGallery();
-}
+    let activeStackIndex = 0;
+    let stackTouchStartX = 0;
+    let stackTouchEndX = 0;
 
-function showPrevStackImage() {
-  activeStackIndex = (activeStackIndex - 1 + stackCards.length) % stackCards.length;
-  updateStackGallery();
-}
+    function updateStackGallery() {
+      if (!stackCards.length) return;
 
-if (stackCards.length) {
-  stackNextBtn?.addEventListener('click', showNextStackImage);
-  stackPrevBtn?.addEventListener('click', showPrevStackImage);
+      const totalCards = stackCards.length;
 
-  stackDots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      activeStackIndex = index;
+      stackCards.forEach((card, index) => {
+        card.classList.remove('active', 'prev', 'next', 'far-next', 'hidden');
+
+        const prevIndex = (activeStackIndex - 1 + totalCards) % totalCards;
+        const nextIndex = (activeStackIndex + 1) % totalCards;
+        const farNextIndex = (activeStackIndex + 2) % totalCards;
+
+        if (index === activeStackIndex) {
+          card.classList.add('active');
+        } else if (index === prevIndex) {
+          card.classList.add('prev');
+        } else if (index === nextIndex) {
+          card.classList.add('next');
+        } else if (index === farNextIndex) {
+          card.classList.add('far-next');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      stackDots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === activeStackIndex);
+      });
+    }
+
+    function showNextStackImage() {
+      activeStackIndex = (activeStackIndex + 1) % stackCards.length;
       updateStackGallery();
-    });
-  });
-
-  stackStage?.addEventListener('touchstart', event => {
-    stackTouchStartX = event.changedTouches[0].clientX;
-  }, { passive: true });
-
-  stackStage?.addEventListener('touchend', event => {
-    stackTouchEndX = event.changedTouches[0].clientX;
-
-    const swipeDistance = stackTouchEndX - stackTouchStartX;
-
-    if (Math.abs(swipeDistance) > 45) {
-      if (swipeDistance < 0) {
-        showNextStackImage();
-      } else {
-        showPrevStackImage();
-      }
     }
-  }, { passive: true });
 
-  updateStackGallery();
-}   
+    function showPrevStackImage() {
+      activeStackIndex = (activeStackIndex - 1 + stackCards.length) % stackCards.length;
+      updateStackGallery();
+    }
+
+    if (stackCards.length) {
+      stackNextBtn?.addEventListener('click', showNextStackImage);
+      stackPrevBtn?.addEventListener('click', showPrevStackImage);
+
+      stackDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          activeStackIndex = index;
+          updateStackGallery();
+        });
+      });
+
+      stackStage?.addEventListener('touchstart', event => {
+        stackTouchStartX = event.changedTouches[0].clientX;
+      }, { passive: true });
+
+      stackStage?.addEventListener('touchend', event => {
+        stackTouchEndX = event.changedTouches[0].clientX;
+
+        const swipeDistance = stackTouchEndX - stackTouchStartX;
+
+        if (Math.abs(swipeDistance) > 45) {
+          if (swipeDistance < 0) {
+            showNextStackImage();
+          } else {
+            showPrevStackImage();
+          }
+        }
+      }, { passive: true });
+
+      updateStackGallery();
+    }
 
     const lightboxModal = document.getElementById('aboutLightbox');
     const targetImg = document.getElementById('lightboxTargetImg');
     const targetTitle = document.getElementById('lightboxTargetTitle');
     const targetMeta = document.getElementById('lightboxTargetMeta');
 
+    let isInterestModalOpen = false;
+
     function openLightbox(imgSrc, title, metadata) {
       if (!lightboxModal || !targetImg) return;
+
       targetImg.src = imgSrc;
       targetTitle.textContent = title;
       targetMeta.textContent = metadata;
@@ -361,15 +423,224 @@ if (stackCards.length) {
 
     function closeLightbox() {
       if (!lightboxModal) return;
+
       lightboxModal.classList.remove('active');
+      document.body.style.overflow = isInterestModalOpen ? 'hidden' : '';
+    }
+
+    lightboxModal.addEventListener('click', event => {
+      if (event.target === lightboxModal) {
+        closeLightbox();
+      }
+    });
+
+    const interestGalleryData = {
+      art: {
+        meta: 'Creative Work',
+        title: 'My Art and Drawings',
+        intro: 'A small collection of sketches, drawings, and visual experiments.',
+        images: [
+          {
+            src: 'assets/img/art1.jpg',
+            title: 'Sketch Study',
+            category: 'Drawing',
+            description: 'A pencil sketch focused on form, shading, and visual structure.'
+          },
+          {
+            src: 'assets/img/art2.jpg',
+            title: 'Character Drawing',
+            category: 'Illustration',
+            description: 'A character-based drawing practice with attention to detail and expression.'
+          },
+          {
+            src: 'assets/img/art3.jpg',
+            title: 'Concept Practice',
+            category: 'Creative Study',
+            description: 'A rough concept artwork created for experimenting with shapes and composition.'
+          }
+        ]
+      },
+
+      setup: {
+        meta: 'Workspace Gear',
+        title: 'My Setup Peripherals',
+        intro: 'A closer look at the hardware and accessories that complete my workstation.',
+        images: [
+          {
+            src: 'assets/img/keyboard.jpg',
+            title: 'Aula F75 Pro',
+            category: 'Keyboard',
+            description: 'My mechanical keyboard setup, used for coding, gaming, and daily work.'
+          },
+          {
+            src: 'assets/img/mouse.jpg',
+            title: 'Fantech Blake Wireless S',
+            category: 'Mouse',
+            description: 'Wireless mouse used for productivity, gaming, and general desktop navigation.'
+          },
+          {
+            src: 'assets/img/monitor.jpg',
+            title: 'MSI G255F Monitor',
+            category: 'Monitor',
+            description: 'External monitor used as the main display for development and visual work.'
+          },
+          {
+            src: 'assets/img/Workstation.jpg',
+            title: 'Full Desk Setup',
+            category: 'Workspace',
+            description: 'My complete workstation layout with monitor, laptop, keyboard, mouse, lighting, and desk accessories.'
+          }
+        ]
+      },
+
+      diecast: {
+        meta: 'Miniature Cars',
+        title: 'My Diecast Collection',
+        intro: 'A collection of miniature cars with attention to shape, detail, and automotive design.',
+        images: [
+          {
+            src: 'assets/img/lambo.jpg',
+            title: 'Lamborghini Diecast',
+            category: 'Diecast Car',
+            description: 'A Lamborghini miniature with sharp body lines and a display-focused finish.'
+          },
+          {
+            src: 'assets/img/dodge.jpg',
+            title: 'Dodge SRT Diecast',
+            category: 'Diecast Car',
+            description: 'A Dodge SRT miniature captured with dramatic lighting and close-up detail.'
+          },
+          {
+            src: 'assets/img/challenger.jpg',
+            title: 'Dodge Challenger Diecast',
+            category: 'Diecast Car',
+            description: 'A Dodge Challenger miniature from my diecast collection.'
+          }
+        ]
+      }
+    };
+
+    const interestModal = document.getElementById('interestGalleryModal');
+    const interestCloseBtn = document.querySelector('.interest-gallery-close');
+    const interestViewButtons = document.querySelectorAll('.interest-view-btn');
+
+    const interestGalleryMeta = document.getElementById('interestGalleryMeta');
+    const interestGalleryTitle = document.getElementById('interestGalleryTitle');
+    const interestGalleryIntro = document.getElementById('interestGalleryIntro');
+    const interestGalleryList = document.getElementById('interestGalleryList');
+
+    const interestDetailImage = document.getElementById('interestDetailImage');
+    const interestDetailCount = document.getElementById('interestDetailCount');
+    const interestDetailTitle = document.getElementById('interestDetailTitle');    
+    const interestOpenLargeBtn = document.getElementById('interestOpenLargeBtn');
+
+    let currentInterestImages = [];
+    let currentInterestIndex = 0;
+
+    function renderInterestGallery(galleryKey) {
+      const gallery = interestGalleryData[galleryKey];
+
+      if (!gallery || !interestModal) return;
+
+      currentInterestImages = gallery.images;
+      currentInterestIndex = 0;
+      isInterestModalOpen = true;
+
+      interestGalleryMeta.textContent = gallery.meta;
+      interestGalleryTitle.textContent = gallery.title;
+      interestGalleryIntro.textContent = gallery.intro;
+
+      interestGalleryList.innerHTML = '';
+
+      gallery.images.forEach((item, index) => {
+        const galleryItem = document.createElement('button');
+        galleryItem.type = 'button';
+        galleryItem.className = `interest-gallery-item ${index === 0 ? 'active' : ''}`;
+
+        galleryItem.innerHTML = `
+          <div class="interest-gallery-thumb">
+            <img src="${item.src}" alt="${item.title}">
+          </div>
+          <div class="interest-gallery-item-text">
+            <h5>${item.title}</h5>
+          </div>
+        `;
+
+        galleryItem.addEventListener('click', () => {
+          setActiveInterestImage(index);
+        });
+
+        interestGalleryList.appendChild(galleryItem);
+      });
+
+      setActiveInterestImage(0);
+
+      interestModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function setActiveInterestImage(index) {
+      const item = currentInterestImages[index];
+
+      if (!item) return;
+
+      currentInterestIndex = index;
+
+      interestDetailImage.src = item.src;
+      interestDetailImage.alt = item.title;
+      interestDetailCount.textContent = `${String(index + 1).padStart(2, '0')} / ${String(currentInterestImages.length).padStart(2, '0')}`;
+      interestDetailTitle.textContent = item.title;
+
+      document.querySelectorAll('.interest-gallery-item').forEach((button, buttonIndex) => {
+        button.classList.toggle('active', buttonIndex === index);
+      });
+    }
+
+    function closeInterestGallery() {
+      if (!interestModal) return;
+
+      interestModal.classList.remove('active');
+      isInterestModalOpen = false;
       document.body.style.overflow = '';
     }
 
-    lightboxModal.addEventListener('click', (e) => {
-      if (e.target === lightboxModal) closeLightbox();
+
+
+    function openCurrentInterestImageLarge() {
+      const item = currentInterestImages[currentInterestIndex];
+
+      if (!item) return;
+
+      openLightbox(item.src, item.title, '');
+    }
+
+    interestViewButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const galleryKey = button.dataset.gallery;
+        renderInterestGallery(galleryKey);
+      });
     });
 
-    
+    interestCloseBtn?.addEventListener('click', closeInterestGallery);
+
+    interestModal?.addEventListener('click', event => {
+      if (event.target === interestModal) {
+        closeInterestGallery();
+      }
+    });
+
+    interestDetailImage?.addEventListener('click', openCurrentInterestImageLarge);
+    interestOpenLargeBtn?.addEventListener('click', openCurrentInterestImageLarge);
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') {
+        if (lightboxModal.classList.contains('active')) {
+          closeLightbox();
+        } else if (interestModal.classList.contains('active')) {
+          closeInterestGallery();
+        }
+      }
+    });
   </script>
 </body>
-</html> 
+</html>
