@@ -1,7 +1,3 @@
-// ============================================
-// NAVIGATION AND HAMBURGER MENU
-// ============================================
-
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const themeToggle = document.querySelector('.theme-toggle');
