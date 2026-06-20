@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Me & Hobbies | Bibek Giri</title>
+  <script>
+    if (sessionStorage.getItem('pageTransition') === 'true') {
+      document.documentElement.classList.add('page-transition-preload');
+    }
+  </script>
   <link rel="icon" type="image/png" href="assets/img/Logo.png">
   
   <link rel="stylesheet" href="style.css" />
@@ -17,6 +22,10 @@
 
 <body class="about-page-wrapper">
 
+  <div class="page-transition" aria-hidden="true">
+    <span>BG.</span>
+  </div>
+
   <nav class="navbar navbar-scrolled">
     <div class="container">
       <div class="nav-brand">
@@ -27,7 +36,7 @@
         <li><a href="#hero" class="nav-link">Behind the Code</a></li>
         <li><a href="#photography" class="nav-link">Gallery</a></li>
         <li><a href="#interests" class="nav-link">Interests</a></li>
-        <li><a href="index.html#home" class="nav-link">Return to Home</a></li>
+        <li><a href="index.html#home" class="nav-link" data-page-transition>Return to Home</a></li>
       </ul>
 
       <button class="theme-toggle" type="button" aria-label="Toggle Theme">
@@ -275,6 +284,77 @@
   </footer>
 
   <script>
+
+    // ============================================
+// CONSISTENT PAGE SWITCH TRANSITION
+// ============================================
+
+const PAGE_TRANSITION_DURATION = 700;
+const PAGE_TRANSITION_KEY = 'pageTransition';
+
+const initPageTransition = () => {
+  const shouldAnimateIn = sessionStorage.getItem(PAGE_TRANSITION_KEY) === 'true';
+  const root = document.documentElement;
+
+  if (shouldAnimateIn) {
+    document.body.classList.add('page-transition-in');
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        root.classList.remove('page-transition-preload');
+        document.body.classList.add('page-transition-ready');
+
+        setTimeout(() => {
+          document.body.classList.remove('page-transition-in', 'page-transition-ready');
+          sessionStorage.removeItem(PAGE_TRANSITION_KEY);
+        }, PAGE_TRANSITION_DURATION);
+      });
+    });
+  } else {
+    root.classList.remove('page-transition-preload');
+  }
+
+  let isPageLeaving = false;
+
+  document.querySelectorAll('a[data-page-transition]').forEach(link => {
+    link.addEventListener('click', event => {
+      const href = link.getAttribute('href');
+
+      if (
+        isPageLeaving ||
+        !href ||
+        href.startsWith('#') ||
+        link.target === '_blank' ||
+        link.hasAttribute('download') ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      isPageLeaving = true;
+
+      sessionStorage.setItem(PAGE_TRANSITION_KEY, 'true');
+      document.body.classList.remove('page-transition-in', 'page-transition-ready');
+      document.body.classList.add('page-transition-out');
+
+      setTimeout(() => {
+        window.location.href = href;
+      }, PAGE_TRANSITION_DURATION);
+    });
+  });
+
+  window.addEventListener('pageshow', () => {
+    isPageLeaving = false;
+    document.body.classList.remove('page-transition-out');
+  });
+};
+
+initPageTransition();
+
     const themeToggleBtn = document.querySelector('.theme-toggle');
 
     const syncThemeMode = theme => {
@@ -541,6 +621,7 @@
 
     let currentInterestImages = [];
     let currentInterestIndex = 0;
+    let interestCloseTimer;
 
     function renderInterestGallery(galleryKey) {
       const gallery = interestGalleryData[galleryKey];
@@ -580,6 +661,8 @@
 
       setActiveInterestImage(0);
 
+      clearTimeout(interestCloseTimer);
+      interestModal.classList.remove('closing');
       interestModal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -602,11 +685,15 @@
     }
 
     function closeInterestGallery() {
-      if (!interestModal) return;
+      if (!interestModal || interestModal.classList.contains('closing')) return;
 
-      interestModal.classList.remove('active');
       isInterestModalOpen = false;
-      document.body.style.overflow = '';
+      interestModal.classList.add('closing');
+
+      interestCloseTimer = setTimeout(() => {
+        interestModal.classList.remove('active', 'closing');
+        document.body.style.overflow = '';
+      }, 320);
     }
 
 

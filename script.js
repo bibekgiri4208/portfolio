@@ -1,3 +1,73 @@
+// ============================================
+// CONSISTENT PAGE SWITCH TRANSITION
+// ============================================
+
+const PAGE_TRANSITION_DURATION = 700;
+const PAGE_TRANSITION_KEY = 'pageTransition';
+
+const initPageTransition = () => {
+  const shouldAnimateIn = sessionStorage.getItem(PAGE_TRANSITION_KEY) === 'true';
+  const root = document.documentElement;
+
+  if (shouldAnimateIn) {
+    document.body.classList.add('page-transition-in');
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        root.classList.remove('page-transition-preload');
+        document.body.classList.add('page-transition-ready');
+
+        setTimeout(() => {
+          document.body.classList.remove('page-transition-in', 'page-transition-ready');
+          sessionStorage.removeItem(PAGE_TRANSITION_KEY);
+        }, PAGE_TRANSITION_DURATION);
+      });
+    });
+  } else {
+    root.classList.remove('page-transition-preload');
+  }
+
+  let isPageLeaving = false;
+
+  document.querySelectorAll('a[data-page-transition]').forEach(link => {
+    link.addEventListener('click', event => {
+      const href = link.getAttribute('href');
+
+      if (
+        isPageLeaving ||
+        !href ||
+        href.startsWith('#') ||
+        link.target === '_blank' ||
+        link.hasAttribute('download') ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) {
+        return;
+      }
+
+      event.preventDefault();
+      isPageLeaving = true;
+
+      sessionStorage.setItem(PAGE_TRANSITION_KEY, 'true');
+      document.body.classList.remove('page-transition-in', 'page-transition-ready');
+      document.body.classList.add('page-transition-out');
+
+      setTimeout(() => {
+        window.location.href = href;
+      }, PAGE_TRANSITION_DURATION);
+    });
+  });
+
+  window.addEventListener('pageshow', () => {
+    isPageLeaving = false;
+    document.body.classList.remove('page-transition-out');
+  });
+};
+
+initPageTransition();
+
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
 const themeToggle = document.querySelector('.theme-toggle');

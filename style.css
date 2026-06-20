@@ -1372,3 +1372,101 @@ body.dark-mode .demo-link:hover {
 .project-number {
   z-index: 3; /* Always viewable over the top of components */
 }
+
+/* ============================================
+   CONSISTENT PAGE SWITCH TRANSITION
+   ============================================ */
+
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.18), transparent 28rem),
+    #0c0d0f;
+  visibility: hidden;
+  opacity: 1;
+  transform: translateY(100%);
+  will-change: transform;
+}
+
+html.page-transition-preload .page-transition {
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.page-transition span {
+  color: #ffffff;
+  font-size: clamp(2.5rem, 8vw, 6rem);
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  opacity: 0;
+  transform: translateY(14px);
+}
+
+html.page-transition-preload .page-transition span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body.page-transition-in .page-transition {
+  visibility: visible;
+  transform: translateY(0);
+}
+
+body.page-transition-in .page-transition span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body.page-transition-out .page-transition {
+  visibility: visible;
+  animation: pageCoverIn 700ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+body.page-transition-out .page-transition span {
+  animation: pageLogoIn 360ms ease 180ms forwards;
+}
+
+body.page-transition-in.page-transition-ready .page-transition {
+  transform: translateY(-100%);
+  transition: transform 700ms cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+body.page-transition-in.page-transition-ready .page-transition span {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes pageCoverIn {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes pageLogoIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition,
+  .page-transition span {
+    animation: none;
+    transition: none;
+  }
+}

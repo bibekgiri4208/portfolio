@@ -543,6 +543,7 @@ body.dark-mode .interest-view-btn {
 
 .interest-gallery-modal.active {
   display: grid;
+  animation: interestBackdropIn 260ms ease;
 }
 
 .interest-gallery-panel {
@@ -557,6 +558,172 @@ body.dark-mode .interest-view-btn {
   padding: clamp(1.2rem, 3vw, 2rem);
   display: flex;
   flex-direction: column;
+  transform-origin: center;
+}
+
+.interest-gallery-modal.active .interest-gallery-panel {
+  animation: interestPanelIn 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.interest-gallery-modal.active .interest-gallery-close,
+.interest-gallery-modal.active .interest-gallery-header,
+.interest-gallery-modal.active .interest-gallery-list,
+.interest-gallery-modal.active .interest-gallery-detail {
+  animation: interestContentIn 520ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.interest-gallery-modal.active .interest-gallery-close {
+  animation-delay: 80ms;
+}
+
+.interest-gallery-modal.active .interest-gallery-header {
+  animation-delay: 100ms;
+}
+
+.interest-gallery-modal.active .interest-gallery-list {
+  animation-delay: 150ms;
+}
+
+.interest-gallery-modal.active .interest-gallery-detail {
+  animation-delay: 180ms;
+}
+
+.interest-gallery-modal.active .interest-gallery-item {
+  animation: interestItemIn 420ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.interest-gallery-modal.active .interest-gallery-item:nth-child(1) {
+  animation-delay: 240ms;
+}
+
+.interest-gallery-modal.active .interest-gallery-item:nth-child(2) {
+  animation-delay: 290ms;
+}
+
+.interest-gallery-modal.active .interest-gallery-item:nth-child(3) {
+  animation-delay: 340ms;
+}
+
+.interest-gallery-modal.active .interest-gallery-item:nth-child(4) {
+  animation-delay: 390ms;
+}
+
+.interest-gallery-modal.active .interest-gallery-item:nth-child(n + 5) {
+  animation-delay: 430ms;
+}
+
+.interest-gallery-modal.closing {
+  display: grid;
+  animation: interestBackdropOut 260ms ease forwards;
+}
+
+.interest-gallery-modal.closing .interest-gallery-panel {
+  animation: interestPanelOut 320ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.interest-gallery-modal.closing .interest-gallery-close,
+.interest-gallery-modal.closing .interest-gallery-header,
+.interest-gallery-modal.closing .interest-gallery-list,
+.interest-gallery-modal.closing .interest-gallery-detail {
+  animation: interestContentOut 220ms ease forwards;
+}
+
+@keyframes interestBackdropIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes interestPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes interestContentIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes interestItemIn {
+  from {
+    opacity: 0;
+    transform: translateX(-14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes interestBackdropOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes interestPanelOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(22px) scale(0.96);
+  }
+}
+
+@keyframes interestContentOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .interest-gallery-modal.active,
+  .interest-gallery-modal.closing,
+  .interest-gallery-modal.active .interest-gallery-panel,
+  .interest-gallery-modal.closing .interest-gallery-panel,
+  .interest-gallery-modal.active .interest-gallery-close,
+  .interest-gallery-modal.closing .interest-gallery-close,
+  .interest-gallery-modal.active .interest-gallery-header,
+  .interest-gallery-modal.closing .interest-gallery-header,
+  .interest-gallery-modal.active .interest-gallery-list,
+  .interest-gallery-modal.closing .interest-gallery-list,
+  .interest-gallery-modal.active .interest-gallery-detail,
+  .interest-gallery-modal.closing .interest-gallery-detail,
+  .interest-gallery-modal.active .interest-gallery-item {
+    animation: none;
+  }
 }
 
 body.dark-mode .interest-gallery-panel {
