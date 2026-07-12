@@ -1,0 +1,83 @@
+/* SKILLS SECTION */
+.skills {
+  background: transparent;
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.skill-card {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  padding: clamp(1.35rem, 3vw, 2rem);
+  border-radius: var(--radius-lg);
+  min-height: 280px;
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.skill-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(17, 17, 17, 0.18);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.skill-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 1.6rem;
+  border-radius: 16px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 1.2rem;
+}
+
+.skill-card h3 {
+  margin-bottom: 0.65rem;
+}
+
+.skill-card p {
+  min-height: 58px;
+  font-size: 0.98rem;
+}
+
+.skill-progress {
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(17, 17, 17, 0.08);
+  overflow: hidden;
+  margin-top: 1.4rem;
+}
+
+.progress-bar {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--text);
+}
+
+/* Animations */
+.skill-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 580ms ease, transform 580ms ease, box-shadow var(--transition), border-color var(--transition), background var(--transition);
+}
+
+/* Dark Mode Overrides */
+body.dark-mode .skill-card {
+  background: rgba(21, 23, 26, 0.72);
+}
+
+/* Media Queries */
+@media (max-width: 992px) {
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+}

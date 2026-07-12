@@ -1,0 +1,121 @@
+/* CONTACT SECTION */
+.contact {
+  background: transparent;
+}
+
+.contact-content {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.contact-form {
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border-radius: var(--radius-lg);
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.contact-form.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 580ms ease, transform 580ms ease, box-shadow var(--transition), border-color var(--transition), background var(--transition);
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.55rem;
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.72);
+  padding: 1rem 1.05rem;
+  color: var(--text);
+  font: inherit;
+  outline: none;
+  transition: var(--transition);
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: rgba(37, 99, 235, 0.55);
+  box-shadow: 0 0 0 5px var(--accent-soft);
+  background: var(--surface);
+}
+
+.cta-button {
+  width: 100%;
+  margin-top: 0.55rem;
+  border: 0;
+  background: var(--text);
+  color: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 1.6rem;
+}
+
+.social-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.64);
+  color: var(--text);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.social-icon:hover {
+  transform: translateY(-3px);
+  background: var(--text);
+  color: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+/* Dark Mode Overrides */
+body.dark-mode .contact-form,
+body.dark-mode .social-icon,
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea {
+  background: rgba(21, 23, 26, 0.72);
+}
+
+body.dark-mode .cta-button,
+body.dark-mode .social-icon:hover {
+  background: var(--text);
+  color: #0c0d0f;
+}
+
+/* Media Queries */
+@media (max-width: 560px) {
+  .contact-form {
+    border-radius: 24px;
+  }
+}

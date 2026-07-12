@@ -259,8 +259,8 @@ const observer = new IntersectionObserver(entries => {
   });
 }, observerOptions);
 
-// Observe skill cards, project cards, and stat cards
-document.querySelectorAll('.skill-card, .project-card, .stat-card').forEach(el => {
+// Observe skill cards, project cards, stat cards, AND the contact form
+document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-form').forEach(el => {
   observer.observe(el);
 });
 
@@ -286,8 +286,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ============================================
 
 window.addEventListener('load', () => {
-  // Trigger animations for elements already in view
-  document.querySelectorAll('.skill-card, .project-card, .stat-card').forEach(el => {
+  // Trigger animations for elements already in view (including contact form)
+  document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-form').forEach(el => {
     const rect = el.getBoundingClientRect();
     if (rect.top < window.innerHeight * 0.9) {
       el.classList.add('animate-in');
