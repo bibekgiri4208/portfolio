@@ -109,7 +109,7 @@ body.dark-mode .form-group textarea {
 body.dark-mode .cta-button,
 body.dark-mode .social-icon:hover {
   background: var(--text);
-  color: #0c0d0f;
+  color: var(--surface);
 }
 
 /* Media Queries */

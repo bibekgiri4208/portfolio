@@ -316,7 +316,7 @@ body.dark-mode .tag {
 
 body.dark-mode .project-link {
   background: var(--text);
-  color: #0c0d0f;
+  color: var(--surface);
 }
 
 body.dark-mode .demo-link {
@@ -326,7 +326,7 @@ body.dark-mode .demo-link {
 
 body.dark-mode .demo-link:hover {
   background: var(--accent);
-  color: #0c0d0f;
+  color: var(--surface);
 }
 
 body.dark-mode .slider-btn,
@@ -336,7 +336,7 @@ body.dark-mode .tag {
 
 body.dark-mode .slider-dot.active {
   background: var(--text);
-  color: #0c0d0f;
+  color: var(--surface);
 }
 
 /* Media Queries */
