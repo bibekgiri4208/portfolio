@@ -396,3 +396,27 @@ body.dark-mode .slider-dot.active {
     font-size: 0.94rem;
   }
 }
+
+/* Responsive rules moved from css/style.css to keep section styles together */
+@media (max-width: 992px) {
+  .project-card { flex: 0 0 100%; }
+}
+
+@media (max-width: 768px) {
+  .projects-slider { grid-template-columns: 44px 1fr 44px; gap: 0.5rem; }
+  .slider-btn { display: inline-grid; width: 42px; height: 42px; }
+  .projects-track-wrapper { overflow: hidden; border-radius: 28px; }
+  .projects-track { flex-direction: row; }
+  .project-card { flex: 0 0 100%; width: 100%; grid-template-rows: 240px 1fr; border-radius: 28px; }
+  .project-info { padding: 1.2rem; }
+  .slider-dots { display: flex; }
+}
+
+@media (max-width: 560px) {
+  .projects-slider { grid-template-columns: 38px 1fr 38px; gap: 0.35rem; }
+  .slider-btn { width: 36px; height: 36px; font-size: 0.78rem; }
+  .project-card { grid-template-rows: 210px 1fr; border-radius: 26px; }
+  .project-info h3 { font-size: 1.45rem; }
+  .project-number { left: 0.85rem; top: 0.85rem; min-width: 46px; height: 34px; font-size: 0.75rem; }
+  .projects-subtitle { font-size: 0.94rem; }
+}
