@@ -7,8 +7,9 @@
 }
 
 .skills-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
     gap:24px;
     margin-top:60px;
 }
@@ -30,6 +31,9 @@
     flex-direction:column;
 
     min-height:260px;
+    flex:0 1 300px;
+    max-width:320px;
+    width:100%;
 
     opacity:0;
     transform:translateY(20px);
@@ -225,6 +229,7 @@ body.dark-mode .skill-tags span{
 
     .skills-grid{
 
+        display:grid;
         grid-template-columns:1fr;
 
     }
@@ -232,6 +237,8 @@ body.dark-mode .skill-tags span{
     .skill-card{
 
         min-height:230px;
+        flex:none;
+        max-width:none;
 
     }
 
@@ -239,5 +246,5 @@ body.dark-mode .skill-tags span{
 
 /* Additional responsive rules moved from css/style.css */
 @media (max-width: 992px) {
-    .skills-grid { grid-template-columns: 1fr; }
+    .skills-grid { display:grid; grid-template-columns: 1fr; }
 }
