@@ -857,11 +857,12 @@ body.dark-mode .demo-link:hover {
 
 /* Visual state alterations when hovering over the card parent */
 .project-card:hover .card-thumb {
-  opacity: 0;
+  opacity: 1;
 }
 
 .project-card:hover .project-video {
-  opacity: 1;
+  opacity: 0;
+  visibility: hidden;
 }
 
 /* Clean overlay adjustments to ensure indicators sit on top of the elements */
