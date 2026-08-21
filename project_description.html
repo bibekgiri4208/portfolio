@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project | Bibek Giri</title>
+  <link rel="icon" type="image/png" href="assets/img/Logo.png">
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================
+       PROJECT DETAIL PAGE
+       ============================================ */
+
+    body {
+      padding-top: 0;
+    }
+
+    .pd-page {
+      min-height: 100vh;
+      padding-bottom: clamp(60px, 8vw, 100px);
+    }
+
+    /* --- Navbar --- */
+    .pd-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem 0;
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--line);
+      transition: background 0.3s;
+    }
+
+    .pd-nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pd-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 0.88rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .pd-back:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pd-back i {
+      font-size: 0.85em;
+      transition: transform 0.2s;
+    }
+
+    .pd-back:hover i {
+      transform: translateX(-3px);
+    }
+
+    .pd-nav-logo {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .pd-theme-btn {
+      width: 40px;
+      height: 40px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform 0.2s, background 0.2s, color 0.2s;
+    }
+
+    .pd-theme-btn:hover {
+      transform: translateY(-2px);
+      background: var(--text);
+      color: var(--surface);
+    }
+
+    /* --- Hero --- */
+    .pd-hero {
+      margin-top: 1.5rem;
+    }
+
+    .pd-hero-image {
+      width: 100%;
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .pd-hero-image img {
+      width: 100%;
+      height: auto;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow-lg);
+    }
+
+    /* --- Content --- */
+    .pd-content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+      margin-top: clamp(2rem, 4vw, 3rem);
+    }
+
+    .pd-category {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+    }
+
+    .pd-category::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .pd-title {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      line-height: 1.08;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
+
+    .pd-description {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    /* --- Tech Stack --- */
+    .pd-section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 0.85rem;
+    }
+
+    .pd-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .pd-tag {
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--text);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.78rem;
+      font-weight: 500;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+
+    .pd-tag:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* --- Actions --- */
+    .pd-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      padding-top: 0.5rem;
+    }
+
+    .pd-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.6rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    }
+
+    .pd-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .pd-btn:active {
+      transform: translateY(0) scale(0.97);
+    }
+
+    .pd-btn-primary {
+      background: var(--text);
+      color: var(--surface);
+      box-shadow: var(--shadow-md);
+    }
+
+    .pd-btn-primary:hover {
+      box-shadow: var(--shadow-lg);
+      opacity: 0.9;
+    }
+
+    .pd-btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .pd-btn-secondary:hover {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .pd-btn i {
+      font-size: 0.85em;
+    }
+
+    /* --- Divider --- */
+    .pd-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--line);
+      margin: 2.5rem 0;
+      border: none;
+    }
+
+    /* --- Features list --- */
+    .pd-features {
+      margin-bottom: 2.5rem;
+    }
+
+    .pd-features ul {
+      list-style: none;
+      padding: 0;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .pd-features li {
+      position: relative;
+      padding-left: 1.4rem;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .pd-features li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* --- Not Found --- */
+    .pd-not-found {
+      text-align: center;
+      padding: clamp(80px, 15vw, 160px) 24px;
+    }
+
+    .pd-not-found h2 {
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .pd-not-found p {
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    /* --- Footer --- */
+    .pd-footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    /* ============================================
+       DARK MODE
+       ============================================ */
+
+    body.dark-mode .pd-nav {
+      background: rgba(12, 13, 15, 0.82);
+    }
+
+    body.dark-mode .pd-back {
+      background: var(--surface);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    body.dark-mode .pd-theme-btn {
+      background: var(--surface);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    body.dark-mode .pd-hero-image img {
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    body.dark-mode .pd-tag {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    body.dark-mode .pd-tag:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    body.dark-mode .pd-btn-secondary {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    body.dark-mode .pd-btn-secondary:hover {
+      background: var(--accent);
+      color: var(--surface);
+      border-color: var(--accent);
+    }
+
+    body.dark-mode .pd-divider {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    body.dark-mode .pd-features li::before {
+      background: var(--accent);
+    }
+
+    /* ============================================
+       RESPONSIVE
+       ============================================ */
+
+    @media (max-width: 768px) {
+      .pd-hero-image img {
+        max-height: 240px;
+        border-radius: 14px;
+      }
+
+      .pd-title {
+        font-size: clamp(1.6rem, 6vw, 2.2rem);
+      }
+
+      .pd-description {
+        font-size: 0.95rem;
+      }
+
+      .pd-actions {
+        flex-direction: column;
+      }
+
+      .pd-btn {
+        justify-content: center;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .pd-hero-image img {
+        max-height: 200px;
+        border-radius: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pd-back,
+      .pd-btn,
+      .pd-theme-btn,
+      .pd-tag {
+        transition: none;
+      }
+
+      .pd-back:hover,
+      .pd-btn:hover,
+      .pd-theme-btn:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="pd-page">
+
+    <!-- Navbar -->
+    <nav class="pd-nav">
+      <div class="container">
+        <a href="index.html#projects" class="pd-back">
+          <i class="fas fa-arrow-left"></i>
+          Back to Projects
+        </a>
+        <a href="index.html" class="pd-nav-logo">BG.</a>
+        <button class="pd-theme-btn theme-toggle" type="button" aria-label="Toggle theme">
+          <i class="fas fa-moon"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Content rendered by JS -->
+    <main id="pd-root"></main>
+
+    <footer class="pd-footer">
+      <p>&copy; 2026 Bibek Giri. All rights reserved.</p>
+    </footer>
+
+  </div>
+
+  <script>
+    // ============================================
+    // PROJECT DATA
+    // ============================================
+
+    const projects = [
+      {
+        id: 0,
+        title: 'Circuit Race',
+        category: 'Unity Game',
+        image: 'assets/img/car_race.png',
+        imageAlt: 'Circuit Race — 3D lowpoly car racing game',
+        description: `Circuit Race is a 3D lowpoly car racing game built in Unity as a final-year academic project. The game features multiple car choices, each with distinct handling characteristics, drift-tuned physics, and a variety of racing tracks designed to test precision and speed.\n\nThe project focuses on delivering a polished gameplay experience with attention to visual detail — from lowpoly environment modeling in Blender to custom sound effects edited in Audacity. The handling model balances arcade accessibility with enough depth to reward skilled driving, making each race feel dynamic and replayable.`,
+        tags: ['Unity', 'C#', 'Blender', 'Audacity'],
+        features: [
+          'Multiple car models with unique handling and drift physics',
+          'Designed racing tracks with varied terrain and challenge levels',
+          'Lowpoly 3D art style modeled and textured in Blender',
+          'Custom sound effects and engine audio mixed in Audacity',
+          'Polished UI with lap tracking, speedometer, and race timer',
+          'Ongoing visual improvements for final-year project presentation'
+        ],
+        source: 'https://github.com/bibekgiri4208/Circuit-Race.git',
+        demo: null
+      },
+      {
+        id: 1,
+        title: 'Tic Tac Toe',
+        category: 'JavaScript Game',
+        image: 'assets/img/tictactoe.png',
+        imageAlt: 'Tic Tac Toe — classic browser game with modern UI',
+        description: `Tic Tac Toe is a reimagined version of the classic pencil-and-paper game, rebuilt for the browser with a clean, modern interface. The game supports two players taking turns on a 3x3 grid, with win detection and draw handling built in.\n\nThe focus was on creating a smooth, responsive experience that works across devices. The UI uses subtle animations for piece placement and win highlighting, making the gameplay feel polished without being distracting. It's a simple concept executed with care for the details.`,
+        tags: ['HTML', 'CSS', 'JavaScript'],
+        features: [
+          'Two-player local gameplay with alternating turns',
+          'Real-time win and draw detection',
+          'Clean, responsive layout that works on mobile and desktop',
+          'Subtle animations for piece placement and board feedback',
+          'Score tracking across multiple rounds',
+          'Minimal, distraction-free interface'
+        ],
+        source: 'https://github.com/bibekgiri4208/Tictactoe.git',
+        demo: 'projects/tictactoe/index.html'
+      },
+      {
+        id: 2,
+        title: 'Dino Run',
+        category: 'Godot Game',
+        image: 'assets/img/dinorun.png',
+        imageAlt: 'Dino Run — 2D arcade runner in Godot',
+        description: `Dino Run is a fast-paced 2D side-scrolling runner built with the Godot Engine. The game features a dinosaur character sprinting through a procedurally styled environment with parallax backgrounds that give a sense of depth and speed.\n\nThe core loop is simple — run as far as possible while avoiding obstacles. The difficulty ramps up over time, testing reflexes and timing. The parallax scrolling layers create a visually engaging backdrop without sacrificing performance, making it a solid example of lightweight arcade game design.`,
+        tags: ['Godot Engine', 'GDScript'],
+        features: [
+          'Side-scrolling arcade runner with increasing difficulty',
+          'Multi-layer parallax background for depth perception',
+          'Lightweight pixel-art inspired visual style',
+          'Responsive controls optimized for keyboard and touch',
+          'Score tracking based on distance traveled',
+          'Built entirely in Godot Engine using GDScript'
+        ],
+        source: 'https://github.com/bibekgiri4208/Dino-Game.git',
+        demo: null
+      },
+      {
+        id: 3,
+        title: 'Hangman Game',
+        category: 'JavaScript Game',
+        image: 'assets/img/hangman.jpg',
+        imageAlt: 'Hangman — word guessing game in the browser',
+        description: `Hangman is a browser-based word guessing game where players try to reveal a hidden word one letter at a time. Each incorrect guess brings the hangman figure closer to completion, adding tension with every wrong letter.\n\nThe game includes a curated word list across multiple categories, a visual hangman progression, and a scoreboard to track wins and losses. It was built to practice DOM manipulation and event-driven programming in vanilla JavaScript, with a clean UI that keeps the focus on the gameplay.`,
+        tags: ['HTML', 'CSS', 'JavaScript'],
+        features: [
+          'Word guessing with visual hangman progression',
+          'Multiple word categories and difficulty levels',
+          'Keyboard-based letter input with visual feedback',
+          'Win/loss tracking with persistent scoreboard',
+          'Responsive design for desktop and mobile play',
+          'Clean UI with smooth state transitions'
+        ],
+        source: 'https://github.com/bibekgiri4208/Hangman.git',
+        demo: 'projects/hangman/index.html'
+      },
+      {
+        id: 4,
+        title: 'Domain Expansion',
+        category: 'Web Game Collection',
+        image: 'assets/img/domain_expansion.png',
+        imageAlt: 'Domain Expansion — collection of web-based games',
+        description: `Domain Expansion is a collection of five browser-based games bundled into a single web application. It includes Hangman, Card Memory Match, Maze Runner, Number Guessing, and Tic Tac Toe — each built as a standalone game module with shared scoring infrastructure.\n\nThe project was designed as a full-stack exercise, combining a PHP backend for score persistence with a clean frontend built in HTML, CSS, and JavaScript. A leaderboard system tracks high scores across all games, adding a competitive layer to the collection. It's a practical demonstration of modular web development.`,
+        tags: ['HTML', 'CSS', 'JavaScript', 'PHP'],
+        features: [
+          'Five distinct games in a single application',
+          'Shared scoring and leaderboard system across all games',
+          'PHP backend for persistent score storage and retrieval',
+          'Card Memory Match with flip animations and timer',
+          'Maze Runner with procedurally generated levels',
+          'Number Guessing with hints and attempt tracking',
+          'Unified navigation and consistent UI across all games'
+        ],
+        source: 'https://github.com/bibekgiri4208/Domain-Expansion',
+        demo: null
+      },
+      {
+        id: 5,
+        title: '3B Transport',
+        category: 'Web Application',
+        image: 'assets/img/parcel.png',
+        imageAlt: '3B Transport — logistics web application',
+        description: `3B Transport is a full-featured logistics and parcel delivery web application built for a university project. It serves three user roles — customers, administrators, and riders — each with a dedicated dashboard tailored to their workflow.\n\nThe application includes real-time parcel tracking using Leaflet.js maps, a loyalty rewards program for repeat customers, and income visualization charts for riders. The admin dashboard provides oversight of all operations, from dispatch to delivery confirmation. It's a comprehensive demonstration of multi-role web application design.`,
+        tags: ['HTML', 'CSS', 'JavaScript', 'PHP', 'Leaflet.js'],
+        features: [
+          'Three role-based dashboards: Customer, Admin, and Rider',
+          'Real-time parcel tracking with interactive Leaflet.js map',
+          'Loyalty rewards system with points and tier progression',
+          'Rider income charts and delivery performance analytics',
+          'Admin panel for dispatch management and delivery oversight',
+          'Responsive design optimized for desktop and mobile use',
+          'PHP backend with MySQL database integration'
+        ],
+        source: 'https://github.com/bibekgiri4208/3B-Transport.git',
+        demo: 'http://3btransport.free.nf/'
+      }
+    ];
+
+    // ============================================
+    // THEME TOGGLE
+    // ============================================
+
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const isDark = savedTheme === 'dark';
+    document.body.classList.toggle('dark-mode', isDark);
+
+    document.querySelectorAll('.pd-theme-btn').forEach(btn => {
+      const icon = btn.querySelector('i');
+      if (icon) {
+        icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+      }
+      btn.setAttribute('aria-label', isDark ? 'Enable light mode' : 'Enable dark mode');
+
+      btn.addEventListener('click', () => {
+        const next = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
+        document.body.classList.toggle('dark-mode', next === 'dark');
+        localStorage.setItem('theme', next);
+        const i = btn.querySelector('i');
+        if (i) i.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        btn.setAttribute('aria-label', next === 'dark' ? 'Enable light mode' : 'Enable dark mode');
+      });
+    });
+
+    // ============================================
+    // RENDER PROJECT
+    // ============================================
+
+    const root = document.getElementById('pd-root');
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get('id'), 10);
+    const project = projects.find(p => p.id === id);
+
+    document.title = project ? `${project.title} | Bibek Giri` : 'Project Not Found | Bibek Giri';
+
+    if (!project) {
+      root.innerHTML = `
+        <div class="pd-not-found">
+          <h2>Project not found</h2>
+          <p>The project you're looking for doesn't exist or has been moved.</p>
+          <a href="index.html#projects" class="pd-btn pd-btn-primary">
+            <i class="fas fa-arrow-left"></i> Back to Projects
+          </a>
+        </div>`;
+    } else {
+      const featuresHTML = project.features
+        ? `<section class="pd-features">
+            <p class="pd-section-label">Key Features</p>
+            <ul>${project.features.map(f => `<li>${f}</li>`).join('')}</ul>
+           </section><hr class="pd-divider">`
+        : '';
+
+      const tagsHTML = project.tags
+        .map(t => `<span class="pd-tag">${t}</span>`)
+        .join('');
+
+      const sourceBtn = project.source
+        ? `<a href="${project.source}" class="pd-btn pd-btn-primary" target="_blank" rel="noopener noreferrer">
+            Source Code <i class="fas fa-external-link-alt"></i>
+           </a>`
+        : '';
+
+      const demoBtn = project.demo
+        ? `<a href="${project.demo}" class="pd-btn pd-btn-secondary" target="_blank" rel="noopener noreferrer">
+            Live Demo <i class="fas fa-play"></i>
+           </a>`
+        : `<a href="under-development.html" class="pd-btn pd-btn-secondary">
+            Live Demo <i class="fas fa-play"></i>
+           </a>`;
+
+      root.innerHTML = `
+        <section class="pd-hero">
+          <div class="pd-hero-image">
+            <img src="${project.image}" alt="${project.imageAlt}">
+          </div>
+        </section>
+
+        <section class="pd-content">
+          <span class="pd-category">${project.category}</span>
+          <h1 class="pd-title">${project.title}</h1>
+          <p class="pd-description">${project.description.replace(/\n\n/g, '</p><p class="pd-description">')}</p>
+
+          ${featuresHTML}
+
+          <p class="pd-section-label">Tech Stack</p>
+          <div class="pd-tags">${tagsHTML}</div>
+
+          <div class="pd-actions">
+            ${sourceBtn}
+            ${demoBtn}
+          </div>
+        </section>`;
+    }
+
+  </script>
+
+</body>
+</html>

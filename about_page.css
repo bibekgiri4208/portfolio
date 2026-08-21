@@ -56,12 +56,16 @@ body.about-page-wrapper {
 .about-page-wrapper .section-title {
   text-align: center !important;
   margin: 0 auto 1.25rem auto !important;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 .about-page-wrapper .projects-subtitle {
   text-align: center !important;
   margin: 0 auto !important;
   max-width: 620px !important;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 /* STRUCTURAL LAYOUT GRID */
