@@ -1,6 +1,14 @@
+/* ============================================
+   PROJECTS SECTION
+   ============================================ */
+
 .projects {
   position: relative;
   background: transparent;
+}
+
+.projects .section-title {
+  margin-bottom: 1.1rem;
 }
 
 .projects-subtitle {
@@ -16,6 +24,7 @@
   grid-template-columns: 52px 1fr 52px;
   align-items: center;
   gap: 1rem;
+  margin-top: clamp(2.2rem, 5vw, 3.4rem);
 }
 
 .projects-track-wrapper {
@@ -30,6 +39,10 @@
   will-change: transform;
 }
 
+/* ============================================
+   PROJECT CARDS
+   ============================================ */
+
 .project-card {
   flex: 0 0 calc(50% - 0.625rem);
   display: flex;
@@ -40,32 +53,73 @@
   border-radius: 24px;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-md);
   transition:
-    opacity 0.6s ease,
-    transform 0.6s ease,
     background 0.35s ease,
     border-color 0.35s ease,
     box-shadow 0.35s ease;
   opacity: 0;
-  transform: translateY(20px);
 }
 
-.project-card.animate-in {
-  opacity: 1;
-  transform: translateY(0);
+/* Accent hairline revealed on hover */
+.project-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 4;
+  background: linear-gradient(90deg, var(--accent), rgba(37, 99, 235, 0));
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
 }
 
 .project-card:hover {
   transform: translateY(-8px);
-  border-color: var(--accent);
+  border-color: rgba(37, 99, 235, 0.35);
   background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
+  box-shadow:
+    0 24px 55px rgba(17, 17, 17, 0.14),
+    0 0 0 6px var(--accent-soft);
 }
 
+.project-card:hover::before {
+  opacity: 1;
+}
+
+/* Staggered entrance (animation keeps hover transitions free) */
+.project-card.animate-in {
+  opacity: 1;
+  animation: projectCardIn 580ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+@keyframes projectCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.projects-track .project-card:nth-child(2) { animation-delay: 70ms; }
+.projects-track .project-card:nth-child(3) { animation-delay: 140ms; }
+.projects-track .project-card:nth-child(4) { animation-delay: 210ms; }
+.projects-track .project-card:nth-child(5) { animation-delay: 280ms; }
+.projects-track .project-card:nth-child(6) { animation-delay: 350ms; }
+
+/* ============================================
+   CARD IMAGE
+   ============================================ */
+
 .project-image {
-  height: 220px;
-  min-height: 220px;
+  height: 232px;
+  min-height: 232px;
   position: relative;
   overflow: hidden;
   background: #111;
@@ -75,7 +129,8 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.18), transparent 45%);
+  z-index: 2;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.32), transparent 48%);
   pointer-events: none;
 }
 
@@ -84,6 +139,15 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 1;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1), opacity var(--transition);
+}
+
+.project-card:hover .card-thumb {
+  transform: scale(1.06);
 }
 
 .project-number {
@@ -100,6 +164,7 @@
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.9);
   color: #111;
+  font-family: 'Fira Code', monospace;
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -107,6 +172,23 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
+
+/* Hover video hooks (JS toggles playback) */
+.project-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 0;
+  transition: opacity 320ms ease;
+}
+
+/* ============================================
+   CARD INFO
+   ============================================ */
 
 .project-info {
   position: relative;
@@ -120,15 +202,24 @@
   width: fit-content;
   display: inline-flex;
   align-items: center;
+  gap: 0.45rem;
   margin-bottom: 0.75rem;
   padding: 0.3rem 0.7rem;
   border-radius: 999px;
-  background: rgba(37, 99, 235, 0.08);
+  background: var(--accent-soft);
   color: var(--accent);
   font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+}
+
+.project-category::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 .project-info h3 {
@@ -163,7 +254,19 @@
   font-family: 'Fira Code', monospace;
   font-size: 0.72rem;
   font-weight: 600;
+  cursor: default;
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
 }
+
+.tag:hover {
+  color: var(--accent);
+  border-color: rgba(37, 99, 235, 0.25);
+  background: var(--surface);
+}
+
+/* ============================================
+   CARD ACTIONS
+   ============================================ */
 
 .project-actions {
   display: flex;
@@ -180,7 +283,6 @@
   white-space: nowrap;
   width: fit-content;
   min-height: 42px;
-  margin-top: auto;
   padding: 0 1rem;
   border-radius: 999px;
   background: var(--text);
@@ -191,12 +293,26 @@
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  transition: transform 220ms ease, box-shadow 220ms ease, opacity 220ms ease;
+  transition: transform 180ms ease, box-shadow var(--transition), background var(--transition), color var(--transition), border-color var(--transition);
+}
+
+.project-link i {
+  font-size: 0.8em;
+  transition: transform var(--transition);
 }
 
 .project-link:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
+}
+
+.project-link:hover i {
+  transform: translateX(3px);
+}
+
+.project-link:active {
+  transform: translateY(0) scale(0.96);
+  transition-duration: 90ms;
 }
 
 .demo-link {
@@ -206,10 +322,21 @@
 }
 
 .demo-link:hover {
-  background: rgba(37, 99, 235, 0.1);
+  background: var(--accent-soft);
   color: var(--accent);
-  border-color: rgba(37, 99, 235, 0.18);
+  border-color: rgba(37, 99, 235, 0.25);
 }
+
+.project-link:focus-visible,
+.slider-btn:focus-visible,
+.slider-dot:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   SLIDER CONTROLS
+   ============================================ */
 
 .slider-btn {
   width: 52px;
@@ -232,6 +359,11 @@
   box-shadow: var(--shadow-md);
 }
 
+.slider-btn:active:not(:disabled) {
+  transform: translateY(0) scale(0.92);
+  transition-duration: 90ms;
+}
+
 .slider-btn:disabled {
   opacity: 0.35;
   cursor: not-allowed;
@@ -247,59 +379,27 @@
 .slider-dot {
   width: 8px;
   height: 8px;
+  padding: 0;
   border-radius: 999px;
   border: 0;
   background: rgba(17, 17, 17, 0.18);
   cursor: pointer;
-  transition: var(--transition);
+  transition: width var(--transition), background var(--transition);
+}
+
+.slider-dot:hover:not(.active) {
+  background: rgba(17, 17, 17, 0.38);
 }
 
 .slider-dot.active {
   width: 30px;
-  background: var(--text);
+  background: var(--accent);
 }
 
-/* Hover Video Integration styles */
-.card-thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity var(--transition);
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  opacity: 1;
-}
+/* ============================================
+   DARK MODE
+   ============================================ */
 
-.project-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  visibility: hidden;
-  z-index: 0;
-  transition: opacity 320ms ease;
-}
-
-.project-card:hover .card-thumb {
-  opacity: 1;
-}
-
-.project-card:hover .project-video {
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* Animations */
-.project-card.animate-in {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 580ms ease, transform 580ms ease, box-shadow var(--transition), border-color var(--transition), background var(--transition);
-}
-
-/* Dark Mode Overrides */
 body.dark-mode .project-card {
   border-color: rgba(255, 255, 255, 0.10);
   background: linear-gradient(180deg, rgba(21, 23, 26, 0.88), rgba(21, 23, 26, 0.68));
@@ -307,8 +407,11 @@ body.dark-mode .project-card {
 }
 
 body.dark-mode .project-card:hover {
-  border-color: rgba(96, 165, 250, 0.28);
+  border-color: rgba(96, 165, 250, 0.32);
   background: rgba(21, 23, 26, 0.96);
+  box-shadow:
+    0 28px 80px rgba(0, 0, 0, 0.45),
+    0 0 0 6px var(--accent-soft);
 }
 
 body.dark-mode .project-number {
@@ -320,6 +423,12 @@ body.dark-mode .project-number {
 body.dark-mode .tag {
   background: rgba(21, 23, 26, 0.72);
   border-color: var(--line);
+}
+
+body.dark-mode .tag:hover {
+  color: var(--accent);
+  border-color: rgba(96, 165, 250, 0.3);
+  background: rgba(21, 23, 26, 0.95);
 }
 
 body.dark-mode .project-link {
@@ -337,20 +446,30 @@ body.dark-mode .demo-link:hover {
   color: var(--surface);
 }
 
-body.dark-mode .slider-btn,
-body.dark-mode .tag {
+body.dark-mode .slider-btn {
   background: rgba(21, 23, 26, 0.72);
 }
 
-body.dark-mode .slider-dot.active {
-  background: var(--text);
-  color: var(--surface);
+body.dark-mode .slider-dot {
+  background: rgba(255, 255, 255, 0.18);
 }
 
-/* Media Queries */
+body.dark-mode .slider-dot:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.38);
+}
+
+body.dark-mode .slider-dot.active {
+  background: var(--accent);
+}
+
+/* ============================================
+   MEDIA QUERIES
+   ============================================ */
+
 @media (max-width: 992px) {
   .project-card {
     flex: 0 0 100%;
+    width: 100%;
   }
 }
 
@@ -359,18 +478,20 @@ body.dark-mode .slider-dot.active {
     grid-template-columns: 44px 1fr 44px;
     gap: 0.5rem;
   }
+
   .slider-btn {
-    display: inline-grid;
     width: 42px;
     height: 42px;
   }
+
   .projects-track-wrapper {
     border-radius: 28px;
   }
+
   .project-card {
-    grid-template-rows: 240px 1fr;
     border-radius: 28px;
   }
+
   .project-info {
     padding: 1.2rem;
   }
@@ -381,18 +502,26 @@ body.dark-mode .slider-dot.active {
     grid-template-columns: 38px 1fr 38px;
     gap: 0.35rem;
   }
+
   .slider-btn {
     width: 36px;
     height: 36px;
     font-size: 0.78rem;
   }
+
+  .project-image {
+    height: 210px;
+    min-height: 210px;
+  }
+
   .project-card {
-    grid-template-rows: 210px 1fr;
     border-radius: 26px;
   }
+
   .project-info h3 {
     font-size: 1.45rem;
   }
+
   .project-number {
     left: 0.85rem;
     top: 0.85rem;
@@ -400,31 +529,32 @@ body.dark-mode .slider-dot.active {
     height: 34px;
     font-size: 0.75rem;
   }
+
   .projects-subtitle {
     font-size: 0.94rem;
   }
 }
 
-/* Responsive rules moved from css/style.css to keep section styles together */
-@media (max-width: 992px) {
-  .project-card { flex: 0 0 100%; }
-}
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
 
-@media (max-width: 768px) {
-  .projects-slider { grid-template-columns: 44px 1fr 44px; gap: 0.5rem; }
-  .slider-btn { display: inline-grid; width: 42px; height: 42px; }
-  .projects-track-wrapper { overflow: hidden; border-radius: 28px; }
-  .projects-track { flex-direction: row; }
-  .project-card { flex: 0 0 100%; width: 100%; grid-template-rows: 240px 1fr; border-radius: 28px; }
-  .project-info { padding: 1.2rem; }
-  .slider-dots { display: flex; }
-}
+@media (prefers-reduced-motion: reduce) {
+  .project-card,
+  .project-card.animate-in {
+    opacity: 1;
+    animation: none;
+  }
 
-@media (max-width: 560px) {
-  .projects-slider { grid-template-columns: 38px 1fr 38px; gap: 0.35rem; }
-  .slider-btn { width: 36px; height: 36px; font-size: 0.78rem; }
-  .project-card { grid-template-rows: 210px 1fr; border-radius: 26px; }
-  .project-info h3 { font-size: 1.45rem; }
-  .project-number { left: 0.85rem; top: 0.85rem; min-width: 46px; height: 34px; font-size: 0.75rem; }
-  .projects-subtitle { font-size: 0.94rem; }
+  .card-thumb,
+  .project-link,
+  .slider-btn {
+    transition: none;
+  }
+
+  .project-card:hover,
+  .project-link:hover,
+  .slider-btn:hover:not(:disabled) {
+    transform: none;
+  }
 }
