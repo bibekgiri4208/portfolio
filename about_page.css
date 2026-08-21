@@ -33,8 +33,9 @@ body.about-page-wrapper {
 }
 
 .about-page-wrapper .section-kicker {
-  position: static !important;
+  opacity: 1 !important;
   transform: none !important;
+  position: static !important;
   left: auto !important;
   display: inline-flex !important;
   align-items: center !important;
