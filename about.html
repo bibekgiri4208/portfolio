@@ -34,7 +34,6 @@
 
       <ul class="nav-menu">
         <li><a href="#hero" class="nav-link">Behind the Code</a></li>
-        <li><a href="#photography" class="nav-link">Gallery</a></li>
         <li><a href="#interests" class="nav-link">Interests</a></li>
         <li><a href="index.html#home" class="nav-link" data-page-transition>Return to Home</a></li>
       </ul>
@@ -114,55 +113,6 @@
             <span class="setup-val">Monitor MSI G255F | Aula F75 pro | Fantech Blake Wireless S</span>
           </li>
         </ul>
-      </div>
-    </section>
-
-    <section id="photography" class="about-gallery-section">
-      <div class="about-section-header">
-        <p class="section-kicker">Gallery</p>
-        <h2 class="section-title">Through My Lens</h2>
-      </div>
-
-      <div class="stack-gallery-wrapper">
-        <button class="stack-gallery-btn prev" type="button" aria-label="Previous image">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-
-        <div class="stack-gallery-stage" aria-label="Stacked photo gallery">
-          <div class="stack-photo-card active" data-index="0" onclick="openLightbox('assets/img/lambo.jpg', 'Lambo', 'Lamborghini Diecast')">
-            <img src="assets/img/lambo.jpg" alt="Lamborghini Diecast" class="stack-photo-img">
-            <div class="stack-photo-info">
-              <h4>Lambo</h4>
-              <span>Lamborghini Diecast</span>
-            </div>
-          </div>
-
-          <div class="stack-photo-card next" data-index="1" onclick="openLightbox('assets/img/dodge.jpg', 'Dodge', 'Dodge SRT Diecast')">
-            <img src="assets/img/dodge.jpg" alt="Dodge SRT Diecast" class="stack-photo-img">
-            <div class="stack-photo-info">
-              <h4>Dodge</h4>
-              <span>Dodge SRT Diecast</span>
-            </div>
-          </div>
-
-          <div class="stack-photo-card far-next" data-index="2" onclick="openLightbox('assets/img/challenger.jpg', 'Challenger', 'Dodge Challenger Diecast')">
-            <img src="assets/img/challenger.jpg" alt="Dodge Challenger Diecast" class="stack-photo-img">
-            <div class="stack-photo-info">
-              <h4>Challenger</h4>
-              <span>Dodge Challenger Diecast</span>
-            </div>
-          </div>
-        </div>
-
-        <button class="stack-gallery-btn next" type="button" aria-label="Next image">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-      </div>
-
-      <div class="stack-gallery-dots">
-        <button class="stack-dot active" type="button" aria-label="Go to image 1"></button>
-        <button class="stack-dot" type="button" aria-label="Go to image 2"></button>
-        <button class="stack-dot" type="button" aria-label="Go to image 3"></button>
       </div>
     </section>
 
@@ -400,88 +350,6 @@ initPageTransition();
           hamburgerBtn.setAttribute('aria-label', 'Open navigation menu');
         });
       });
-    }
-
-    const stackCards = Array.from(document.querySelectorAll('.stack-photo-card'));
-    const stackPrevBtn = document.querySelector('.stack-gallery-btn.prev');
-    const stackNextBtn = document.querySelector('.stack-gallery-btn.next');
-    const stackDots = Array.from(document.querySelectorAll('.stack-dot'));
-    const stackStage = document.querySelector('.stack-gallery-stage');
-
-    let activeStackIndex = 0;
-    let stackTouchStartX = 0;
-    let stackTouchEndX = 0;
-
-    function updateStackGallery() {
-      if (!stackCards.length) return;
-
-      const totalCards = stackCards.length;
-
-      stackCards.forEach((card, index) => {
-        card.classList.remove('active', 'prev', 'next', 'far-next', 'hidden');
-
-        const prevIndex = (activeStackIndex - 1 + totalCards) % totalCards;
-        const nextIndex = (activeStackIndex + 1) % totalCards;
-        const farNextIndex = (activeStackIndex + 2) % totalCards;
-
-        if (index === activeStackIndex) {
-          card.classList.add('active');
-        } else if (index === prevIndex) {
-          card.classList.add('prev');
-        } else if (index === nextIndex) {
-          card.classList.add('next');
-        } else if (index === farNextIndex) {
-          card.classList.add('far-next');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
-
-      stackDots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === activeStackIndex);
-      });
-    }
-
-    function showNextStackImage() {
-      activeStackIndex = (activeStackIndex + 1) % stackCards.length;
-      updateStackGallery();
-    }
-
-    function showPrevStackImage() {
-      activeStackIndex = (activeStackIndex - 1 + stackCards.length) % stackCards.length;
-      updateStackGallery();
-    }
-
-    if (stackCards.length) {
-      stackNextBtn?.addEventListener('click', showNextStackImage);
-      stackPrevBtn?.addEventListener('click', showPrevStackImage);
-
-      stackDots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-          activeStackIndex = index;
-          updateStackGallery();
-        });
-      });
-
-      stackStage?.addEventListener('touchstart', event => {
-        stackTouchStartX = event.changedTouches[0].clientX;
-      }, { passive: true });
-
-      stackStage?.addEventListener('touchend', event => {
-        stackTouchEndX = event.changedTouches[0].clientX;
-
-        const swipeDistance = stackTouchEndX - stackTouchStartX;
-
-        if (Math.abs(swipeDistance) > 45) {
-          if (swipeDistance < 0) {
-            showNextStackImage();
-          } else {
-            showPrevStackImage();
-          }
-        }
-      }, { passive: true });
-
-      updateStackGallery();
     }
 
     const lightboxModal = document.getElementById('aboutLightbox');

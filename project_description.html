@@ -104,100 +104,105 @@
       color: var(--surface);
     }
 
-    /* --- Hero --- */
-    .pd-hero {
-      margin-top: 1.5rem;
+    /* --- Header: Image + Info side-by-side --- */
+    .pd-header {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: clamp(1rem, 3vw, 2rem) 24px 0;
+      display: flex;
+      gap: clamp(1.5rem, 4vw, 2.5rem);
+      align-items: flex-start;
     }
 
     .pd-hero-image {
-      width: 100%;
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 24px;
+      flex: 0 0 clamp(180px, 25vw, 280px);
     }
 
     .pd-hero-image img {
       width: 100%;
       height: auto;
-      max-height: 320px;
-      object-fit: cover;
-      border-radius: 20px;
+      display: block;
+      border-radius: 14px;
       border: 1px solid var(--line);
-      box-shadow: var(--shadow-lg);
+      box-shadow: var(--shadow-md);
     }
 
-    /* --- Content --- */
-    .pd-content {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 0 24px;
-      margin-top: clamp(2rem, 4vw, 3rem);
+    .pd-info {
+      flex: 1;
+      min-width: 0;
     }
 
     .pd-category {
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      padding: 0.35rem 0.8rem;
+      padding: 0.3rem 0.7rem;
       border-radius: 999px;
       background: var(--accent-soft);
       color: var(--accent);
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      margin-bottom: 1rem;
+      margin-bottom: 0.6rem;
     }
 
     .pd-category::before {
       content: '';
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: currentColor;
     }
 
     .pd-title {
-      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
       font-weight: 800;
-      letter-spacing: -0.05em;
-      line-height: 1.08;
-      margin-bottom: 1.5rem;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
       color: var(--text);
     }
 
     .pd-description {
-      font-size: 1.05rem;
-      line-height: 1.85;
+      font-size: 0.95rem;
+      line-height: 1.7;
       color: var(--muted);
-      margin-bottom: 2rem;
+      margin-bottom: 0;
+    }
+
+    /* --- Content --- */
+    .pd-content {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: clamp(1.2rem, 3vw, 2rem) 24px 0;
     }
 
     /* --- Tech Stack --- */
     .pd-section-label {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--muted);
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.6rem;
     }
 
     .pd-tags {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 2.5rem;
+      gap: 0.4rem;
+      margin-bottom: 1.5rem;
     }
 
     .pd-tag {
-      padding: 0.4rem 0.9rem;
-      border-radius: 8px;
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
       border: 1px solid var(--line);
       background: var(--surface);
       color: var(--text);
       font-family: 'Fira Code', monospace;
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       font-weight: 500;
       transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
@@ -211,19 +216,19 @@
     /* --- Actions --- */
     .pd-actions {
       display: flex;
-      gap: 0.75rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
-      padding-top: 0.5rem;
+      padding-top: 0;
     }
 
     .pd-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.6rem;
-      padding: 0.75rem 1.6rem;
-      border-radius: 12px;
+      gap: 0.5rem;
+      padding: 0.6rem 1.3rem;
+      border-radius: 10px;
       text-decoration: none;
-      font-size: 0.92rem;
+      font-size: 0.85rem;
       font-weight: 700;
       transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
     }
@@ -268,27 +273,27 @@
       width: 100%;
       height: 1px;
       background: var(--line);
-      margin: 2.5rem 0;
+      margin: 1.5rem 0;
       border: none;
     }
 
     /* --- Features list --- */
     .pd-features {
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.5rem;
     }
 
     .pd-features ul {
       list-style: none;
       padding: 0;
       display: grid;
-      gap: 0.65rem;
+      gap: 0.4rem;
     }
 
     .pd-features li {
       position: relative;
-      padding-left: 1.4rem;
-      font-size: 0.95rem;
-      line-height: 1.65;
+      padding-left: 1.2rem;
+      font-size: 0.88rem;
+      line-height: 1.55;
       color: var(--muted);
     }
 
@@ -297,8 +302,8 @@
       position: absolute;
       left: 0;
       top: 0.55em;
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: var(--accent);
     }
@@ -382,17 +387,28 @@
        ============================================ */
 
     @media (max-width: 768px) {
+      .pd-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .pd-hero-image {
+        flex: none;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto;
+      }
+
       .pd-hero-image img {
-        max-height: 240px;
-        border-radius: 14px;
+        border-radius: 12px;
       }
 
       .pd-title {
-        font-size: clamp(1.6rem, 6vw, 2.2rem);
+        font-size: clamp(1.4rem, 6vw, 2rem);
       }
 
       .pd-description {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
       }
 
       .pd-actions {
@@ -404,10 +420,9 @@
       }
     }
 
-    @media (max-width: 560px) {
-      .pd-hero-image img {
-        max-height: 200px;
-        border-radius: 12px;
+    @media (max-width: 480px) {
+      .pd-hero-image {
+        max-width: 100%;
       }
     }
 
@@ -465,7 +480,7 @@
         id: 0,
         title: 'Circuit Race',
         category: 'Unity Game',
-        image: 'assets/img/car_race.png',
+        image: 'assets/img/circuit_race.webp',
         imageAlt: 'Circuit Race — 3D lowpoly car racing game',
         description: `Circuit Race is a 3D lowpoly car racing game built in Unity as a final-year academic project. The game features multiple car choices, each with distinct handling characteristics, drift-tuned physics, and a variety of racing tracks designed to test precision and speed.\n\nThe project focuses on delivering a polished gameplay experience with attention to visual detail — from lowpoly environment modeling in Blender to custom sound effects edited in Audacity. The handling model balances arcade accessibility with enough depth to reward skilled driving, making each race feel dynamic and replayable.`,
         tags: ['Unity', 'C#', 'Blender', 'Audacity'],
@@ -484,7 +499,7 @@
         id: 1,
         title: 'Tic Tac Toe',
         category: 'JavaScript Game',
-        image: 'assets/img/tictactoe.png',
+        image: 'assets/img/tictactoe.webp',
         imageAlt: 'Tic Tac Toe — classic browser game with modern UI',
         description: `Tic Tac Toe is a reimagined version of the classic pencil-and-paper game, rebuilt for the browser with a clean, modern interface. The game supports two players taking turns on a 3x3 grid, with win detection and draw handling built in.\n\nThe focus was on creating a smooth, responsive experience that works across devices. The UI uses subtle animations for piece placement and win highlighting, making the gameplay feel polished without being distracting. It's a simple concept executed with care for the details.`,
         tags: ['HTML', 'CSS', 'JavaScript'],
@@ -503,7 +518,7 @@
         id: 2,
         title: 'Dino Run',
         category: 'Godot Game',
-        image: 'assets/img/dinorun.png',
+        image: 'assets/img/dino_run.webp',
         imageAlt: 'Dino Run — 2D arcade runner in Godot',
         description: `Dino Run is a fast-paced 2D side-scrolling runner built with the Godot Engine. The game features a dinosaur character sprinting through a procedurally styled environment with parallax backgrounds that give a sense of depth and speed.\n\nThe core loop is simple — run as far as possible while avoiding obstacles. The difficulty ramps up over time, testing reflexes and timing. The parallax scrolling layers create a visually engaging backdrop without sacrificing performance, making it a solid example of lightweight arcade game design.`,
         tags: ['Godot Engine', 'GDScript'],
@@ -522,7 +537,7 @@
         id: 3,
         title: 'Hangman Game',
         category: 'JavaScript Game',
-        image: 'assets/img/hangman.jpg',
+        image: 'assets/img/hangman.webp',
         imageAlt: 'Hangman — word guessing game in the browser',
         description: `Hangman is a browser-based word guessing game where players try to reveal a hidden word one letter at a time. Each incorrect guess brings the hangman figure closer to completion, adding tension with every wrong letter.\n\nThe game includes a curated word list across multiple categories, a visual hangman progression, and a scoreboard to track wins and losses. It was built to practice DOM manipulation and event-driven programming in vanilla JavaScript, with a clean UI that keeps the focus on the gameplay.`,
         tags: ['HTML', 'CSS', 'JavaScript'],
@@ -541,7 +556,7 @@
         id: 4,
         title: 'Domain Expansion',
         category: 'Web Game Collection',
-        image: 'assets/img/domain_expansion.png',
+        image: 'assets/img/domain_expansion.webp',
         imageAlt: 'Domain Expansion — collection of web-based games',
         description: `Domain Expansion is a collection of five browser-based games bundled into a single web application. It includes Hangman, Card Memory Match, Maze Runner, Number Guessing, and Tic Tac Toe — each built as a standalone game module with shared scoring infrastructure.\n\nThe project was designed as a full-stack exercise, combining a PHP backend for score persistence with a clean frontend built in HTML, CSS, and JavaScript. A leaderboard system tracks high scores across all games, adding a competitive layer to the collection. It's a practical demonstration of modular web development.`,
         tags: ['HTML', 'CSS', 'JavaScript', 'PHP'],
@@ -561,7 +576,7 @@
         id: 5,
         title: '3B Transport',
         category: 'Web Application',
-        image: 'assets/img/parcel.png',
+        image: 'assets/img/3b_transport.webp',
         imageAlt: '3B Transport — logistics web application',
         description: `3B Transport is a full-featured logistics and parcel delivery web application built for a university project. It serves three user roles — customers, administrators, and riders — each with a dedicated dashboard tailored to their workflow.\n\nThe application includes real-time parcel tracking using Leaflet.js maps, a loyalty rewards program for repeat customers, and income visualization charts for riders. The admin dashboard provides oversight of all operations, from dispatch to delivery confirmation. It's a comprehensive demonstration of multi-role web application design.`,
         tags: ['HTML', 'CSS', 'JavaScript', 'PHP', 'Leaflet.js'],
@@ -651,17 +666,18 @@
            </a>`;
 
       root.innerHTML = `
-        <section class="pd-hero">
+        <section class="pd-header">
           <div class="pd-hero-image">
             <img src="${project.image}" alt="${project.imageAlt}">
+          </div>
+          <div class="pd-info">
+            <span class="pd-category">${project.category}</span>
+            <h1 class="pd-title">${project.title}</h1>
+            <p class="pd-description">${project.description.replace(/\n\n/g, '</p><p class="pd-description">')}</p>
           </div>
         </section>
 
         <section class="pd-content">
-          <span class="pd-category">${project.category}</span>
-          <h1 class="pd-title">${project.title}</h1>
-          <p class="pd-description">${project.description.replace(/\n\n/g, '</p><p class="pd-description">')}</p>
-
           ${featuresHTML}
 
           <p class="pd-section-label">Tech Stack</p>

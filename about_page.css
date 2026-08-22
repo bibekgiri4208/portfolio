@@ -16,7 +16,7 @@ body.about-page-wrapper {
   position: relative;
   width: 100%;
   padding-top: 140px;
-  margin-bottom: clamp(3rem, 8vw, 5rem);
+  margin-bottom: clamp(32px, 5vw, 56px);
   overflow: hidden;
 }
 
@@ -75,7 +75,7 @@ body.about-page-wrapper {
   grid-template-columns: 1.1fr 0.9fr;
   gap: clamp(1.5rem, 4vw, 3rem);
   align-items: stretch;
-  margin-bottom: clamp(4rem, 10vw, 7rem);
+  margin-bottom: clamp(32px, 5vw, 56px);
 }
 
 .story-bio-card {
@@ -220,175 +220,6 @@ body.dark-mode .setup-spec-card {
 .setup-row-label { color: var(--muted); }
 .setup-val { font-weight: 600; color: var(--text); text-align: right; }
 
-/* GALLERY ROW SCROLLER */
-.about-gallery-section {
-  margin-bottom: clamp(4rem, 10vw, 7rem);
-  overflow: visible;
-}
-
-.stack-gallery-wrapper {
-  position: relative;
-  display: grid;
-  grid-template-columns: 54px minmax(0, 1fr) 54px;
-  align-items: center;
-  gap: 1rem;
-  width: 100%;
-  margin-top: 1.5rem;
-  overflow: visible;
-}
-
-.stack-gallery-stage {
-  position: relative;
-  width: min(760px, 100%);
-  height: clamp(300px, 48vw, 500px);
-  margin: 0 auto;
-  perspective: 1200px;
-  touch-action: pan-y;
-  user-select: none;
-  overflow: visible;
-  transform-style: preserve-3d;
-  isolation: isolate;
-}
-
-.stack-photo-card {
-  position: absolute;
-  inset: 0;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--line);
-  background: var(--surface-soft);
-  box-shadow: var(--shadow-lg);
-  cursor: pointer;
-  opacity: 0;
-  transform: translate3d(0, 0, 0) scale(0.82) rotate(0deg);
-  transition:
-    transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 220ms ease,
-    filter 220ms ease;
-  pointer-events: none;
-  will-change: transform, opacity;
-  backface-visibility: hidden;
-}
-.stack-photo-card.active {
-  opacity: 1;
-  z-index: 5;
-  transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-  filter: blur(0);
-  pointer-events: auto;
-}
-
-.stack-photo-card.prev {
-  opacity: 0.36;
-  z-index: 3;
-  transform: translate3d(-72px, 0, -40px) scale(0.9) rotate(-6deg);
-  filter: saturate(0.75) brightness(0.78);
-}
-
-.stack-photo-card.next {
-  opacity: 0.36;
-  z-index: 4;
-  transform: translate3d(72px, 0, -40px) scale(0.9) rotate(6deg);
-  filter: saturate(0.75) brightness(0.78);
-}
-
-.stack-photo-card.far-next {
-  opacity: 0.14;
-  z-index: 2;
-  transform: translate3d(120px, 0, -80px) scale(0.78) rotate(10deg);
-  filter: saturate(0.55) brightness(0.65);
-}
-
-.stack-photo-card.hidden {
-  opacity: 0;
-  z-index: 1;
-  transform: translate3d(0, 0, -120px) scale(0.72) rotate(0deg);
-  filter: brightness(0.6);
-}
-.stack-photo-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-}
-
-.stack-photo-info {
-  position: absolute;
-  left: 1.25rem;
-  right: 1.25rem;
-  bottom: 1.25rem;
-  z-index: 2;
-  padding: 1rem 1.1rem;
-  border-radius: 20px;
-  background: rgba(11, 13, 15, 0.68);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.stack-photo-info h4 {
-  color: #ffffff;
-  font-size: 1.15rem;
-  margin-bottom: 0.25rem;
-}
-
-.stack-photo-info span {
-  color: rgba(255, 255, 255, 0.72);
-  font-size: 0.8rem;
-  font-family: 'Fira Code', monospace;
-}
-
-.stack-gallery-btn {
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: var(--surface);
-  color: var(--text);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition);
-  z-index: 8;
-}
-
-.stack-gallery-btn:hover {
-  background: var(--text);
-  color: var(--surface);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
-}
-
-.stack-gallery-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.55rem;
-  margin-top: 1.5rem;
-}
-
-.stack-dot {
-  width: 8px;
-  height: 8px;
-  border: 0;
-  border-radius: 999px;
-  background: rgba(17, 17, 17, 0.22);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.stack-dot.active {
-  width: 32px;
-  background: var(--text);
-}
-
-body.dark-mode .stack-dot {
-  background: rgba(255, 255, 255, 0.22);
-}
-
-body.dark-mode .stack-dot.active {
-  background: var(--text);
-}
-
 /* POPUP LIGHTBOX SYSTEM */
 .about-lightbox-screen {
   position: fixed;
@@ -429,7 +260,7 @@ body.dark-mode .stack-dot.active {
 
 /* INTEREST CARDS */
 .about-interests-container {
-  margin-bottom: clamp(4rem, 10vw, 7rem);
+  margin-bottom: clamp(32px, 5vw, 56px);
 }
 
 .about-interests-grid {
@@ -1018,66 +849,6 @@ body.dark-mode .interest-open-large-btn {
   }
 }
 
-@media (max-width: 768px) {
-  .stack-gallery-wrapper {
-    grid-template-columns: 1fr;
-  }
-
-  .stack-gallery-stage {
-    width: 100%;
-    height: clamp(270px, 72vw, 420px);
-    overflow: visible;
-  }
-
-  .stack-photo-card.prev {
-    transform: translate3d(-32px, 0, -40px) scale(0.88) rotate(-5deg);
-  }
-
-  .stack-photo-card.next {
-    transform: translate3d(32px, 0, -40px) scale(0.88) rotate(5deg);
-  }
-
-  .stack-photo-card.far-next {
-    transform: translate3d(58px, 0, -80px) scale(0.76) rotate(8deg);
-  }
-
-  .stack-gallery-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-  }
-
-  .stack-gallery-btn.prev {
-    left: 8px;
-  }
-
-  .stack-gallery-btn.next {
-    right: 8px;
-  }
-
-  .stack-gallery-btn:hover {
-    transform: translateY(-50%);
-  }
-
-  .stack-photo-info {
-    left: 0.9rem;
-    right: 0.9rem;
-    bottom: 0.9rem;
-    padding: 0.85rem;
-    border-radius: 16px;
-  }
-
-  .stack-photo-info h4 {
-    font-size: 1rem;
-  }
-
-  .stack-photo-info span {
-    font-size: 0.72rem;
-  }
-}
-
 @media (max-width: 560px) {
   .setup-image-placeholder {
     aspect-ratio: 4 / 3;
@@ -1161,27 +932,5 @@ body.dark-mode .interest-open-large-btn {
   .interest-open-large-btn {
     width: 100%;
     margin-top: 0.4rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .stack-gallery-stage {
-    height: 260px;
-  }
-
-  .stack-photo-card {
-    border-radius: 24px;
-  }
-
-  .stack-photo-card.prev {
-    transform: translate3d(-20px, 0, -40px) scale(0.88) rotate(-4deg);
-  }
-
-  .stack-photo-card.next {
-    transform: translate3d(20px, 0, -40px) scale(0.88) rotate(4deg);
-  }
-
-  .stack-photo-card.far-next {
-    transform: translate3d(34px, 0, -80px) scale(0.76) rotate(7deg);
   }
 }
