@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" href="assets/img/Logo.png">
   
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="about_page.css" />
+  <link rel="stylesheet" href="CSS/about_page.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,7 @@
 
       <ul class="nav-menu">
         <li><a href="#hero" class="nav-link">Behind the Code</a></li>
-        <li><a href="#interests" class="nav-link">Interests</a></li>
+        <li><a href="#gears" class="nav-link">Gears</a></li>
         <li><a href="index.html#home" class="nav-link" data-page-transition>Return to Home</a></li>
       </ul>
 
@@ -61,14 +61,9 @@
   <main class="container">
     <section class="story-layout-grid">
       <div class="story-bio-card">
-        <p>Hi, I'm <strong>Bibek Giri</strong>. I’m an IT student with a sharp eye for design and a passion for both digital and physical creativity.
-          My academic life revolves around tech, but in my free time, I like to balance that logical mindset with my favorite hobbies: gaming and art.
-          I’ve always been drawn to sketching and drawing, which allows me to express a more hands-on, artistic side outside of my screen time as well as my passion for landscape and street photography.</p>
+        <p>Hi, I’m Bibek Giri, an IT student with a strong interest in design, technology, and creativity. Outside academics, I enjoy gaming, sketching, drawing, landscape and street photography, allowing me to balance my technical mindset with artistic expression.</p>
 
-        <p>I’m a huge believer that your environment impacts your focus, so I’ve channeled my love for modern, minimalist aesthetics into creating a strictly clean and organized desk setup.
-          My single-monitor and laptop workspace is built around keeping things clutter-free and functional. The only exceptions to the minimalism are a few curated details that reflect my personality—specifically,
-          a growing collection of die-cast model cars, driven by a casual passion for automotive design. Ultimately, whether I'm diving into a game, sketching a new piece, or focusing on my studies,
-          I thrive in spaces where clean design meets technology.</p>
+        <p>I’m passionate about modern, minimalist aesthetics and maintain a clean, organized workspace with a single-monitor and laptop setup focused on functionality and productivity. I add personality through a growing collection of die-cast model cars, reflecting my interest in automotive design. Whether I’m studying, gaming, sketching, or creating, I enjoy environments where clean design, technology, and creativity come together.</p>
         
         <div class="about-tag-badges">
           <span class="about-tag-badge"><i class="fas fa-car-side"></i> Diecast Collecting</span>
@@ -79,16 +74,7 @@
         </div>
       </div>
 
-      <div class="setup-spec-card">
-        <div class="setup-image-placeholder">
-          <img src="assets/img/Workstation.jpg" alt="Workstation setup preview" class="setup-image" />
-
-          <div class="setup-image-fallback">
-            <i class="fas fa-image"></i>
-            <span>Add your workstation image</span>
-          </div>
-        </div>
-
+      <div class="setup-data-card">
         <h3 class="setup-card-title"><i class="fas fa-desktop"></i> Workstation Configuration</h3>
 
         <ul class="setup-data-list">
@@ -116,65 +102,27 @@
       </div>
     </section>
 
-    <section id="interests" class="about-interests-container">
+    <section id="gears" class="about-gears-container">
       <div class="about-section-header">
-        <p class="section-kicker">Interests</p>
-        <h2 class="section-title">Things I Collect, Create & Use</h2>
+        <p class="section-kicker">Gears</p>
+        <h2 class="section-title">My Setup Peripherals</h2>
       </div>
 
-      <div class="about-interests-grid">
-        <div class="about-interest-card">
-          <div class="about-interest-icon">
-            <i class="fas fa-pen-nib"></i>
-          </div>
-
-          <div class="about-interest-info">
-            <span class="about-interest-meta">Creative Work</span>
-            <h4>My Art and Drawings</h4>
-            <p>
-              A collection of sketches, drawings, and creative experiments that show my visual thinking outside of development.
-            </p>
-          </div>
-
-          <button class="interest-view-btn" type="button" data-gallery="art">
-            View
-            <i class="fas fa-arrow-right"></i>
-          </button>
-        </div>
-
-        <div class="about-interest-card">
-          <div class="about-interest-icon">
+      <div class="about-gears-grid">
+        <div class="about-gear-card">
+          <div class="about-gear-icon">
             <i class="fas fa-keyboard"></i>
           </div>
 
-          <div class="about-interest-info">
-            <span class="about-interest-meta">Workspace Gear</span>
+          <div class="about-gear-info">
+            <span class="about-gear-meta">Workspace Gear</span>
             <h4>My Setup Peripherals</h4>
             <p>
               A closer look at the peripherals and desk accessories I use, including my keyboard, mouse, monitor, and workspace gear.
             </p>
           </div>
 
-          <button class="interest-view-btn" type="button" data-gallery="setup">
-            View
-            <i class="fas fa-arrow-right"></i>
-          </button>
-        </div>
-
-        <div class="about-interest-card">
-          <div class="about-interest-icon">
-            <i class="fas fa-car-side"></i>
-          </div>
-
-          <div class="about-interest-info">
-            <span class="about-interest-meta">Miniature Cars</span>
-            <h4>My Diecast Collection</h4>
-            <p>
-              A collection of diecast cars that reflects my interest in automotive design, detailing, and display aesthetics.
-            </p>
-          </div>
-
-          <button class="interest-view-btn" type="button" data-gallery="diecast">
+          <button class="gear-view-btn" type="button" data-gallery="setup">
             View
             <i class="fas fa-arrow-right"></i>
           </button>
@@ -183,33 +131,33 @@
     </section>
   </main>
 
-  <div id="interestGalleryModal" class="interest-gallery-modal">
-    <div class="interest-gallery-panel">
-      <button class="interest-gallery-close" type="button" aria-label="Close interest gallery">
+  <div id="gearGalleryModal" class="gear-gallery-modal">
+    <div class="gear-gallery-panel">
+      <button class="gear-gallery-close" type="button" aria-label="Close gear gallery">
         <i class="fas fa-times"></i>
       </button>
 
-      <div class="interest-gallery-header">
-        <span id="interestGalleryMeta" class="interest-gallery-meta">Collection</span>
-        <h3 id="interestGalleryTitle">Gallery Title</h3>
-        <p id="interestGalleryIntro">Gallery description goes here.</p>
+      <div class="gear-gallery-header">
+        <span id="gearGalleryMeta" class="gear-gallery-meta">Collection</span>
+        <h3 id="gearGalleryTitle">Gallery Title</h3>
+        <p id="gearGalleryIntro">Gallery description goes here.</p>
       </div>
 
-      <div class="interest-gallery-layout">
-        <div id="interestGalleryList" class="interest-gallery-list">
+      <div class="gear-gallery-layout">
+        <div id="gearGalleryList" class="gear-gallery-list">
           <!-- Images are inserted by JavaScript -->
         </div>
 
-        <div class="interest-gallery-detail">
-          <div class="interest-detail-preview">
-            <img id="interestDetailImage" src="" alt="Selected gallery preview">
+        <div class="gear-gallery-detail">
+          <div class="gear-detail-preview">
+            <img id="gearDetailImage" src="" alt="Selected gallery preview">
           </div>
 
-          <div class="interest-detail-text">
-            <span id="interestDetailCount" class="interest-detail-count">01 / 03</span>
-            <h4 id="interestDetailTitle">Selected Image</h4>
+          <div class="gear-detail-text">
+            <span id="gearDetailCount" class="gear-detail-count">01 / 03</span>
+            <h4 id="gearDetailTitle">Selected Image</h4>
 
-            <button id="interestOpenLargeBtn" class="interest-open-large-btn" type="button">
+            <button id="gearOpenLargeBtn" class="gear-open-large-btn" type="button">
               Open Large View
               <i class="fas fa-up-right-from-square"></i>
             </button>
@@ -357,7 +305,7 @@ initPageTransition();
     const targetTitle = document.getElementById('lightboxTargetTitle');
     const targetMeta = document.getElementById('lightboxTargetMeta');
 
-    let isInterestModalOpen = false;
+    let isGearModalOpen = false;
 
     function openLightbox(imgSrc, title, metadata) {
       if (!lightboxModal || !targetImg) return;
@@ -373,7 +321,7 @@ initPageTransition();
       if (!lightboxModal) return;
 
       lightboxModal.classList.remove('active');
-      document.body.style.overflow = isInterestModalOpen ? 'hidden' : '';
+      document.body.style.overflow = isGearModalOpen ? 'hidden' : '';
     }
 
     lightboxModal.addEventListener('click', event => {
@@ -382,30 +330,7 @@ initPageTransition();
       }
     });
 
-    const interestGalleryData = {
-      art: {
-        meta: 'Creative Work',
-        title: 'My Art and Drawings',
-        intro: 'A small collection of sketches, drawings, and visual experiments.',
-        images: [
-          {
-            src: 'assets/img/art1.jpg',
-            title: 'Sketch Study',
-            category: 'Drawing',          
-          },
-          {
-            src: 'assets/img/art2.jpg',
-            title: 'Character Drawing',
-            category: 'Illustration',          
-          },
-          {
-            src: 'assets/img/art3.jpg',
-            title: 'Concept Practice',
-            category: 'Creative Study',          
-          }
-        ]
-      },
-
+    const gearGalleryData = {
       setup: {
         meta: 'Workspace Gear',
         title: 'My Setup Peripherals',
@@ -447,157 +372,134 @@ initPageTransition();
             category: 'Workspace',
           }
         ]
-      },
-
-      diecast: {
-        meta: 'Miniature Cars',
-        title: 'My Diecast Collection',
-        intro: 'A collection of miniature cars with attention to shape, detail, and automotive design.',
-        images: [
-          {
-            src: 'assets/img/lambo.jpg',
-            title: 'Lamborghini Diecast',
-            category: 'Diecast Car',
-          },
-          {
-            src: 'assets/img/dodge.jpg',
-            title: 'Dodge SRT Diecast',
-            category: 'Diecast Car',
-          },
-          {
-            src: 'assets/img/challenger.jpg',
-            title: 'Dodge Challenger Diecast',
-            category: 'Diecast Car',
-          }
-        ]
       }
     };
 
-    const interestModal = document.getElementById('interestGalleryModal');
-    const interestCloseBtn = document.querySelector('.interest-gallery-close');
-    const interestViewButtons = document.querySelectorAll('.interest-view-btn');
+    const gearModal = document.getElementById('gearGalleryModal');
+    const gearCloseBtn = document.querySelector('.gear-gallery-close');
+    const gearViewButtons = document.querySelectorAll('.gear-view-btn');
 
-    const interestGalleryMeta = document.getElementById('interestGalleryMeta');
-    const interestGalleryTitle = document.getElementById('interestGalleryTitle');
-    const interestGalleryIntro = document.getElementById('interestGalleryIntro');
-    const interestGalleryList = document.getElementById('interestGalleryList');
+    const gearGalleryMeta = document.getElementById('gearGalleryMeta');
+    const gearGalleryTitle = document.getElementById('gearGalleryTitle');
+    const gearGalleryIntro = document.getElementById('gearGalleryIntro');
+    const gearGalleryList = document.getElementById('gearGalleryList');
 
-    const interestDetailImage = document.getElementById('interestDetailImage');
-    const interestDetailCount = document.getElementById('interestDetailCount');
-    const interestDetailTitle = document.getElementById('interestDetailTitle');    
-    const interestOpenLargeBtn = document.getElementById('interestOpenLargeBtn');
+    const gearDetailImage = document.getElementById('gearDetailImage');
+    const gearDetailCount = document.getElementById('gearDetailCount');
+    const gearDetailTitle = document.getElementById('gearDetailTitle');    
+    const gearOpenLargeBtn = document.getElementById('gearOpenLargeBtn');
 
-    let currentInterestImages = [];
-    let currentInterestIndex = 0;
-    let interestCloseTimer;
+    let currentGearImages = [];
+    let currentGearIndex = 0;
+    let gearCloseTimer;
 
-    function renderInterestGallery(galleryKey) {
-      const gallery = interestGalleryData[galleryKey];
+    function renderGearGallery(galleryKey) {
+      const gallery = gearGalleryData[galleryKey];
 
-      if (!gallery || !interestModal) return;
+      if (!gallery || !gearModal) return;
 
-      currentInterestImages = gallery.images;
-      currentInterestIndex = 0;
-      isInterestModalOpen = true;
+      currentGearImages = gallery.images;
+      currentGearIndex = 0;
+      isGearModalOpen = true;
 
-      interestGalleryMeta.textContent = gallery.meta;
-      interestGalleryTitle.textContent = gallery.title;
-      interestGalleryIntro.textContent = gallery.intro;
+      gearGalleryMeta.textContent = gallery.meta;
+      gearGalleryTitle.textContent = gallery.title;
+      gearGalleryIntro.textContent = gallery.intro;
 
-      interestGalleryList.innerHTML = '';
+      gearGalleryList.innerHTML = '';
 
       gallery.images.forEach((item, index) => {
         const galleryItem = document.createElement('button');
         galleryItem.type = 'button';
-        galleryItem.className = `interest-gallery-item ${index === 0 ? 'active' : ''}`;
+        galleryItem.className = `gear-gallery-item ${index === 0 ? 'active' : ''}`;
 
         galleryItem.innerHTML = `
-          <div class="interest-gallery-thumb">
+          <div class="gear-gallery-thumb">
             <img src="${item.src}" alt="${item.title}">
           </div>
-          <div class="interest-gallery-item-text">
+          <div class="gear-gallery-item-text">
             <h5>${item.title}</h5>
           </div>
         `;
 
         galleryItem.addEventListener('click', () => {
-          setActiveInterestImage(index);
+          setActiveGearImage(index);
         });
 
-        interestGalleryList.appendChild(galleryItem);
+        gearGalleryList.appendChild(galleryItem);
       });
 
-      setActiveInterestImage(0);
+      setActiveGearImage(0);
 
-      clearTimeout(interestCloseTimer);
-      interestModal.classList.remove('closing');
-      interestModal.classList.add('active');
+      clearTimeout(gearCloseTimer);
+      gearModal.classList.remove('closing');
+      gearModal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
 
-    function setActiveInterestImage(index) {
-      const item = currentInterestImages[index];
+    function setActiveGearImage(index) {
+      const item = currentGearImages[index];
 
       if (!item) return;
 
-      currentInterestIndex = index;
+      currentGearIndex = index;
 
-      interestDetailImage.src = item.src;
-      interestDetailImage.alt = item.title;
-      interestDetailCount.textContent = `${String(index + 1).padStart(2, '0')} / ${String(currentInterestImages.length).padStart(2, '0')}`;
-      interestDetailTitle.textContent = item.title;
+      gearDetailImage.src = item.src;
+      gearDetailImage.alt = item.title;
+      gearDetailCount.textContent = `${String(index + 1).padStart(2, '0')} / ${String(currentGearImages.length).padStart(2, '0')}`;
+      gearDetailTitle.textContent = item.title;
 
-      document.querySelectorAll('.interest-gallery-item').forEach((button, buttonIndex) => {
+      document.querySelectorAll('.gear-gallery-item').forEach((button, buttonIndex) => {
         button.classList.toggle('active', buttonIndex === index);
       });
     }
 
-    function closeInterestGallery() {
-      if (!interestModal || interestModal.classList.contains('closing')) return;
+    function closeGearGallery() {
+      if (!gearModal || gearModal.classList.contains('closing')) return;
 
-      isInterestModalOpen = false;
-      interestModal.classList.add('closing');
+      isGearModalOpen = false;
+      gearModal.classList.add('closing');
 
-      interestCloseTimer = setTimeout(() => {
-        interestModal.classList.remove('active', 'closing');
+      gearCloseTimer = setTimeout(() => {
+        gearModal.classList.remove('active', 'closing');
         document.body.style.overflow = '';
       }, 320);
     }
 
 
 
-    function openCurrentInterestImageLarge() {
-      const item = currentInterestImages[currentInterestIndex];
+    function openCurrentGearImageLarge() {
+      const item = currentGearImages[currentGearIndex];
 
       if (!item) return;
 
       openLightbox(item.src, item.title, '');
     }
 
-    interestViewButtons.forEach(button => {
+    gearViewButtons.forEach(button => {
       button.addEventListener('click', () => {
         const galleryKey = button.dataset.gallery;
-        renderInterestGallery(galleryKey);
+        renderGearGallery(galleryKey);
       });
     });
 
-    interestCloseBtn?.addEventListener('click', closeInterestGallery);
+    gearCloseBtn?.addEventListener('click', closeGearGallery);
 
-    interestModal?.addEventListener('click', event => {
-      if (event.target === interestModal) {
-        closeInterestGallery();
+    gearModal?.addEventListener('click', event => {
+      if (event.target === gearModal) {
+        closeGearGallery();
       }
     });
 
-    interestDetailImage?.addEventListener('click', openCurrentInterestImageLarge);
-    interestOpenLargeBtn?.addEventListener('click', openCurrentInterestImageLarge);
+    gearDetailImage?.addEventListener('click', openCurrentGearImageLarge);
+    gearOpenLargeBtn?.addEventListener('click', openCurrentGearImageLarge);
 
     document.addEventListener('keydown', event => {
       if (event.key === 'Escape') {
         if (lightboxModal.classList.contains('active')) {
           closeLightbox();
-        } else if (interestModal.classList.contains('active')) {
-          closeInterestGallery();
+        } else if (gearModal.classList.contains('active')) {
+          closeGearGallery();
         }
       }
     });
