@@ -78,15 +78,21 @@
     });
     document.addEventListener('click', event => {
       const link = event.target.closest('a.project-card');
-      if (!link || event.defaultPrevented || event.button !== 0 ||
+      if (!link || isOpeningProject || event.defaultPrevented || event.button !== 0 ||
           event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
           link.target === '_blank') return;
 
       const position = savePosition();
+      const rect = (link.querySelector('.project-link') || link).getBoundingClientRect();
       isOpeningProject = true;
       try {
         sessionStorage.setItem(RETURN_KEY, JSON.stringify({
           ...position,
+          origin: {
+            x: (event.detail ? event.clientX : rect.left + rect.width / 2) / innerWidth,
+            y: (event.detail ? event.clientY : rect.top + rect.height / 2) / innerHeight,
+            scale: Math.max(0.14, Math.min(0.28, rect.width / innerWidth))
+          },
           url: window.location.href,
           projectUrl: link.href
         }));
@@ -132,15 +138,23 @@
     if (!link || event.defaultPrevented || event.button !== 0 ||
         event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
 
+    let returnHref = link.href;
+    let navigate = () => { window.location.href = returnHref; };
     if (isProject && history.state?.portfolioProjectSource && history.length > 1) {
-      event.preventDefault();
-      history.back();
+      returnHref = history.state.portfolioProjectSource;
+      navigate = () => history.back();
     } else if (isValidPosition(savedPosition)) {
       const returnUrl = new URL(savedPosition.url, window.location.href);
       if (returnUrl.origin !== window.location.origin) return;
       returnUrl.searchParams.set(RETURN_PARAM, '1');
-      event.preventDefault();
-      window.location.href = returnUrl.href;
+      returnHref = returnUrl.href;
+      navigate = () => { window.location.href = returnUrl.href; };
+    }
+    event.preventDefault();
+    if (window.PortfolioPageTransition && isProject) {
+      window.PortfolioPageTransition.close(navigate, savedPosition?.origin, returnHref);
+    } else {
+      navigate();
     }
   });
 })();

@@ -176,7 +176,7 @@
        </a>`;
 
   const renderNeighbor = (neighbor, direction) => `
-    <a href="project_description.html?id=${neighbor.id}" class="pd-neighbor" aria-label="${direction} project: ${neighbor.title}">
+    <a href="project_description.html?id=${neighbor.id}" class="pd-neighbor" aria-label="${direction} project: ${neighbor.title}" data-page-transition data-project-preview="${neighbor.image}">
       <img src="${neighbor.image}" alt="" width="64" height="64" loading="lazy">
       <span class="pd-neighbor-copy">
         <span class="pd-neighbor-label">${direction} project</span>

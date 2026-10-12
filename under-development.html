@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
   <title>Under Development | Bibek Giri</title>
   <script src="js/theme.js"></script>
-  <script>
-    if (sessionStorage.getItem('pageTransition') === 'true') {
-      document.documentElement.classList.add('page-transition-preload');
-    }
-  </script>
+  <script src="js/page-transition.js"></script>
   <link rel="icon" type="image/png" href="assets/img/Logo.png">
 
   <!-- Shared site styles -->
@@ -157,11 +153,6 @@
   </style>
 </head>
 <body class="dev-page">
-
-  <!-- Persistent dynamic page switch transition -->
-  <div class="page-transition" aria-hidden="true">
-    <span>BG.</span>
-  </div>
 
   <!-- Aesthetic back-layer light blur element -->
   <div class="dev-glow"></div>

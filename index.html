@@ -7,11 +7,7 @@
   <title>Bibek Giri</title>
   <script src="js/theme.js"></script>
   <script src="js/project-navigation.js"></script>
-  <script>
-    if (sessionStorage.getItem('pageTransition') === 'true') {
-      document.documentElement.classList.add('page-transition-preload');
-    }
-  </script>
+  <script src="js/page-transition.js"></script>
   <link rel="icon" type="image/png" href="assets/img/Logo.png">
 
   <!-- Preload critical assets -->
@@ -21,6 +17,8 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css" />
+  <!-- The closing project copy stays styled while it shrinks over this page. -->
+  <link rel="stylesheet" href="css/project_description.css" />
   <link rel="stylesheet" href="css/index_about.css" />
   <link rel="stylesheet" href="css/index_skills.css" />
   <link rel="stylesheet" href="css/index_projects.css" />
@@ -36,9 +34,6 @@
 </head>
 
 <body>
-  <div class="page-transition" aria-hidden="true">
-    <span>BG.</span>
-  </div>
   <!-- Navigation -->
   <nav class="navbar">
     <div class="container">
@@ -279,7 +274,7 @@
 
       <div class="projects-grid">
 
-            <a href="project_description.html?id=0" class="project-card">
+            <a href="project_description.html?id=0" class="project-card" data-page-transition data-project-preview="assets/img/circuit_race.webp">
               <div class="project-thumb">
                 <img src="assets/img/car_race.png" alt="Circuit Race Thumbnail">
               </div>
@@ -301,7 +296,7 @@
               </div>
             </a>
 
-            <a href="project_description.html?id=1" class="project-card">
+            <a href="project_description.html?id=1" class="project-card" data-page-transition data-project-preview="assets/img/tictactoe.webp">
               <div class="project-thumb">
                 <img src="assets/img/tictactoe.webp" alt="Tic Tac Toe Thumbnail">
               </div>
@@ -323,7 +318,7 @@
               </div>
             </a>
 
-            <a href="project_description.html?id=2" class="project-card">
+            <a href="project_description.html?id=2" class="project-card" data-page-transition data-project-preview="assets/img/dino_run.webp">
               <div class="project-thumb">
                 <img src="assets/img/dinorun.png" alt="Dino Run Thumbnail">
               </div>
@@ -344,7 +339,7 @@
               </div>
             </a>
 
-            <a href="project_description.html?id=3" class="project-card">
+            <a href="project_description.html?id=3" class="project-card" data-page-transition data-project-preview="assets/img/hangman.webp">
               <div class="project-thumb">
                 <img src="assets/img/hangman.webp" alt="Hangman Thumbnail">
               </div>
@@ -366,7 +361,7 @@
               </div>
             </a>
 
-            <a href="project_description.html?id=4" class="project-card">
+            <a href="project_description.html?id=4" class="project-card" data-page-transition data-project-preview="assets/img/domain_expansion.webp">
               <div class="project-thumb">
                 <img src="assets/img/domain_expansion.webp" alt="Domain Expansion Thumbnail">
               </div>
@@ -389,7 +384,7 @@
               </div>
             </a>
 
-            <a href="project_description.html?id=5" class="project-card">
+            <a href="project_description.html?id=5" class="project-card" data-page-transition data-project-preview="assets/img/3b_transport.webp">
               <div class="project-thumb">
                 <img src="assets/img/parcel.png" alt="3B Transport Thumbnail">
               </div>

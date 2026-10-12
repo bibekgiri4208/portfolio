@@ -26,6 +26,7 @@
 
 html {
   color-scheme: light;
+  background: var(--bg);
   /* Smooth scrolling is limited to explicit section-navigation clicks. */
   scroll-behavior: auto;
   scroll-padding-top: 92px;
@@ -831,100 +832,141 @@ body.dark-mode .footer {
 }
 
 
-/* ============================================
-   CONSISTENT PAGE SWITCH TRANSITION
-   ============================================ */
+/* Open/close pages from the button position, without a loading curtain. */
+::view-transition {
+  pointer-events: none;
+}
 
-.page-transition {
+html[data-page-transition-mode="native"]::view-transition {
+  /* Snapshot controls do not line up with the live page until the zoom settles. */
+  pointer-events: auto;
+}
+
+html.page-closing {
+  overflow-anchor: none;
+}
+
+html.page-closing body {
+  pointer-events: none;
+}
+
+/* Keep homepage reveals from competing with the closing copy. */
+.page-closing .animate-in,
+.page-closing .reveal {
+  transition: none !important;
+}
+
+.page-close-overlay {
   position: fixed;
   inset: 0;
-  z-index: 99999;
+  z-index: 9999;
+  overflow: hidden;
+  visibility: visible;
   pointer-events: none;
-  display: grid;
-  place-items: center;
-  background:
-    radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.18), transparent 28rem),
-    #0c0d0f;
-  visibility: hidden;
-  opacity: 1;
-  transform: translateY(100%);
-  will-change: transform;
+  contain: layout paint;
+  transform: translate3d(0, 0, 0);
+  transform-origin: var(--page-origin-x, 50vw) var(--page-origin-y, 50vh);
+  backface-visibility: hidden;
+  will-change: transform, opacity;
 }
 
-html.page-transition-preload .page-transition {
-  visibility: visible;
-  transform: translateY(0);
+/* This is a frozen visual copy, not another live, interactive project page. */
+.page-close-overlay *,
+.page-close-overlay *::before,
+.page-close-overlay *::after {
+  animation: none !important;
+  transition: none !important;
 }
 
-.page-transition span {
-  color: #ffffff;
-  font-size: clamp(2.5rem, 8vw, 6rem);
-  font-weight: 900;
-  letter-spacing: -0.08em;
+.page-close-overlay .navbar .container {
+  /* Live backdrop sampling inside a scaling layer is expensive on mobile GPUs. */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.page-close-overlay.is-closing {
+  animation: pageCollapse var(--page-transition-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Unmarked links and browser Back remain instant. */
+::view-transition-group(root),
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
+html:active-view-transition-type(page-expand)::view-transition-old(root) {
+  animation: pagePreviousFade var(--page-transition-duration, 600ms) ease both;
+}
+
+html:active-view-transition-type(page-expand)::view-transition-new(root) {
+  transform-origin: var(--page-origin-x, 50vw) var(--page-origin-y, 50vh);
+  will-change: transform, opacity;
+  animation: pageExpand var(--page-transition-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+html.page-expand-pending body {
   opacity: 0;
-  transform: translateY(14px);
+  will-change: transform, opacity;
 }
 
-html.page-transition-preload .page-transition span {
-  opacity: 1;
-  transform: translateY(0);
+html.page-expanding,
+html.page-expanding body {
+  overflow-anchor: none;
 }
 
-body.page-transition-in .page-transition {
-  visibility: visible;
-  transform: translateY(0);
+html[data-page-transition-mode="fallback"] body {
+  transform-origin: var(--page-origin-x, 50vw) var(--page-origin-y, 50vh);
+  will-change: transform, opacity;
+  animation: pageExpand var(--page-transition-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
-body.page-transition-in .page-transition span {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-body.page-transition-out .page-transition {
-  visibility: visible;
-  animation: pageCoverIn 700ms cubic-bezier(0.76, 0, 0.24, 1) forwards;
-}
-
-body.page-transition-out .page-transition span {
-  animation: pageLogoIn 360ms ease 180ms forwards;
-}
-
-body.page-transition-in.page-transition-ready .page-transition {
-  transform: translateY(-100%);
-  transition: transform 700ms cubic-bezier(0.76, 0, 0.24, 1);
-}
-
-body.page-transition-in.page-transition-ready .page-transition span {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-@keyframes pageCoverIn {
-  from {
-    transform: translateY(100%);
-  }
-
-  to {
-    transform: translateY(0);
-  }
-}
-
-@keyframes pageLogoIn {
+@keyframes pageExpand {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: scale(var(--page-start-scale, 0.18));
   }
-
+  20% {
+    opacity: 1;
+  }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes pagePreviousFade {
+  0%, 50% { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes pageCollapse {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  }
+  80% { opacity: 1; }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale3d(var(--page-start-scale, 0.18), var(--page-start-scale, 0.18), 1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-transition,
-  .page-transition span {
+  @view-transition {
+    navigation: none;
+  }
+
+  html.page-expand-pending body {
+    opacity: 1;
+  }
+
+  html[data-page-transition-mode="fallback"] body {
     animation: none;
-    transition: none;
   }
 }
