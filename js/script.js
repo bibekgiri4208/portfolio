@@ -79,7 +79,6 @@ let ticking = false;
 const updateNavbarAppearance = () => {
   if (!navbar) return;
   
-  const isDark = document.body.classList.contains('dark-mode');
   const scrolled = window.scrollY > 50;
   
   // Use class-based styling instead of inline styles for better performance
@@ -182,10 +181,10 @@ document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-form
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
     e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
+    const target = document.getElementById(this.getAttribute('href').slice(1));
     if (target) {
       target.scrollIntoView({
-        behavior: 'smooth',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth',
         block: 'start'
       });
     }
@@ -208,57 +207,4 @@ window.addEventListener('load', () => {
       el.classList.add('animate-in', 'reveal');
     }
   });
-});
-
-// ============================================
-// PROJECT CARD VIDEO HOVER PLAYBACK HOOKS
-// ============================================
-
-document.querySelectorAll('.project-card').forEach(card => {
-  const video = card.querySelector('.project-video');
-  
-  if (video) {
-    const source = video.querySelector('source');
-    let playPromise = null;
-    let isHovered = false;
-
-    card.addEventListener('mouseenter', () => {
-      isHovered = true;
-
-      // Force the video element to explicitly take the source URL directly
-      if (!video.src && source) {
-        video.src = source.getAttribute('src');
-        video.load();
-      }
-      
-      // Fire playback
-      playPromise = video.play();
-      
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          if (error.name !== "AbortError") {
-            console.log("Playback policy block:", error);
-          }
-        });
-      }
-    });
-
-    card.addEventListener('mouseleave', () => {
-      isHovered = false;
-
-      if (playPromise) {
-        playPromise.then(() => {
-          if (!isHovered) {
-            video.pause();
-            video.currentTime = 0;
-          }
-        }).catch(() => {
-          video.pause();
-        });
-      } else {
-        video.pause();
-        video.currentTime = 0;
-      }
-    });
-  }
 });

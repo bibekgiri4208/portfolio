@@ -76,14 +76,6 @@
       transform: translateX(-3px);
     }
 
-    .pd-nav-logo {
-      font-weight: 800;
-      font-size: 1.1rem;
-      letter-spacing: -0.04em;
-      color: var(--text);
-      text-decoration: none;
-    }
-
     .pd-theme-btn {
       width: 40px;
       height: 40px;
@@ -450,7 +442,7 @@
     <!-- Navbar -->
     <nav class="pd-nav">
       <div class="container">
-        <a href="index.html#projects" class="pd-back">
+        <a href="index.html#projects" class="pd-back" data-project-return>
           <i class="fas fa-arrow-left"></i>
           Back to Projects
         </a>
@@ -635,7 +627,7 @@
         <div class="pd-not-found">
           <h2>Project not found</h2>
           <p>The project you're looking for doesn't exist or has been moved.</p>
-          <a href="index.html#projects" class="pd-btn pd-btn-primary">
+          <a href="index.html#projects" class="pd-btn pd-btn-primary" data-project-return>
             <i class="fas fa-arrow-left"></i> Back to Projects
           </a>
         </div>`;
@@ -691,6 +683,7 @@
     }
 
   </script>
+  <script src="js/project-navigation.js"></script>
 
 </body>
 </html>

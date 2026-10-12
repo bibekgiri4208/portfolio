@@ -25,9 +25,19 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Smooth scrolling is limited to explicit section-navigation clicks. */
+  scroll-behavior: auto;
   scroll-padding-top: 92px;
   scrollbar-gutter: stable;
+}
+
+html.restoring-project-position {
+  overflow-anchor: none;
+}
+
+.restoring-project-position .animate-in,
+.restoring-project-position .reveal {
+  transition: none !important;
 }
 
 body {
@@ -312,12 +322,6 @@ h3 {
   filter: saturate(0.92) contrast(1.04);
 }
 
-.profile-image-border,
-.hero-accent-line,
-.hero-floating-elements {
-  display: none;
-}
-
 .profile-badge {
   position: absolute;
   left: 22px;
@@ -507,74 +511,6 @@ section {
   display: none;
 }
 
-/* Projects and About section styles moved to per-section files */
-
-.slider-btn {
-  background: var(--text);
-  color: var(--surface);
-  box-shadow: var(--shadow-md);
-}
-
-.primary-btn:hover,
-.cta-button:hover {
-  transform: translateY(-3px);
-}
-
-/* Projects and About section styles moved to per-section files */
-
-.slider-btn {
-  width: 52px;
-  height: 52px;
-  display: inline-grid;
-  place-items: center;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.78);
-  color: var(--text);
-  cursor: pointer;
-  transition: var(--transition);
-  box-shadow: var(--shadow-sm);
-}
-
-.slider-btn:hover:not(:disabled) {
-  transform: translateY(-3px);
-  background: var(--text);
-  color: var(--surface);
-  box-shadow: var(--shadow-md);
-}
-
-.slider-btn:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
-
-.slider-dots {
-  margin-top: 1.7rem;
-  display: flex;
-  justify-content: center;
-  gap: 0.55rem;
-}
-
-.slider-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 999px;
-  border: 0;
-  background: rgba(17, 17, 17, 0.18);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.slider-dot.active {
-  width: 30px;
-  background: var(--text);
-}
-
-/* Project dark-mode overrides live in css/index_projects.css */
-
-
-/* Contact-form and related styles moved to css/index_contact.css */
-
 .footer {
   padding: 3rem 1.5rem;
   border-top: 1px solid var(--line);
@@ -696,7 +632,6 @@ body.dark-mode .skill-card,
 body.dark-mode .project-card,
 body.dark-mode .contact-form,
 body.dark-mode .about-text,
-body.dark-mode .slider-btn,
 body.dark-mode .social-icon,
 body.dark-mode .secondary-btn,
 body.dark-mode .tag,
@@ -708,9 +643,7 @@ body.dark-mode .form-group textarea {
 body.dark-mode .logo,
 body.dark-mode .primary-btn,
 body.dark-mode .cta-button,
-body.dark-mode .social-icon:hover,
-body.dark-mode .slider-dot.active,
-body.dark-mode .progress-bar {
+body.dark-mode .social-icon:hover {
   background: var(--text);
   color: var(--surface);
 }
@@ -891,106 +824,6 @@ body.dark-mode .footer {
   }
 }
 
-
-/* ============================================
-   INTEGRATED HOVER VIDEO & ACTION BUTTONS STYLES
-   ============================================ */
-/* Container for the side-by-side action buttons */
-.project-actions {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: auto;
-  flex-wrap: wrap;
-}
-
-/* Ensure project links scale correctly side by side */
-.project-link {
-  flex: 1;
-  min-width: 120px;
-  text-align: center;
-  justify-content: center;
-  white-space: nowrap;
-}
-
-/* Specific stylistic contrast for the View Demo button */
-.demo-link {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--text);
-  border: 1px solid var(--line);
-}
-
-.demo-link:hover {
-  background: var(--accent);
-  color: #ffffff;
-  border-color: var(--accent);
-}
-
-/* Dark mode configurations for the demo button */
-body.dark-mode .demo-link {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text);
-}
-
-body.dark-mode .demo-link:hover {
-  background: var(--accent);
-  color: var(--surface);
-}
-
-/* Video Wrapper Styles */
-.project-image {
-  position: relative;
-  z-index: 1;
-  height: 100%;
-  overflow: hidden;
-  background: #000; /* fall-back color during transitions */
-}
-
-/* Image acts as the default fallback cover */
-.card-thumb {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity var(--transition);
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-/* Video element positioning rules */
-.project-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  z-index: 0;
-  transition: opacity var(--transition);
-}
-
-/* Visual state alterations when hovering over the card parent */
-.project-card:hover .card-thumb {
-  opacity: 1;
-}
-
-.project-card:hover .project-video {
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* Clean overlay adjustments to ensure indicators sit on top of the elements */
-.project-image::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(17, 17, 17, 0.4), transparent 70%);
-  z-index: 2; /* Sits over image and video elements */
-  pointer-events: none;
-}
-
-.project-number {
-  z-index: 3; /* Always viewable over the top of components */
-}
 
 /* ============================================
    CONSISTENT PAGE SWITCH TRANSITION
