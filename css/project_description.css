@@ -1,0 +1,547 @@
+/* Project case study — uses the shared site's colors and spacing tokens. */
+.pd-page {
+  min-height: 100svh;
+}
+
+.pd-skip-link {
+  position: fixed;
+  top: 12px;
+  left: 24px;
+  z-index: 200;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  background: var(--text);
+  color: var(--surface);
+  transform: translateY(-150%);
+}
+
+.pd-skip-link:focus {
+  transform: translateY(0);
+}
+
+.pd-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 1rem 0;
+  background: rgba(247, 247, 242, 0.88);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.pd-nav .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pd-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-height: 44px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--muted);
+  transition: color var(--transition);
+}
+
+.pd-back:hover {
+  color: var(--accent);
+}
+
+.pd-nav-tools {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.pd-brand {
+  font-size: 1.3rem;
+  font-weight: 900;
+  letter-spacing: -0.07em;
+  text-decoration: none;
+}
+
+.pd-theme-btn {
+  width: 44px;
+  height: 44px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+
+.pd-theme-btn:hover {
+  background: var(--text);
+  color: var(--surface);
+}
+
+.pd-shell {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.pd-hero {
+  display: grid;
+  grid-template-columns: 1fr 1.05fr;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+  padding: clamp(40px, 6vw, 80px) 0;
+}
+
+.pd-info,
+.pd-preview,
+.pd-overview,
+.pd-sidebar {
+  min-width: 0;
+}
+
+.pd-eyebrow,
+.pd-section-label,
+.pd-feature-number,
+.pd-preview-bar,
+.pd-preview-caption,
+.pd-neighbor-label {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.pd-eyebrow {
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+
+.pd-eyebrow span {
+  color: var(--accent);
+}
+
+.pd-category {
+  display: inline-flex;
+  padding: 0.35rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.pd-title {
+  font-size: clamp(2.75rem, 5.5vw, 4.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.065em;
+  margin-bottom: 1.35rem;
+  overflow-wrap: break-word;
+}
+
+.pd-summary {
+  max-width: 44ch;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  margin-bottom: 1.8rem;
+}
+
+.pd-actions {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.pd-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 48px;
+  padding: 0.75rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 700;
+  transition: transform var(--transition), background var(--transition), box-shadow var(--transition);
+}
+
+.pd-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.pd-btn-primary {
+  background: var(--text);
+  color: var(--surface);
+}
+
+.pd-btn-secondary {
+  background: var(--surface);
+  color: var(--text);
+  border-color: var(--line);
+}
+
+.pd-btn-secondary:hover {
+  background: var(--surface-soft);
+}
+
+.pd-preview {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
+}
+
+.pd-preview-bar,
+.pd-preview-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  color: var(--muted);
+  font-size: 0.63rem;
+}
+
+.pd-preview-bar {
+  border-bottom: 1px solid var(--line);
+}
+
+.pd-preview-bar span:last-child {
+  color: var(--accent);
+}
+
+.pd-preview-image {
+  aspect-ratio: 4 / 3;
+  padding: clamp(12px, 2vw, 24px);
+  background: var(--surface-soft);
+}
+
+.pd-preview-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+}
+
+.pd-preview-caption {
+  border-top: 1px solid var(--line);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.pd-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  padding: clamp(36px, 5vw, 60px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.pd-section-label {
+  color: var(--accent);
+  margin-bottom: 0.85rem;
+}
+
+.pd-section-title {
+  font-size: clamp(1.65rem, 3vw, 2.3rem);
+  letter-spacing: -0.045em;
+  margin-bottom: 1.5rem;
+}
+
+.pd-description {
+  max-width: 65ch;
+  font-size: 0.96rem;
+  line-height: 1.9;
+}
+
+.pd-overview {
+  padding: 0;
+}
+
+.pd-description:last-child {
+  margin-bottom: 0;
+}
+
+.pd-sidebar {
+  align-self: start;
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.pd-sidebar h2 {
+  font-size: 1rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+
+.pd-facts > div {
+  display: grid;
+  gap: 0.3rem;
+  margin-bottom: 1.15rem;
+}
+
+.pd-facts dt {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.pd-facts dd {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.pd-stack {
+  padding-top: 1.4rem;
+  margin-top: 1.4rem;
+  border-top: 1px solid var(--line);
+}
+
+.pd-stack h3 {
+  font-size: 0.85rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.85rem;
+}
+
+.pd-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  list-style: none;
+}
+
+.pd-tag {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface-soft);
+  color: var(--text);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.68rem;
+}
+
+.pd-features {
+  padding: 0 0 clamp(40px, 6vw, 72px);
+}
+
+.pd-feature-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  list-style: none;
+}
+
+.pd-feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.35rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.pd-feature-number {
+  flex-shrink: 0;
+  padding-top: 0.15rem;
+  color: var(--accent);
+}
+
+.pd-project-navigation {
+  padding: 2rem 0 3.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.pd-project-navigation > p {
+  font-size: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.pd-neighbors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.pd-neighbor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  text-decoration: none;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.pd-neighbor:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+.pd-neighbor img {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  object-fit: contain;
+  border-radius: 10px;
+  background: var(--surface-soft);
+}
+
+.pd-neighbor-copy {
+  min-width: 0;
+}
+
+.pd-neighbor-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.6rem;
+  margin-bottom: 0.35rem;
+}
+
+.pd-neighbor strong {
+  display: block;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.pd-neighbor > i {
+  margin-left: auto;
+  color: var(--accent);
+}
+
+.pd-not-found {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: clamp(80px, 12vw, 140px) 24px;
+}
+
+.pd-not-found h1 {
+  font-size: clamp(2.2rem, 6vw, 3.5rem);
+  margin-bottom: 1.25rem;
+}
+
+.pd-footer {
+  padding: 1.75rem 24px;
+  border-top: 1px solid var(--line);
+}
+
+.pd-footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0;
+}
+
+.pd-footer p {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.pd-page a:focus-visible,
+.pd-page button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 4px;
+}
+
+body.dark-mode .pd-nav {
+  background: rgba(12, 13, 15, 0.88);
+}
+
+@media (max-width: 900px) {
+  .pd-hero {
+    gap: 2rem;
+  }
+
+  .pd-content {
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .pd-hero,
+  .pd-content {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-title {
+    font-size: clamp(2.75rem, 10vw, 4rem);
+  }
+
+  .pd-summary {
+    max-width: none;
+  }
+
+  .pd-preview {
+    max-width: 540px;
+    width: 100%;
+    justify-self: center;
+  }
+
+  .pd-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .pd-facts > div {
+    margin-bottom: 0;
+  }
+
+  .pd-feature-list,
+  .pd-neighbors {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .pd-shell,
+  .pd-nav .container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .pd-actions .pd-btn {
+    flex: 1 1 140px;
+  }
+
+  .pd-nav-tools {
+    gap: 0.8rem;
+  }
+
+  .pd-preview-bar,
+  .pd-preview-caption {
+    padding: 0.85rem 1rem;
+  }
+
+  .pd-footer .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pd-btn:hover,
+  .pd-neighbor:hover {
+    transform: none;
+  }
+}
