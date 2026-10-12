@@ -124,41 +124,20 @@
     }
   ];
 
-  // Theme controls are shared across every project, including the not-found state.
-  const themeButton = document.querySelector('.pd-theme-btn');
-  const readTheme = () => {
-    try {
-      return localStorage.getItem('theme') || 'light';
-    } catch {
-      return 'light';
-    }
-  };
-
-  const applyTheme = theme => {
-    const isDark = theme === 'dark';
-    document.body.classList.toggle('dark-mode', isDark);
-    const label = isDark ? 'Switch to light mode' : 'Switch to dark mode';
-    themeButton.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-    themeButton.setAttribute('aria-label', label);
-    themeButton.setAttribute('title', label);
-  };
-
-  applyTheme(readTheme());
-  themeButton.addEventListener('click', () => {
-    const nextTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
-    applyTheme(nextTheme);
-    try {
-      localStorage.setItem('theme', nextTheme);
-    } catch {
-      // The current page's theme still changes if storage is unavailable.
-    }
-  });
-  window.addEventListener('pageshow', event => {
-    if (event.persisted) applyTheme(readTheme());
-  });
-  window.addEventListener('storage', event => {
-    if (event.key === 'theme') applyTheme(event.newValue);
-  });
+  // Match the homepage's scrolled navbar state without loading its page-specific animations.
+  const navbar = document.querySelector('.navbar');
+  const updateNavbar = () => navbar.classList.toggle('navbar-scrolled', window.scrollY > 50);
+  let navbarUpdatePending = false;
+  window.addEventListener('scroll', () => {
+    if (navbarUpdatePending) return;
+    navbarUpdatePending = true;
+    window.requestAnimationFrame(() => {
+      updateNavbar();
+      navbarUpdatePending = false;
+    });
+  }, { passive: true });
+  window.addEventListener('pageshow', updateNavbar);
+  updateNavbar();
 
   const root = document.getElementById('pd-root');
   const rawId = new URLSearchParams(window.location.search).get('id');

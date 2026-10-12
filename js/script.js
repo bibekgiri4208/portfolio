@@ -70,7 +70,6 @@ initPageTransition();
 
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
-const themeToggle = document.querySelector('.theme-toggle');
 const navbar = document.querySelector('.navbar');
 
 // Optimized scroll handler with requestAnimationFrame
@@ -96,41 +95,7 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-// ============================================
-// THEME TOGGLE (LIGHT/DARK)
-// ============================================
-
-const applyTheme = theme => {
-  const isDark = theme === 'dark';
-  document.body.classList.toggle('dark-mode', isDark);
-
-  if (themeToggle) {
-    themeToggle.innerHTML = isDark
-      ? '<i class="fas fa-sun"></i>'
-      : '<i class="fas fa-moon"></i>';
-    themeToggle.setAttribute(
-      'aria-label',
-      isDark ? 'Enable light mode' : 'Enable dark mode'
-    );
-    themeToggle.setAttribute(
-      'title',
-      isDark ? 'Switch to light mode' : 'Switch to dark mode'
-    );
-  }
-
-  updateNavbarAppearance();
-};
-
-const savedTheme = localStorage.getItem('theme') || 'light';
-applyTheme(savedTheme);
-
-if (themeToggle) {
-  themeToggle.addEventListener('click', () => {
-    const nextTheme = document.body.classList.contains('dark-mode') ? 'light' : 'dark';
-    applyTheme(nextTheme);
-    localStorage.setItem('theme', nextTheme);
-  });
-}
+updateNavbarAppearance();
 
 if (hamburger && navMenu) {
   hamburger.addEventListener('click', () => {

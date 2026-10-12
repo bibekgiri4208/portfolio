@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Explore the games and web applications built by Bibek Giri." />
   <title>Project | Bibek Giri</title>
+  <script src="js/theme.js"></script>
   <link rel="icon" type="image/png" href="assets/img/Logo.png">
 
   <link rel="stylesheet" href="css/style.css" />
@@ -23,18 +24,22 @@
 <body>
   <a href="#pd-root" class="pd-skip-link">Skip to project</a>
   <div class="pd-page">
-    <nav class="pd-nav" aria-label="Project navigation">
+    <nav class="navbar pd-nav" aria-label="Project navigation">
       <div class="container">
-        <a href="index.html#projects" class="pd-back" data-project-return>
-          <i class="fas fa-arrow-left" aria-hidden="true"></i>
-          Back to Projects
-        </a>
-        <div class="pd-nav-tools">
-          <a href="index.html" class="pd-brand" aria-label="Bibek Giri — home">BG.</a>
-          <button class="pd-theme-btn" type="button" aria-label="Enable dark mode" title="Switch to dark mode">
-            <i class="fas fa-moon" aria-hidden="true"></i>
-          </button>
+        <div class="nav-brand">
+          <a href="index.html" class="logo" aria-label="Bibek Giri — home">BG.</a>
         </div>
+        <a href="index.html#projects" class="nav-link pd-back" aria-label="Back to Projects" data-project-return>
+          <span class="pd-back-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 5-7 7 7 7M5 12h14" />
+            </svg>
+          </span>
+          <span><span class="pd-back-prefix">Back to </span>Projects</span>
+        </a>
+        <button class="theme-toggle pd-theme-btn" type="button" aria-label="Enable dark mode" title="Switch to dark mode">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+        </button>
       </div>
     </nav>
 

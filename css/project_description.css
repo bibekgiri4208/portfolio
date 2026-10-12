@@ -1,13 +1,14 @@
 /* Project case study — uses the shared site's colors and spacing tokens. */
 .pd-page {
   min-height: 100svh;
+  padding-top: 96px;
 }
 
 .pd-skip-link {
   position: fixed;
   top: 12px;
   left: 24px;
-  z-index: 200;
+  z-index: 1100;
   padding: 0.75rem 1rem;
   border-radius: var(--radius-sm);
   background: var(--text);
@@ -19,69 +20,32 @@
   transform: translateY(0);
 }
 
-.pd-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  padding: 1rem 0;
-  background: rgba(247, 247, 242, 0.88);
-  border-bottom: 1px solid var(--line);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-}
-
-.pd-nav .container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+/* Navbar, logo, link, and theme-button visuals come from css/style.css. */
+.pd-nav .logo {
+  text-decoration: none;
 }
 
 .pd-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
+  margin-left: auto;
+  gap: 0.5rem;
   min-height: 44px;
-  text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--muted);
-  transition: color var(--transition);
+  white-space: nowrap;
 }
 
-.pd-back:hover {
-  color: var(--accent);
-}
-
-.pd-nav-tools {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.pd-brand {
-  font-size: 1.3rem;
-  font-weight: 900;
-  letter-spacing: -0.07em;
-  text-decoration: none;
-}
-
-.pd-theme-btn {
-  width: 44px;
-  height: 44px;
+.pd-back-icon {
   display: inline-grid;
   place-items: center;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: var(--surface);
-  color: var(--text);
-  cursor: pointer;
-  transition: background var(--transition), color var(--transition);
+  flex-shrink: 0;
 }
 
-.pd-theme-btn:hover {
-  background: var(--text);
-  color: var(--surface);
+.pd-back-icon svg {
+  width: 18px;
+  height: 18px;
+  transition: transform var(--transition);
+}
+
+.pd-back:hover .pd-back-icon svg {
+  transform: translateX(-2px);
 }
 
 .pd-shell {
@@ -461,10 +425,6 @@
   outline-offset: 4px;
 }
 
-body.dark-mode .pd-nav {
-  background: rgba(12, 13, 15, 0.88);
-}
-
 @media (max-width: 900px) {
   .pd-hero {
     gap: 2rem;
@@ -512,19 +472,20 @@ body.dark-mode .pd-nav {
   }
 }
 
+@media (max-width: 560px) {
+  .pd-back-prefix {
+    display: none;
+  }
+}
+
 @media (max-width: 420px) {
-  .pd-shell,
-  .pd-nav .container {
+  .pd-shell {
     padding-left: 18px;
     padding-right: 18px;
   }
 
   .pd-actions .pd-btn {
     flex: 1 1 140px;
-  }
-
-  .pd-nav-tools {
-    gap: 0.8rem;
   }
 
   .pd-preview-bar,
@@ -540,6 +501,8 @@ body.dark-mode .pd-nav {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .pd-back:hover,
+  .pd-back:hover .pd-back-icon svg,
   .pd-btn:hover,
   .pd-neighbor:hover {
     transform: none;
