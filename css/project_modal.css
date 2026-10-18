@@ -110,10 +110,86 @@ html.project-modal-open {
   margin-bottom: 0;
 }
 
+.project-dialog-gallery,
 .project-dialog-features {
   margin-top: 24px;
   padding-top: 24px;
   border-top: 1px solid var(--line);
+}
+
+.project-gallery-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.project-gallery-header h3 {
+  margin: 0;
+}
+
+.project-gallery-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#project-gallery-counter {
+  min-width: 2.5em;
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.project-gallery-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.project-gallery-arrow:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.project-gallery-track {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-soft);
+}
+
+.project-gallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+.project-gallery-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+.project-gallery-slide img {
+  display: block;
+  width: 100%;
+  height: clamp(160px, 40vw, 340px);
+  object-fit: contain;
 }
 
 .project-dialog-features ul {
@@ -183,7 +259,9 @@ html.project-modal-open {
 }
 
 .project-dialog-button:focus-visible,
-.project-dialog-close:focus-visible {
+.project-dialog-close:focus-visible,
+.project-gallery-arrow:focus-visible,
+.project-gallery-track:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
