@@ -410,52 +410,76 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="contact">
+  <section id="contact" class="contact" aria-labelledby="contact-title">
     <div class="container">
       <p class="section-kicker">Contact</p>
-      <h2 class="section-title">Have a project in mind?</h2>
+      <h2 id="contact-title" class="section-title">Have a project in mind?</h2>
+      <p class="projects-subtitle contact-description">Let’s talk about your next idea, a collaboration, or something you’d like to build.</p>
 
       <div class="contact-content">
-        <form class="contact-form" action="https://formspree.io/f/mdavzylq" method="POST">
+        <div class="contact-details">
+          <div class="contact-card-heading">
+            <span class="contact-card-icon" aria-hidden="true"><i class="far fa-envelope"></i></span>
+            <h3>Let’s connect</h3>
+          </div>
+          <p class="contact-details-description">Have a question, want to work together, or just want to say hello? Send a message or reach out directly.</p>
+
+          <a class="contact-email" href="mailto:giribibek0101@gmail.com">
+            <span class="contact-email-copy">
+              <span class="contact-label">Email</span>
+              <span class="contact-email-address">giribibek0101@gmail.com</span>
+            </span>
+            <i class="fas fa-arrow-up-right-from-square contact-email-arrow" aria-hidden="true"></i>
+          </a>
+
+          <div class="contact-socials">
+            <p class="contact-label">Find me online</p>
+            <nav class="social-links" aria-label="Social profiles">
+              <a href="https://github.com/bibekgiri4208" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)">
+                <i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span>
+              </a>
+              <a href="https://www.facebook.com/bibekgiri4208/" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook (opens in a new tab)">
+                <i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook</span>
+              </a>
+              <a href="https://www.instagram.com/bibekgiri4208/" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in a new tab)">
+                <i class="fab fa-instagram" aria-hidden="true"></i><span>Instagram</span>
+              </a>
+            </nav>
+          </div>
+        </div>
+
+        <form class="contact-form" action="https://formspree.io/f/mdavzylq" method="POST" aria-labelledby="contact-form-title">
+          <div class="contact-card-heading">
+            <span class="contact-card-icon" aria-hidden="true"><i class="far fa-comment-dots"></i></span>
+            <h3 id="contact-form-title">Send a message</h3>
+          </div>
 
           <!-- Email subject shown in your Gmail -->
           <input type="hidden" name="_subject" value="New message from portfolio">
 
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+          <div class="contact-form-row">
+            <div class="form-group">
+              <label for="name">Your name</label>
+              <input type="text" id="name" name="name" autocomplete="name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required>
+            </div>
           </div>
 
           <div class="form-group">
-            <label for="email">Your Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            <label for="message">Your message</label>
+            <textarea id="message" name="message" rows="6" required></textarea>
           </div>
 
-          <div class="form-group">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Tell me about your project..." rows="5"
-              required></textarea>
-          </div>
-
+          <p class="contact-form-hint">All fields are required.</p>
           <button type="submit" class="cta-button">
-            <span>Send Message</span>
-            <i class="fas fa-paper-plane"></i>
+            <span>Send message</span>
+            <i class="fas fa-paper-plane" aria-hidden="true"></i>
           </button>
         </form>
-
-        <div class="social-links">
-          <a href="#" class="social-icon" title="GitHub">
-            <i class="fab fa-github"></i>
-          </a>
-
-          <a href="https://www.facebook.com/bibekgiri4208/" class="social-icon" title="Facebook">
-            <i class="fab fa-facebook"></i>
-          </a>
-
-          <a href="https://www.instagram.com/bibekgiri4208/" class="social-icon" title="Instagram">
-            <i class="fab fa-instagram"></i>
-          </a>
-        </div>
       </div>
     </div>
   </section>
