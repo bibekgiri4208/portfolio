@@ -17,13 +17,17 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css" />
-  <!-- The closing project copy stays styled while it shrinks over this page. -->
+  <!-- Retain return-animation styling for direct visits to the fallback page. -->
   <link rel="stylesheet" href="css/project_description.css" />
+  <link rel="stylesheet" href="css/project_modal.css" />
   <link rel="stylesheet" href="css/index_about.css" />
   <link rel="stylesheet" href="css/index_skills.css" />
   <link rel="stylesheet" href="css/index_projects.css" />
   <link rel="stylesheet" href="css/index_contact.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <script src="js/projects-data.js" defer></script>
+  <script src="js/project-modal.js" defer></script>
 
   <!-- Improved Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -271,7 +275,7 @@
       <h2 id="projects-title" class="section-title">Selected projects.</h2>
       <div class="projects-grid">
 
-            <a href="project_description.html?id=0" class="project-card" aria-labelledby="project-card-title-0" data-page-transition data-project-preview="assets/img/circuit_race.webp">
+            <a href="project_description.html?id=0" class="project-card" aria-labelledby="project-card-title-0" aria-haspopup="dialog" aria-controls="project-dialog" data-project-modal="0" data-project-preview="assets/img/circuit_race.webp">
               <div class="project-thumb">
                 <img src="assets/img/car_race.png" alt="Car selection screen in Circuit Race">
               </div>
@@ -282,7 +286,7 @@
               </div>
             </a>
 
-            <a href="project_description.html?id=1" class="project-card" aria-labelledby="project-card-title-1" data-page-transition data-project-preview="assets/img/tictactoe.webp">
+            <a href="project_description.html?id=1" class="project-card" aria-labelledby="project-card-title-1" aria-haspopup="dialog" aria-controls="project-dialog" data-project-modal="1" data-project-preview="assets/img/tictactoe.webp">
               <div class="project-thumb">
                 <img src="assets/img/tictactoe.webp" alt="Tic Tac Toe Thumbnail">
               </div>
@@ -293,7 +297,7 @@
               </div>
             </a>
 
-            <a href="project_description.html?id=2" class="project-card" aria-labelledby="project-card-title-2" data-page-transition data-project-preview="assets/img/dino_run.webp">
+            <a href="project_description.html?id=2" class="project-card" aria-labelledby="project-card-title-2" aria-haspopup="dialog" aria-controls="project-dialog" data-project-modal="2" data-project-preview="assets/img/dino_run.webp">
               <div class="project-thumb">
                 <img src="assets/img/dinorun.png" alt="Dino Run gameplay with a layered forest background">
               </div>
@@ -304,7 +308,7 @@
               </div>
             </a>
 
-            <a href="project_description.html?id=3" class="project-card" aria-labelledby="project-card-title-3" data-page-transition data-project-preview="assets/img/hangman.webp">
+            <a href="project_description.html?id=3" class="project-card" aria-labelledby="project-card-title-3" aria-haspopup="dialog" aria-controls="project-dialog" data-project-modal="3" data-project-preview="assets/img/hangman.webp">
               <div class="project-thumb">
                 <img src="assets/img/hangman.webp" alt="Hangman Thumbnail">
               </div>
@@ -315,7 +319,7 @@
               </div>
             </a>
 
-            <a href="project_description.html?id=4" class="project-card" aria-labelledby="project-card-title-4" data-page-transition data-project-preview="assets/img/domain_expansion.webp">
+            <a href="project_description.html?id=4" class="project-card" aria-labelledby="project-card-title-4" aria-haspopup="dialog" aria-controls="project-dialog" data-project-modal="4" data-project-preview="assets/img/domain_expansion.webp">
               <div class="project-thumb">
                 <img src="assets/img/domain_expansion.webp" alt="Domain Expansion Thumbnail">
               </div>
@@ -326,7 +330,7 @@
               </div>
             </a>
 
-            <a href="project_description.html?id=5" class="project-card" aria-labelledby="project-card-title-5" data-page-transition data-project-preview="assets/img/3b_transport.webp">
+            <a href="project_description.html?id=5" class="project-card" aria-labelledby="project-card-title-5" aria-haspopup="dialog" aria-controls="project-dialog" data-project-modal="5" data-project-preview="assets/img/3b_transport.webp">
               <div class="project-thumb">
                 <img src="assets/img/parcel.png" alt="3B Transport parcel delivery website">
               </div>
@@ -415,6 +419,40 @@
       </div>
     </div>
   </section>
+
+  <!-- Project details open here; standalone links remain available for new tabs. -->
+  <dialog id="project-dialog" class="project-dialog" aria-labelledby="project-dialog-title">
+    <div class="project-dialog-header">
+      <h2 id="project-dialog-title"></h2>
+      <button class="project-dialog-close" type="button" aria-label="Close project details" autofocus>
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+    <div class="project-dialog-content">
+      <div class="project-dialog-overview">
+        <figure class="project-dialog-preview">
+          <img id="project-dialog-image" alt="">
+        </figure>
+        <div class="project-dialog-description">
+          <h3>Description</h3>
+          <div id="project-dialog-description"></div>
+        </div>
+      </div>
+      <div class="project-dialog-features">
+        <h3>What’s inside</h3>
+        <ul id="project-dialog-features"></ul>
+      </div>
+    </div>
+    <div class="project-dialog-actions">
+      <a id="project-dialog-github" class="project-dialog-button project-dialog-primary" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-github" aria-hidden="true"></i> GitHub
+      </a>
+      <a id="project-dialog-demo" class="project-dialog-button" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-play" aria-hidden="true"></i> Live demo
+      </a>
+      <button id="project-dialog-demo-unavailable" class="project-dialog-button" type="button" disabled hidden>Demo coming soon</button>
+    </div>
+  </dialog>
 
   <!-- Footer -->
   <footer class="footer">
