@@ -8,17 +8,20 @@
   root.style.setProperty('--page-transition-duration', `${DURATION}ms`);
   let incoming;
   try {
-    incoming = JSON.parse(sessionStorage.getItem(KEY));
-    sessionStorage.removeItem(KEY);
+    // A hidden return preview must not consume another top-level navigation's intent.
+    if (!window.frameElement?.classList.contains('page-return-preview')) {
+      incoming = JSON.parse(sessionStorage.getItem(KEY));
+      sessionStorage.removeItem(KEY);
+    }
   } catch {
     // Links still navigate normally when storage is unavailable.
   }
 
-  const isCloseArrival = record => {
-    if (record?.kind !== 'close' || typeof record.preview !== 'string') return false;
+  const isReturnArrival = record => {
+    if (record?.kind !== 'return') return false;
     try {
       const target = new URL(record.href);
-      const current = new URL(window.location.href);
+      const current = new URL(location.href);
       target.searchParams.delete('returnToProjects');
       current.searchParams.delete('returnToProjects');
       return target.href === current.href;
@@ -26,7 +29,8 @@
       return false;
     }
   };
-  const shouldClose = isCloseArrival(incoming) && !reducedMotion.matches;
+  let returnArrival = isReturnArrival(incoming);
+
   const shouldExpand = incoming?.kind !== 'close' && incoming?.href === window.location.href &&
     Number.isFinite(incoming.x) && Number.isFinite(incoming.y) && !reducedMotion.matches;
   const setOrigin = position => {
@@ -48,6 +52,7 @@
     setOrigin(incoming);
     root.classList.add('page-expand-pending');
   }
+  if (returnArrival) enableNativeNavigation();
 
   let outgoing;
   let arrivalPending = shouldExpand;
@@ -58,17 +63,29 @@
   let phase = 'waiting';
   let generation = 0;
   let closeOverlay;
-  const reset = (keepNavigationStyle = false) => {
+  let returnPreview;
+  let returnPreviewReady;
+  let returnPreviewHref;
+  let closeNavigation;
+  const reset = (keepNavigationStyle = false, keepReturnPreview = false) => {
     generation++;
     clearTimeout(timer);
     window.cancelAnimationFrame(firstFrame);
     window.cancelAnimationFrame(secondFrame);
-    root.classList.remove('page-expand-pending', 'page-expanding', 'page-closing');
+    root.classList.remove('page-expand-pending', 'page-expanding', 'page-closing', 'page-close-background-visible');
     closeOverlay?.remove();
     closeOverlay = null;
     delete root.dataset.pageTransitionMode;
     outgoing = null;
     arrivalPending = false;
+    returnArrival = false;
+    closeNavigation = null;
+    if (!keepReturnPreview) {
+      returnPreview?.remove();
+      returnPreview = null;
+      returnPreviewReady = null;
+      returnPreviewHref = null;
+    }
     phase = 'done';
     if (!keepNavigationStyle && navigationStyle) {
       navigationStyle.remove();
@@ -201,107 +218,154 @@
     transition.finished.catch(() => {});
   };
 
-  // Return first, then shrink a frozen copy above the restored homepage.
-  // Neither document is faded to an empty background during the handoff.
-  const startClose = async record => {
-    if (reducedMotion.matches || !isCloseArrival(record)) return;
-    const activeGeneration = generation;
-    phase = 'closing-arrival';
-    setOrigin(record);
-    root.classList.add('page-closing');
-    if (document.readyState === 'loading') {
-      await new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true }));
-    }
-    if (generation !== activeGeneration) return;
-    const overlay = document.createElement('div');
-    overlay.className = 'page-close-overlay';
-    overlay.setAttribute('aria-hidden', 'true');
-    overlay.inert = true;
-    overlay.style.background = record.background;
-    const template = document.createElement('template');
-    template.innerHTML = record.preview;
-    const preview = template.content.querySelector('.pd-page');
-    if (!preview) {
-      reset();
-      return;
-    }
-    // The copy is visual only; avoid duplicate IDs and script execution.
-    preview.querySelectorAll('[id]').forEach(element => element.removeAttribute('id'));
-    preview.querySelectorAll('script').forEach(element => element.remove());
-    preview.style.position = 'absolute';
-    preview.style.top = `${-record.scrollY}px`;
-    preview.style.left = '0';
-    preview.style.width = '100%';
-    overlay.append(preview);
-    document.body.append(overlay);
-    closeOverlay = overlay;
-
-    // Decode only visible images, including neighbors when closing a scrolled page.
-    // Keep fonts and image rasterization from changing the copy midway through zoom.
-    const images = Array.from(preview.querySelectorAll('img')).filter(image => {
-      const rect = image.getBoundingClientRect();
-      return rect.bottom > 0 && rect.top < innerHeight && rect.right > 0 && rect.left < innerWidth;
+  // Prepare the homepage offscreen, then finish the collapse BEFORE history.back().
+  // A cached homepage can be painted before pageshow; adding a closing copy after
+  // that navigation caused the homepage -> project -> homepage flash.
+  const warmReturn = href => {
+    const url = new URL(href, window.location.href);
+    if (url.origin !== location.origin ||
+        !(url.pathname.endsWith('/') || url.pathname.endsWith('/index.html'))) return null;
+    url.searchParams.set('returnToProjects', '1');
+    if (returnPreviewHref === url.href) return returnPreviewReady;
+    returnPreview?.remove();
+    const frame = document.createElement('iframe');
+    frame.className = 'page-return-preview';
+    frame.title = 'Homepage transition preview';
+    frame.setAttribute('aria-hidden', 'true');
+    frame.tabIndex = -1;
+    frame.inert = true;
+    returnPreview = frame;
+    returnPreviewHref = url.href;
+    returnPreviewReady = new Promise(resolve => {
+      frame.addEventListener('load', async () => {
+        try {
+          const home = frame.contentWindow;
+          if (!home.document.querySelector('#projects')) {
+            resolve(null);
+            return;
+          }
+          home.PortfolioProjectNavigation?.restore();
+          await home.document.fonts?.ready;
+          const images = Array.from(home.document.images).filter(image => {
+            const rect = image.getBoundingClientRect();
+            return rect.bottom > 0 && rect.top < innerHeight;
+          });
+          await Promise.all(images.map(image => image.decode?.().catch(() => {})));
+          requestAnimationFrame(() => requestAnimationFrame(() => resolve(frame)));
+        } catch {
+          resolve(null);
+        }
+      }, { once: true });
+      frame.addEventListener('error', () => resolve(null), { once: true });
     });
-    images.forEach(image => { image.loading = 'eager'; });
-    let assetTimer;
-    await Promise.race([
-      Promise.all([
-        (document.fonts?.ready || Promise.resolve()).catch(() => {}),
-        ...images.map(image => image.decode ? image.decode().catch(() => {}) : Promise.resolve())
-      ]),
-      new Promise(resolve => { assetTimer = setTimeout(resolve, 1000); })
-    ]);
-    clearTimeout(assetTimer);
-    if (document.readyState !== 'complete') {
-      await new Promise(resolve => window.addEventListener('load', resolve, { once: true }));
-    }
-    if (generation !== activeGeneration) return;
-    firstFrame = requestAnimationFrame(() => {
-      secondFrame = requestAnimationFrame(() => {
-        if (generation !== activeGeneration) return;
-        // The homepage restoration has completed; it stays visible under the copy.
-        root.dataset.pageTransitionMode = 'close-overlay';
-        overlay.classList.add('is-closing');
-        phase = 'closing-overlay';
-        overlay.addEventListener('animationend', event => {
-          if (event.target === overlay && event.animationName === 'pageCollapse') reset();
-        }, { once: true });
-        timer = setTimeout(reset, DURATION + 150);
-      });
-    });
+    frame.src = url.href;
+    document.body.append(frame);
+    return returnPreviewReady;
   };
+  const warmReturnLink = event => {
+    if (navigator.connection?.saveData || reducedMotion.matches) return;
+    if (!event.target.closest('a[data-project-return]')) return;
+    try {
+      const saved = JSON.parse(sessionStorage.getItem('portfolioProjectReturn'));
+      warmReturn(saved?.url || new URL('index.html#projects', location.href).href);
+    } catch {
+      // The close handler can still use its normal navigation fallback.
+    }
+  };
+  document.addEventListener('pointerover', warmReturnLink);
+  document.addEventListener('focusin', warmReturnLink);
 
   window.PortfolioPageTransition = {
-    close(navigate, origin, href) {
-      if (phase === 'closing-departure') return;
+    async close(navigate, origin, href) {
+      if (phase.startsWith('closing-')) return;
       if (reducedMotion.matches) {
         navigate();
         return;
       }
       nativeTransition?.skipTransition();
-      // Keep the document opted in until any arriving snapshot has been released.
-      reset(true);
+      reset(false, true);
       nativeTransition = null;
-      const position = origin && Number.isFinite(origin.x) && Number.isFinite(origin.y)
-        ? origin : { x: 0.5, y: 0.5, scale: 0.18 };
-      try {
-        const preview = document.querySelector('.pd-page');
-        if (preview) {
-          sessionStorage.setItem(KEY, JSON.stringify({
-            ...position,
-            kind: 'close',
-            href,
-            preview: preview.outerHTML,
-            scrollY: window.scrollY,
-            background: getComputedStyle(document.body).background
-          }));
-        }
-      } catch {
-        // If storage is unavailable, return normally rather than fade to a blank screen.
+      phase = 'closing-preparation';
+      closeNavigation = navigate;
+      const activeGeneration = generation;
+      let preparationTimer;
+      const frame = await Promise.race([
+        warmReturn(href),
+        new Promise(resolve => { preparationTimer = setTimeout(() => resolve(null), 2000); })
+      ]);
+      clearTimeout(preparationTimer);
+      if (generation !== activeGeneration) return;
+      if (!frame || !document.querySelector('.pd-page')) {
+        reset();
+        navigate();
+        return;
       }
-      phase = 'closing-departure';
-      navigate();
-      timer = setTimeout(reset, 1500);
+      setOrigin(origin && Number.isFinite(origin.x) && Number.isFinite(origin.y)
+        ? origin : { x: 0.5, y: 0.5, scale: 0.18 });
+      root.classList.add('page-closing');
+      const showHome = () => {
+        frame.classList.add('is-visible');
+        root.classList.add('page-close-background-visible');
+      };
+      let departed = false;
+      const depart = () => {
+        if (departed || generation !== activeGeneration) return;
+        departed = true;
+        clearTimeout(timer);
+        phase = 'closing-departure';
+        closeNavigation = null;
+        // An unanimated cross-document handoff holds this finished homepage image
+        // while a non-cached destination restores its layout before first paint.
+        outgoing = { kind: 'return' };
+        enableNativeNavigation();
+        try {
+          sessionStorage.setItem(KEY, JSON.stringify({ kind: 'return', href }));
+        } catch {
+          // Normal navigation remains available without storage.
+        }
+        // Keep the prepared homepage visible until the real one replaces it.
+        navigate();
+        timer = setTimeout(reset, 1500);
+      };
+      if (supportsNativeScale && document.startViewTransition) {
+        root.dataset.pageTransitionMode = 'native-close';
+        nativeTransition = document.startViewTransition(showHome);
+        nativeTransition.types.add('page-collapse');
+        observeTransition(nativeTransition);
+        nativeTransition.finished.then(depart, depart);
+        timer = setTimeout(depart, DURATION + 1000);
+        return;
+      }
+
+      // Older browsers get a compositor-only copy, built in the source document
+      // where its layout, scroll position, fonts and images are already settled.
+      const page = document.querySelector('.pd-page');
+      const overlay = document.createElement('div');
+      overlay.className = 'page-close-overlay';
+      overlay.setAttribute('aria-hidden', 'true');
+      overlay.inert = true;
+      overlay.style.background = getComputedStyle(document.body).background;
+      const preview = page.cloneNode(true);
+      preview.querySelectorAll('[id]').forEach(element => element.removeAttribute('id'));
+      preview.querySelectorAll('script').forEach(element => element.remove());
+      preview.style.position = 'absolute';
+      preview.style.top = `${-scrollY}px`;
+      preview.style.width = `${root.clientWidth}px`;
+      overlay.append(preview);
+      document.body.append(overlay);
+      closeOverlay = overlay;
+      firstFrame = requestAnimationFrame(() => {
+        secondFrame = requestAnimationFrame(() => {
+          if (generation !== activeGeneration) return;
+          showHome();
+          phase = 'closing-overlay';
+          overlay.classList.add('is-closing');
+          overlay.addEventListener('animationend', event => {
+            if (event.target === overlay && event.animationName === 'pageCollapse') depart();
+          });
+          timer = setTimeout(depart, DURATION + 150);
+        });
+      });
     }
   };
   window.addEventListener('pageswap', event => {
@@ -312,11 +376,26 @@
       return;
     }
     if (event.viewTransition?.types) {
-      event.viewTransition.types.add('page-expand');
+      event.viewTransition.types.add(outgoing.kind === 'return' ? 'page-return' : 'page-expand');
     }
   });
   window.addEventListener('pagereveal', event => {
     observeTransition(event.viewTransition);
+    if (returnArrival) {
+      window.PortfolioProjectNavigation?.restore();
+      if (event.viewTransition) {
+        nativeTransition = event.viewTransition;
+        const activeGeneration = generation;
+        const finishReturn = () => {
+          if (generation === activeGeneration) reset();
+        };
+        event.viewTransition.types?.add('page-return');
+        event.viewTransition.finished.then(finishReturn, finishReturn);
+      } else {
+        reset();
+      }
+      return;
+    }
     if (!event.viewTransition || !arrivalPending || reducedMotion.matches) return;
     arrivalPending = false;
     nativeTransition = event.viewTransition;
@@ -353,10 +432,6 @@
 
   // Browsers without cross-document transitions get the same click-origin scale entrance.
   document.addEventListener('DOMContentLoaded', () => {
-    if (shouldClose) {
-      startClose(incoming);
-      return;
-    }
     if (!shouldExpand) return;
     firstFrame = window.requestAnimationFrame(() => {
       if (!nativeTransition) startFallback();
@@ -366,20 +441,22 @@
   window.addEventListener('pagehide', () => reset(true));
   window.addEventListener('pageshow', event => {
     if (!event.persisted) return;
-    reset();
+    let returning = false;
     try {
-      const record = JSON.parse(sessionStorage.getItem(KEY));
-      if (isCloseArrival(record)) {
-        sessionStorage.removeItem(KEY);
-        startClose(record);
-      }
+      returning = isReturnArrival(JSON.parse(sessionStorage.getItem(KEY)));
+      if (returning) sessionStorage.removeItem(KEY);
     } catch {
       // Browser Back still works when storage is unavailable.
     }
+    reset(returning);
+    returnArrival = returning;
+    nativeTransition = null;
   });
   reducedMotion.addEventListener('change', event => {
     if (!event.matches) return;
+    const navigate = closeNavigation;
     nativeTransition?.skipTransition();
     reset();
+    navigate?.();
   });
 })();

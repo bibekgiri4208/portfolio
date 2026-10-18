@@ -51,10 +51,49 @@
       });
     };
 
+    const releaseRestoredHover = () => {
+      document.documentElement.classList.remove('project-return-restored');
+    };
+    window.PortfolioProjectNavigation = {
+      restore() {
+        let target = history.state?.portfolioScroll || position;
+        if (!isValidPosition(target) && isExplicitReturn) {
+          document.getElementById('projects')?.scrollIntoView({ behavior: 'instant' });
+        }
+        target ||= { x: scrollX, y: scrollY };
+        if (!isValidPosition(target)) return;
+        // The return preview needs the final homepage layout before taking a snapshot.
+        // Do not leave scroll restoration or reveal animations for a later frame.
+        const root = document.documentElement;
+        root.classList.add('restoring-project-position', 'project-return-restored');
+        // BFCache can retain the clicked card's :hover state until the mouse moves.
+        // Match the non-hovered preview instead of jumping by the card's hover lift.
+        document.addEventListener('pointermove', releaseRestoredHover, { once: true });
+        window.scrollTo({ left: target.x, top: target.y, behavior: 'instant' });
+        document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-form, .section-kicker, .section-title, .projects-subtitle').forEach(element => {
+          if (element.getBoundingClientRect().top < innerHeight * 0.9) {
+            element.classList.add('animate-in', 'reveal');
+          }
+        });
+        document.querySelector('.navbar')?.classList.toggle('navbar-scrolled', target.y > 50);
+        root.style.visibility = '';
+        requestAnimationFrame(() => root.classList.remove('restoring-project-position'));
+      }
+    };
+
     if (isValidPosition(position)) {
       // Restore before revealing the page, rather than animating from the hero.
       prepareRestoration();
       window.addEventListener('load', () => restorePosition(position), { once: true });
+    } else if (isExplicitReturn) {
+      // Direct project visits have no saved click position; settle the Projects
+      // anchor and reveals before showing the real page, just like its preview.
+      prepareRestoration();
+      window.addEventListener('load', () => {
+        document.getElementById('projects')?.scrollIntoView({ behavior: 'instant' });
+        window.PortfolioProjectNavigation.restore();
+        history.scrollRestoration = 'auto';
+      }, { once: true });
     }
 
     const savePosition = () => {
@@ -72,8 +111,10 @@
       isOpeningProject = false;
       const position = history.state?.portfolioScroll;
       if (event.persisted && isValidPosition(position)) {
-        prepareRestoration();
-        restorePosition(position);
+        // A cached document already has its layout and assets. Restore synchronously
+        // so the browser never presents a hidden/intermediate frame on history return.
+        window.PortfolioProjectNavigation.restore();
+        history.scrollRestoration = 'auto';
       }
     });
     document.addEventListener('click', event => {
@@ -146,6 +187,11 @@
     } else if (isValidPosition(savedPosition)) {
       const returnUrl = new URL(savedPosition.url, window.location.href);
       if (returnUrl.origin !== window.location.origin) return;
+      returnUrl.searchParams.set(RETURN_PARAM, '1');
+      returnHref = returnUrl.href;
+      navigate = () => { window.location.href = returnUrl.href; };
+    } else {
+      const returnUrl = new URL(link.href);
       returnUrl.searchParams.set(RETURN_PARAM, '1');
       returnHref = returnUrl.href;
       navigate = () => { window.location.href = returnUrl.href; };

@@ -47,6 +47,22 @@ html.restoring-project-position {
   transition: none !important;
 }
 
+.project-return-restored .project-card.animate-in:hover {
+  transform: translateY(0);
+  border-color: var(--line);
+  box-shadow: none;
+}
+
+.project-return-restored body.dark-mode .project-card.animate-in:hover {
+  background: rgba(18, 20, 23, 0.82);
+  border-color: rgba(255, 255, 255, 0.10);
+}
+
+.project-return-restored .project-link:hover {
+  transform: none;
+  opacity: 1;
+}
+
 body {
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: var(--text);
@@ -837,7 +853,8 @@ body.dark-mode .footer {
   pointer-events: none;
 }
 
-html[data-page-transition-mode="native"]::view-transition {
+html[data-page-transition-mode="native"]::view-transition,
+html[data-page-transition-mode="native-close"]::view-transition {
   /* Snapshot controls do not line up with the live page until the zoom settles. */
   pointer-events: auto;
 }
@@ -856,9 +873,30 @@ html.page-closing body {
   transition: none !important;
 }
 
+.page-return-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  border: 0;
+  z-index: 9998;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-return-preview.is-visible {
+  visibility: visible;
+}
+
+.page-close-background-visible body > .pd-page {
+  visibility: hidden;
+}
+
 .page-close-overlay {
   position: fixed;
   inset: 0;
+  width: 100vw;
   z-index: 9999;
   overflow: hidden;
   visibility: visible;
@@ -908,6 +946,17 @@ html:active-view-transition-type(page-expand)::view-transition-new(root) {
   transform-origin: var(--page-origin-x, 50vw) var(--page-origin-y, 50vh);
   will-change: transform, opacity;
   animation: pageExpand var(--page-transition-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+html:active-view-transition-type(page-collapse)::view-transition-old(root) {
+  z-index: 2;
+  transform-origin: var(--page-origin-x, 50vw) var(--page-origin-y, 50vh);
+  will-change: transform, opacity;
+  animation: pageCollapse var(--page-transition-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+html:active-view-transition-type(page-collapse)::view-transition-new(root) {
+  z-index: 1;
 }
 
 html.page-expand-pending body {
