@@ -81,11 +81,11 @@
         <div class="hero-text-content">
           <div class="hero-eyebrow">Available for freelance projects</div>
           <h1 class="hero-title">
-            <span class="hero-title-line">Web And</span>
-            <span class="hero-title-line">Game Developer.</span>
+            <span class="hero-title-line">Game &</span>
+            <span class="hero-title-line">Flutter Developer.</span>
           </h1>
-          <p class="hero-description"> Hi, I'm Bibek Giri. I build responsive, minimal, and user-friendly websites
-            that are fast, polished, and intuitive—as well as interactive 3D games in Unity.</p>
+          <p class="hero-description">Hi, I'm Bibek Giri. I build interactive 3D games and physics-driven mechanics in
+            Unity—as well as cross-platform Flutter apps and clean, responsive websites.</p>
 
           <div class="hero-stats-grid">
             <div class="stat-item">
@@ -129,12 +129,14 @@
       <h2 class="section-title">Focused on simple, useful digital products.</h2>
       <div class="about-grid">
         <div class="about-text">
-          <p>I'm a passionate full-stack developer with a strong background in creating stunning, user-centric web
-            experiences. I believe in the power of clean code and thoughtful design to solve real-world problems.</p>
-          <p>With experience across modern web technologies and a commitment to continuous learning, I turn complex
-            ideas into elegant digital solutions.
-            When I'm not coding, I'm exploring new design trends or working on creative side projects.</p>
-          <p>I am also learning Game development in Unity engine. Currently working on a Car Racing Game.</p>
+          <p>I specialize in game development, focusing on custom physics controllers, interactive gameplay mechanics,
+            and engaging world systems in Unity.</p>
+
+          <p>Backed by a solid background in website design and cross-platform Flutter mobile apps, I approach every
+            project with a strong foundation in code and clean UI layout.</p>
+
+          <p>Whether I'm building game loops or clean digital interfaces, I love turning creative ideas into smooth,
+            functional realities.</p>
           <div class="about-signature">
             <span>Bibek Giri</span>
           </div>
@@ -158,112 +160,85 @@
   </section>
 
   <!-- Skills Section -->
-  <section id="skills" class="skills">
+  <section id="skills" class="skills" aria-labelledby="skills-title">
     <div class="container">
 
       <p class="section-kicker">Skills</p>
-      <h2 class="section-title">Tools I use to bring ideas online.</h2>
+      <h2 id="skills-title" class="section-title">Tools I use to bring ideas online.</h2>
 
       <div class="skills-grid">
-
-        <!-- Frontend -->
-        <div class="skill-card">
+        <article class="skill-card skill-card--wide">
           <div class="skill-header">
-            <div class="skill-icon">
-              <i class="fas fa-code"></i>
-            </div>
-            <h3>Frontend</h3>
+            <div class="skill-icon" aria-hidden="true"><i class="fas fa-gamepad"></i></div>
           </div>
-
-          <div class="skill-bar">
-            <div class="skill-progress" style="width:95%;"></div>
-          </div>
-
-          <div class="skill-tags">
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>JS</span>
-          </div>
-        </div>
-
-        <!-- Backend -->
-        <div class="skill-card">
-          <div class="skill-header">
-            <div class="skill-icon">
-              <i class="fas fa-server"></i>
-            </div>
-            <h3>Backend</h3>
-          </div>
-
-          <div class="skill-bar">
-            <div class="skill-progress" style="width:80%;"></div>
-          </div>
-
-          <div class="skill-tags">
-            <span>PHP</span>
-            <span>Python</span>
-            <span>MySQL</span>
-          </div>
-        </div>
-
-        <!-- Design -->
-        <div class="skill-card">
-          <div class="skill-header">
-            <div class="skill-icon">
-              <i class="fas fa-pencil-ruler"></i>
-            </div>
-            <h3>Design</h3>
-          </div>
-
-          <div class="skill-bar">
-            <div class="skill-progress" style="width:85%;"></div>
-          </div>
-
-          <div class="skill-tags">
-            <span>Blender</span>
-            <span>Figma</span>
-          </div>
-        </div>
-
-        <!-- Game Development -->
-        <div class="skill-card">
-          <div class="skill-header">
-            <div class="skill-icon">
-              <i class="fas fa-gamepad"></i>
-            </div>
-            <h3>Game Development</h3>
-          </div>
-
-          <div class="skill-bar">
+          <h3>Game Development</h3>
+          <div class="skill-bar" role="meter" aria-label="Game development skill level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="90">
             <div class="skill-progress" style="width:90%;"></div>
           </div>
+          <ul class="skill-tags" aria-label="Game development tools">
+            <li>Unity</li>
+            <li>C#</li>
+          </ul>
+        </article>
 
-          <div class="skill-tags">
-            <span>Unity</span>
-            <span>C#</span>
-            <span>Netcode</span>
-          </div>
-        </div>
-
-        <!-- Mobile Development -->
-        <div class="skill-card">
+        <article class="skill-card skill-card--wide">
           <div class="skill-header">
-            <div class="skill-icon">
-              <i class="fas fa-mobile-alt"></i>
-            </div>
-            <h3>Mobile App Development</h3>
+            <div class="skill-icon" aria-hidden="true"><i class="fas fa-mobile-alt"></i></div>
           </div>
-
-          <div class="skill-bar">
+          <h3>Mobile Development</h3>
+          <div class="skill-bar" role="meter" aria-label="Mobile development skill level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="70">
             <div class="skill-progress" style="width:70%;"></div>
           </div>
+          <ul class="skill-tags" aria-label="Mobile development tools">
+            <li>Flutter</li>
+            <li>Dart</li>
+            <li>Firebase</li>
+          </ul>
+        </article>
 
-          <div class="skill-tags">
-            <span>Flutter</span>
-            <span>Dart</span>
+        <article class="skill-card">
+          <div class="skill-header">
+            <div class="skill-icon" aria-hidden="true"><i class="fas fa-code"></i></div>
           </div>
-        </div>
+          <h3>Frontend</h3>
+          <div class="skill-bar" role="meter" aria-label="Frontend skill level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="95">
+            <div class="skill-progress" style="width:95%;"></div>
+          </div>
+          <ul class="skill-tags" aria-label="Frontend tools">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+          </ul>
+        </article>
 
+        <article class="skill-card">
+          <div class="skill-header">
+            <div class="skill-icon" aria-hidden="true"><i class="fas fa-server"></i></div>
+          </div>
+          <h3>Backend</h3>
+          <div class="skill-bar" role="meter" aria-label="Backend skill level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+            <div class="skill-progress" style="width:80%;"></div>
+          </div>
+          <ul class="skill-tags" aria-label="Backend tools">
+            <li>PHP</li>
+            <li>Python</li>
+            <li>MySQL</li>
+          </ul>
+        </article>
+
+        <article class="skill-card">
+          <div class="skill-header">
+            <div class="skill-icon" aria-hidden="true"><i class="fas fa-pencil-ruler"></i></div>
+          </div>
+          <h3>Design</h3>
+          <div class="skill-bar" role="meter" aria-label="Design skill level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="85">
+            <div class="skill-progress" style="width:85%;"></div>
+          </div>
+          <ul class="skill-tags" aria-label="Design tools">
+            <li>Blender</li>
+            <li>Figma</li>
+          </ul>
+        </article>
       </div>
 
     </div>

@@ -123,6 +123,7 @@ body.dark-mode .project-card {
 
 body.dark-mode .project-card.animate-in:hover {
   background: rgba(25, 28, 32, 0.95);
+  box-shadow: 0 20px 45px rgba(255, 255, 255, 0.18);
 }
 
 @media (max-width: 900px) {
