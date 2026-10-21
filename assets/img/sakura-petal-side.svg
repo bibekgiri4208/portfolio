@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="pink" x1="24" y1="10" x2="35" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#ffe0f2"/>
+      <stop offset=".35" stop-color="#ffa1d3"/>
+      <stop offset=".7" stop-color="#ff65b1"/>
+      <stop offset="1" stop-color="#f02d8b"/>
+    </linearGradient>
+  </defs>
+  <!-- A slimmer, folded silhouette for petals turning in the breeze. -->
+  <path d="M9 55c8-15 6-36 21-46l5 4 3-7c11 5 14 15 7 26-8 12-22 17-36 23Z" fill="url(#pink)"/>
+  <path d="M9 55c17-15 26-28 29-49 11 5 14 15 7 26-8 12-22 17-36 23Z" fill="#ed348e" fill-opacity=".27"/>
+  <path d="M19 32c2-9 4-15 11-21l3 3c-7 3-11 11-14 18Z" fill="#fff0f9" fill-opacity=".75"/>
+</svg>
