@@ -143,12 +143,12 @@
 }
 
 .pd-btn-primary {
-  background: var(--text);
-  color: var(--surface);
+  background: var(--button-bg);
+  color: var(--button-text);
 }
 
 .pd-btn-secondary {
-  background: var(--surface);
+  background: var(--glass-bg);
   color: var(--text);
   border-color: var(--line);
 }
@@ -158,10 +158,12 @@
 }
 
 .pd-preview {
-  border: 1px solid var(--line);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: var(--surface);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: var(--shadow-md);
 }
 
@@ -239,9 +241,12 @@
 .pd-sidebar {
   align-self: start;
   padding: 1.5rem;
-  border: 1px solid var(--line);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-md);
-  background: var(--surface);
+  background: var(--glass-bg);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 }
 
 .pd-sidebar h2 {
@@ -311,9 +316,12 @@
   align-items: flex-start;
   gap: 1rem;
   padding: 1.35rem;
-  border: 1px solid var(--line);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--glass-bg);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   font-size: 0.88rem;
   line-height: 1.65;
 }
@@ -345,9 +353,12 @@
   align-items: center;
   gap: 1rem;
   padding: 1.15rem;
-  border: 1px solid var(--line);
+  border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
-  background: var(--surface);
+  background: var(--glass-bg);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   text-decoration: none;
   transition: border-color var(--transition), transform var(--transition);
 }

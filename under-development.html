@@ -9,8 +9,8 @@
   <link rel="icon" type="image/png" href="assets/img/Logo.png">
 
   <!-- Shared site styles -->
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/sakura.css" />
+  <link rel="stylesheet" href="css/style.css?v=glass-20261021" />
+  <link rel="stylesheet" href="css/sakura.css?v=glass-20261021" />
   <script src="js/sakura.js" defer></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
@@ -45,11 +45,11 @@
       max-width: 540px;
       width: 100%;
       padding: clamp(2.5rem, 6vw, 4rem) clamp(1.5rem, 5vw, 3rem);
-      border: 1px solid var(--line);
+      border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
-      background: rgba(255, 255, 255, 0.68);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur);
+      -webkit-backdrop-filter: var(--glass-blur);
       box-shadow: var(--shadow-lg);
       text-align: center;
       transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition), background var(--transition);
@@ -57,11 +57,6 @@
 
     .dev-card:hover {
       transform: translateY(-4px);
-    }
-
-    body.dark-mode .dev-card {
-      background: rgba(21, 23, 26, 0.72);
-      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.45);
     }
 
     .dev-icon-container {
@@ -92,10 +87,6 @@
       border-radius: 50%;
       border: 3px solid var(--surface);
       box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
-    }
-
-    body.dark-mode .status-dot {
-      border-color: #15171a;
     }
 
     .status-pulse {

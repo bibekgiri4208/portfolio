@@ -10,9 +10,11 @@ html.project-modal-open {
   margin: auto;
   padding: 0;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid var(--glass-border);
   border-radius: 24px;
-  background: var(--surface);
+  background: var(--glass-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   color: var(--text);
   box-shadow: var(--shadow-lg);
 }
@@ -24,7 +26,9 @@ html.project-modal-open {
 }
 
 .project-dialog::backdrop {
-  background: rgba(10, 12, 16, 0.48);
+  background: rgba(9, 17, 38, 0.48);
+  backdrop-filter: var(--overlay-blur);
+  -webkit-backdrop-filter: var(--overlay-blur);
   animation: projectBackdropIn 220ms ease both;
 }
 
@@ -229,7 +233,7 @@ html.project-modal-open {
   padding: 10px 18px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: transparent;
+  background: var(--glass-bg);
   color: var(--text);
   font: inherit;
   font-size: 0.85rem;
@@ -241,8 +245,8 @@ html.project-modal-open {
 
 .project-dialog-primary {
   border-color: transparent;
-  background: var(--text);
-  color: var(--surface);
+  background: var(--button-bg);
+  color: var(--button-text);
 }
 
 .project-dialog-button:not(:disabled):hover {

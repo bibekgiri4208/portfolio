@@ -28,10 +28,9 @@
   flex-direction: column;
   min-width: 0;
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid var(--glass-border);
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
+  background: var(--glass-bg);
   color: inherit;
   text-decoration: none;
   opacity: 0;
@@ -52,7 +51,8 @@
 .project-card.animate-in:hover {
   transform: translateY(-8px);
   border-color: var(--accent);
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
+  background: var(--glass-hover);
+  box-shadow: var(--shadow-md);
 }
 
 .project-thumb {
@@ -115,15 +115,6 @@
 .project-card:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
-}
-
-body.dark-mode .project-card {
-  background: rgba(18, 20, 23, 0.82);
-}
-
-body.dark-mode .project-card.animate-in:hover {
-  background: rgba(25, 28, 32, 0.95);
-  box-shadow: 0 20px 45px rgba(255, 255, 255, 0.18);
 }
 
 @media (max-width: 900px) {

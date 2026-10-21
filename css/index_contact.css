@@ -23,10 +23,9 @@
 .contact-form {
   min-width: 0;
   padding: 28px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--glass-border);
   border-radius: 24px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(12px);
+  background: var(--glass-bg);
   box-shadow: var(--shadow-sm);
   transition: var(--transition);
 }
@@ -131,7 +130,7 @@
   padding: 8px 14px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-bg);
   color: var(--text);
   font-size: 0.82rem;
   text-decoration: none;
@@ -189,7 +188,7 @@
   padding: 0.9rem 1rem;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--glass-bg);
   color: var(--text);
   font: inherit;
   font-size: 0.9rem;
@@ -212,7 +211,7 @@
 .contact .form-group textarea:focus {
   outline: none;
   border-color: var(--accent);
-  background: var(--surface);
+  background: var(--glass-strong);
   box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
@@ -224,21 +223,6 @@
 .contact-form .cta-button {
   width: 100%;
   font-family: inherit;
-}
-
-body.dark-mode .contact-details,
-body.dark-mode .contact-form {
-  background: rgba(18, 20, 23, 0.82);
-}
-
-body.dark-mode .contact .form-group input,
-body.dark-mode .contact .form-group textarea {
-  background: rgba(255, 255, 255, 0.05);
-}
-
-body.dark-mode .contact .form-group input:focus,
-body.dark-mode .contact .form-group textarea:focus {
-  background: var(--surface);
 }
 
 @media (max-width: 992px) {
