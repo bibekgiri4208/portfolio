@@ -21,7 +21,7 @@
   <script src="js/sakura.js" defer></script>
   <!-- Retain return-animation styling for direct visits to the fallback page. -->
   <link rel="stylesheet" href="css/project_description.css?v=glass-20261021" />
-  <link rel="stylesheet" href="css/project_modal.css?v=glass-20261021" />
+  <link rel="stylesheet" href="css/project_modal.css?v=project-skeleton-20261021" />
   <link rel="stylesheet" href="css/index_about.css?v=glass-20261021" />
   <link rel="stylesheet" href="css/index_skills.css?v=glass-20261021" />
   <link rel="stylesheet" href="css/index_projects.css?v=glass-20261021" />
@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
   <script src="js/projects-data.js" defer></script>
-  <script src="js/project-modal.js" defer></script>
+  <script src="js/project-modal.js?v=project-skeleton-20261021" defer></script>
 
   <!-- Improved Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -406,6 +406,39 @@
 
   <!-- Project details open here; standalone links remain available for new tabs. -->
   <dialog id="project-dialog" class="project-dialog" aria-labelledby="project-dialog-title">
+    <!-- Decorative transition layer; real content remains available to assistive technology. -->
+    <div class="project-skeleton" aria-hidden="true" inert hidden>
+      <div class="project-skeleton-header">
+        <span class="project-skeleton-block project-skeleton-title"></span>
+        <span class="project-skeleton-block project-skeleton-circle"></span>
+      </div>
+      <div class="project-skeleton-content">
+        <div class="project-skeleton-overview">
+          <span class="project-skeleton-block project-skeleton-image"></span>
+          <div class="project-skeleton-copy">
+            <span class="project-skeleton-block project-skeleton-heading"></span>
+            <div class="project-skeleton-paragraph">
+              <span class="project-skeleton-block project-skeleton-line"></span>
+              <span class="project-skeleton-block project-skeleton-line"></span>
+              <span class="project-skeleton-block project-skeleton-line project-skeleton-short"></span>
+            </div>
+            <div class="project-skeleton-paragraph">
+              <span class="project-skeleton-block project-skeleton-line"></span>
+              <span class="project-skeleton-block project-skeleton-line"></span>
+              <span class="project-skeleton-block project-skeleton-line project-skeleton-short"></span>
+            </div>
+          </div>
+        </div>
+        <div class="project-skeleton-gallery">
+          <span class="project-skeleton-block project-skeleton-heading"></span>
+          <span class="project-skeleton-block project-skeleton-screen"></span>
+        </div>
+      </div>
+      <div class="project-skeleton-actions">
+        <span class="project-skeleton-block project-skeleton-button"></span>
+        <span class="project-skeleton-block project-skeleton-button"></span>
+      </div>
+    </div>
     <div class="project-dialog-header">
       <h2 id="project-dialog-title"></h2>
       <button class="project-dialog-close" type="button" aria-label="Close project details" autofocus>
