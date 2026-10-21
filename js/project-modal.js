@@ -21,6 +21,13 @@
   const galleryCounter = document.getElementById('project-gallery-counter');
   const previousScreenshot = document.getElementById('project-gallery-previous');
   const nextScreenshot = document.getElementById('project-gallery-next');
+  const screenshotPreview = document.getElementById('screenshot-preview');
+  const previewImage = document.getElementById('screenshot-preview-image');
+  const previewCaption = document.getElementById('screenshot-preview-caption');
+  const previewCounter = document.getElementById('screenshot-preview-counter');
+  const previewClose = screenshotPreview.querySelector('.screenshot-preview-close');
+  const previewPrevious = document.getElementById('screenshot-preview-previous');
+  const previewNext = document.getElementById('screenshot-preview-next');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const warmedImages = new Map();
   const openDuration = 580;
@@ -34,9 +41,11 @@
   let detailMotions = [];
   let morphFace;
   let pressedBackdrop = false;
-  let screenshotIndex = 0;
   let screenshotCount = 0;
-  let galleryScrollTimer;
+  let screenshots = [];
+  let previewIndex = 0;
+  let previewOpener;
+  let pressedPreviewBackdrop = false;
 
   const textElement = (tag, text) => {
     const element = document.createElement(tag);
@@ -44,76 +53,136 @@
     return element;
   };
 
-  const updateGalleryCounter = () => {
-    galleryCounter.textContent = screenshotCount ? `${screenshotIndex + 1} / ${screenshotCount}` : '';
-    galleryCounter.setAttribute('aria-label', `Screenshot ${screenshotIndex + 1} of ${screenshotCount}`);
+  const updateGalleryControls = () => {
+    const maxScroll = galleryTrack.scrollWidth - galleryTrack.clientWidth;
+    const canScroll = maxScroll > 2;
+    previousScreenshot.hidden = !canScroll;
+    nextScreenshot.hidden = !canScroll;
+    previousScreenshot.disabled = galleryTrack.scrollLeft <= 2;
+    nextScreenshot.disabled = galleryTrack.scrollLeft >= maxScroll - 2;
   };
 
+  const showPreviewScreenshot = index => {
+    if (!screenshots.length) return;
+    previewIndex = (index + screenshots.length) % screenshots.length;
+    const screenshot = screenshots[previewIndex];
+    previewImage.alt = screenshot.alt || `${title.textContent} screenshot ${previewIndex + 1}`;
+    previewImage.src = screenshot.src;
+    previewCaption.textContent = previewImage.alt;
+    previewCounter.textContent = `${previewIndex + 1} / ${screenshots.length}`;
+    previewPrevious.hidden = screenshots.length <= 1;
+    previewNext.hidden = screenshots.length <= 1;
+  };
+
+  const openScreenshotPreview = (index, trigger) => {
+    if (!dialog.open || dialog.classList.contains('is-closing') || screenshotPreview.open) return;
+    previewOpener = trigger;
+    pressedPreviewBackdrop = false;
+    showPreviewScreenshot(index);
+    // A second native dialog sits above the project and contains keyboard focus.
+    screenshotPreview.showModal();
+  };
+
+  previewClose.addEventListener('click', () => screenshotPreview.close());
+  previewPrevious.addEventListener('click', () => showPreviewScreenshot(previewIndex - 1));
+  previewNext.addEventListener('click', () => showPreviewScreenshot(previewIndex + 1));
+  screenshotPreview.addEventListener('keydown', event => {
+    if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    const targets = { ArrowLeft: previewIndex - 1, ArrowRight: previewIndex + 1, Home: 0, End: screenshots.length - 1 };
+    if (!(event.key in targets)) return;
+    event.preventDefault();
+    showPreviewScreenshot(targets[event.key]);
+  });
+  const isOutsidePreview = event => {
+    const rect = screenshotPreview.getBoundingClientRect();
+    return event.clientX < rect.left || event.clientX > rect.right ||
+      event.clientY < rect.top || event.clientY > rect.bottom;
+  };
+  screenshotPreview.addEventListener('pointerdown', event => {
+    pressedPreviewBackdrop = event.target === screenshotPreview && isOutsidePreview(event);
+  });
+  screenshotPreview.addEventListener('click', event => {
+    if (pressedPreviewBackdrop && event.target === screenshotPreview && isOutsidePreview(event)) screenshotPreview.close();
+    pressedPreviewBackdrop = false;
+  });
+  screenshotPreview.addEventListener('close', () => {
+    if (screenshotPreview.open) return;
+    previewImage.removeAttribute('src');
+    if (dialog.open && previewOpener?.isConnected) previewOpener.focus({ preventScroll: true });
+    previewOpener = null;
+  });
+
   const renderScreenshots = project => {
-    clearTimeout(galleryScrollTimer);
-    const screenshots = (project.screenshots || []).filter(screenshot => screenshot.src);
-    screenshotIndex = 0;
+    screenshots = (project.screenshots || []).filter(screenshot => screenshot.src);
     screenshotCount = screenshots.length;
     gallery.hidden = screenshotCount === 0;
     galleryControls.hidden = screenshotCount <= 1;
+    galleryCounter.textContent = `${screenshotCount} screenshots`;
     galleryTrack.replaceChildren(...screenshots.map((screenshot, index) => {
       const slide = document.createElement('figure');
       slide.className = 'project-gallery-slide';
       slide.setAttribute('role', 'group');
-      slide.setAttribute('aria-roledescription', 'slide');
       slide.setAttribute('aria-label', `${index + 1} of ${screenshotCount}`);
+      const expand = document.createElement('button');
+      expand.type = 'button';
+      expand.className = 'project-gallery-expand';
+      expand.setAttribute('aria-label', `Expand screenshot ${index + 1} of ${screenshotCount}: ${screenshot.alt || project.title}`);
+      expand.setAttribute('aria-haspopup', 'dialog');
+      expand.setAttribute('aria-controls', 'screenshot-preview');
+      expand.addEventListener('click', () => openScreenshotPreview(index, expand));
       const screenshotImage = new Image();
-      screenshotImage.loading = 'lazy';
+      screenshotImage.loading = index < 2 ? 'eager' : 'lazy';
       screenshotImage.decoding = 'async';
       screenshotImage.alt = screenshot.alt || `${project.title} screenshot ${index + 1}`;
+      screenshotImage.addEventListener('load', () => {
+        // Each preview keeps its own proportions, including mixed portrait/landscape sets.
+        if (!galleryTrack.contains(slide) || !screenshotImage.naturalHeight) return;
+        slide.style.setProperty('--screenshot-ratio', screenshotImage.naturalWidth / screenshotImage.naturalHeight);
+        updateGalleryControls();
+      }, { once: true });
       screenshotImage.src = screenshot.src;
       screenshotImage.draggable = false;
-      slide.append(screenshotImage);
+      const expandIcon = document.createElement('span');
+      expandIcon.className = 'project-gallery-expand-icon';
+      expandIcon.setAttribute('aria-hidden', 'true');
+      const expandSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      expandSvg.setAttribute('viewBox', '0 0 24 24');
+      expandSvg.setAttribute('focusable', 'false');
+      const expandPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      expandPath.setAttribute('d', 'M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5');
+      expandSvg.append(expandPath);
+      expandIcon.append(expandSvg);
+      expand.append(screenshotImage, expandIcon);
+      slide.append(expand);
       return slide;
     }));
-    updateGalleryCounter();
+    updateGalleryControls();
   };
 
-  const showScreenshot = index => {
-    if (!screenshotCount) return;
-    screenshotIndex = (index + screenshotCount) % screenshotCount;
-    updateGalleryCounter();
+  const scrollScreenshots = left => {
     galleryTrack.scrollTo({
-      left: screenshotIndex * galleryTrack.clientWidth,
+      left,
       behavior: reducedMotion.matches ? 'instant' : 'smooth'
     });
   };
 
-  previousScreenshot.addEventListener('click', () => showScreenshot(screenshotIndex - 1));
-  nextScreenshot.addEventListener('click', () => showScreenshot(screenshotIndex + 1));
+  previousScreenshot.addEventListener('click', () => scrollScreenshots(galleryTrack.scrollLeft - galleryTrack.clientWidth * 0.85));
+  nextScreenshot.addEventListener('click', () => scrollScreenshots(galleryTrack.scrollLeft + galleryTrack.clientWidth * 0.85));
   galleryTrack.addEventListener('keydown', event => {
     if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
     const targets = {
-      ArrowLeft: screenshotIndex - 1,
-      ArrowRight: screenshotIndex + 1,
+      ArrowLeft: galleryTrack.scrollLeft - galleryTrack.clientWidth * 0.85,
+      ArrowRight: galleryTrack.scrollLeft + galleryTrack.clientWidth * 0.85,
       Home: 0,
-      End: screenshotCount - 1
+      End: galleryTrack.scrollWidth
     };
     if (!(event.key in targets)) return;
     event.preventDefault();
-    showScreenshot(targets[event.key]);
+    scrollScreenshots(targets[event.key]);
   });
-  galleryTrack.addEventListener('scroll', () => {
-    // Wait for a swipe or smooth scroll to settle before announcing its slide.
-    // This also keeps rapid arrow clicks from picking an intermediate slide.
-    clearTimeout(galleryScrollTimer);
-    galleryScrollTimer = setTimeout(() => {
-      if (!dialog.open || !galleryTrack.clientWidth || !screenshotCount) return;
-      const index = Math.max(0, Math.min(screenshotCount - 1, Math.round(galleryTrack.scrollLeft / galleryTrack.clientWidth)));
-      if (index === screenshotIndex) return;
-      screenshotIndex = index;
-      updateGalleryCounter();
-    }, 120);
-  }, { passive: true });
+  galleryTrack.addEventListener('scroll', updateGalleryControls, { passive: true });
   new ResizeObserver(() => {
-    if (dialog.open && !gallery.hidden) {
-      galleryTrack.scrollTo({ left: screenshotIndex * galleryTrack.clientWidth, behavior: 'instant' });
-    }
+    if (dialog.open && !gallery.hidden) updateGalleryControls();
   }).observe(galleryTrack);
 
   const cancelMotion = () => {
@@ -257,6 +326,7 @@
   const finishClose = () => {
     clearTimeout(closeTimer);
     cancelMotion();
+    if (screenshotPreview.open) screenshotPreview.close();
     if (dialog.open) dialog.close();
   };
   const requestClose = () => {
@@ -352,8 +422,8 @@
   });
   dialog.addEventListener('close', () => {
     clearTimeout(closeTimer);
-    clearTimeout(galleryScrollTimer);
     cancelMotion();
+    if (screenshotPreview.open) screenshotPreview.close();
     dialog.classList.remove('is-closing');
     root.classList.remove('project-modal-open');
     opener?.focus({ preventScroll: true });

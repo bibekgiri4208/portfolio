@@ -3,6 +3,7 @@ html.project-modal-open {
 }
 
 .project-dialog {
+  --project-gallery-height: clamp(140px, 21vh, 180px);
   width: min(920px, calc(100% - 48px));
   max-width: none;
   max-height: min(88vh, 900px);
@@ -157,13 +158,22 @@ html.project-modal-open {
 }
 
 .project-skeleton-gallery {
-  margin-top: 24px;
-  padding-top: 24px;
+  margin-top: 16px;
+  padding-top: 16px;
   border-top: 1px solid var(--line);
 }
 
+.project-skeleton-strip {
+  display: flex;
+  gap: 12px;
+  overflow: hidden;
+}
+
 .project-skeleton-screen {
-  height: clamp(160px, 40vw, 340px);
+  flex: 0 0 auto;
+  width: calc(var(--project-gallery-height) * 1.6);
+  max-width: calc(100% - 32px);
+  aspect-ratio: 1.6;
   border-radius: 14px;
 }
 
@@ -285,12 +295,19 @@ html.project-modal-open {
   border-top: 1px solid var(--line);
 }
 
+.project-dialog-gallery {
+  min-width: 0;
+  margin-top: 16px;
+  padding-top: 16px;
+}
+
 .project-gallery-header {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .project-gallery-header h3 {
@@ -309,6 +326,7 @@ html.project-modal-open {
   font-size: 0.75rem;
   text-align: center;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .project-gallery-arrow {
@@ -326,20 +344,24 @@ html.project-modal-open {
   transition: background var(--transition), border-color var(--transition);
 }
 
-.project-gallery-arrow:hover {
+.project-gallery-arrow:not(:disabled):hover {
   border-color: var(--accent);
   background: var(--accent-soft);
 }
 
+.project-gallery-arrow:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
 .project-gallery-track {
   display: flex;
+  align-items: flex-start;
+  gap: 12px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x proximity;
   scrollbar-width: none;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: var(--surface-soft);
 }
 
 .project-gallery-track::-webkit-scrollbar {
@@ -347,17 +369,174 @@ html.project-modal-open {
 }
 
 .project-gallery-slide {
-  flex: 0 0 100%;
+  flex: 0 0 auto;
+  width: calc(var(--project-gallery-height) * var(--screenshot-ratio, 1.6));
+  max-width: calc(100% - 32px);
+  aspect-ratio: var(--screenshot-ratio, 1.6);
   min-width: 0;
   margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-soft);
   scroll-snap-align: start;
+}
+
+.project-gallery-slide:only-child {
+  max-width: 100%;
 }
 
 .project-gallery-slide img {
   display: block;
   width: 100%;
-  height: clamp(160px, 40vw, 340px);
+  height: 100%;
   object-fit: contain;
+}
+
+.project-gallery-expand {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: inherit;
+  background: transparent;
+  color: white;
+  cursor: zoom-in;
+}
+
+.project-gallery-expand-icon {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: rgba(9, 17, 38, 0.7);
+  color: #fff;
+  pointer-events: none;
+}
+
+.project-gallery-expand-icon svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.project-gallery-expand:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: -3px;
+}
+
+.screenshot-preview {
+  width: calc(100% - 32px);
+  height: calc(100vh - 32px);
+  height: calc(100dvh - 32px);
+  max-width: 1400px;
+  max-height: none;
+  margin: auto;
+  padding: 16px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-lg);
+}
+
+.screenshot-preview[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: screenshotPreviewIn 180ms ease-out;
+}
+
+.screenshot-preview::backdrop {
+  background: rgba(9, 17, 38, 0.82);
+}
+
+.screenshot-preview-header,
+.screenshot-preview-controls {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.screenshot-preview-header {
+  justify-content: space-between;
+}
+
+.screenshot-preview-header h2 {
+  margin: 0;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+}
+
+.screenshot-preview-close {
+  flex-shrink: 0;
+}
+
+.screenshot-preview-figure {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+  min-width: 0;
+  margin: 0;
+}
+
+.screenshot-preview-figure img {
+  display: block;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  height: 0;
+  object-fit: contain;
+}
+
+.screenshot-preview-figure figcaption {
+  flex-shrink: 0;
+  max-height: 3.2em;
+  overflow: auto;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.screenshot-preview-controls {
+  justify-content: center;
+}
+
+#screenshot-preview-counter {
+  min-width: 4em;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.screenshot-preview [hidden] {
+  display: none;
+}
+
+.screenshot-preview button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@keyframes screenshotPreviewIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: none; }
 }
 
 .project-dialog-features ul {
@@ -451,6 +630,7 @@ html.project-modal-open {
 
 @media (max-width: 640px) {
   .project-dialog {
+    --project-gallery-height: clamp(110px, 18vh, 140px);
     width: calc(100% - 24px);
     max-height: calc(100vh - 32px);
     max-height: calc(100dvh - 32px);
@@ -492,6 +672,10 @@ html.project-modal-open {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .screenshot-preview[open] {
+    animation: none;
+  }
+
   .project-dialog::backdrop {
     transition: none;
   }

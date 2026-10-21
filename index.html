@@ -21,7 +21,7 @@
   <script src="js/sakura.js" defer></script>
   <!-- Retain return-animation styling for direct visits to the fallback page. -->
   <link rel="stylesheet" href="css/project_description.css?v=glass-20261021" />
-  <link rel="stylesheet" href="css/project_modal.css?v=project-skeleton-20261021" />
+  <link rel="stylesheet" href="css/project_modal.css?v=project-preview-icon-20261021" />
   <link rel="stylesheet" href="css/index_about.css?v=glass-20261021" />
   <link rel="stylesheet" href="css/index_skills.css?v=glass-20261021" />
   <link rel="stylesheet" href="css/index_projects.css?v=glass-20261021" />
@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
   <script src="js/projects-data.js" defer></script>
-  <script src="js/project-modal.js?v=project-skeleton-20261021" defer></script>
+  <script src="js/project-modal.js?v=project-preview-icon-20261021" defer></script>
 
   <!-- Improved Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -431,7 +431,11 @@
         </div>
         <div class="project-skeleton-gallery">
           <span class="project-skeleton-block project-skeleton-heading"></span>
-          <span class="project-skeleton-block project-skeleton-screen"></span>
+          <div class="project-skeleton-strip">
+            <span class="project-skeleton-block project-skeleton-screen"></span>
+            <span class="project-skeleton-block project-skeleton-screen"></span>
+            <span class="project-skeleton-block project-skeleton-screen"></span>
+          </div>
         </div>
       </div>
       <div class="project-skeleton-actions">
@@ -455,15 +459,15 @@
           <div id="project-dialog-description"></div>
         </div>
       </div>
-      <div class="project-dialog-gallery" role="region" aria-roledescription="carousel" aria-labelledby="project-dialog-screenshots-title" hidden>
+      <div class="project-dialog-gallery" role="region" aria-labelledby="project-dialog-screenshots-title" hidden>
         <div class="project-gallery-header">
           <h3 id="project-dialog-screenshots-title">Screenshots</h3>
           <div class="project-gallery-controls">
             <span id="project-gallery-counter" role="status" aria-live="polite" aria-atomic="true"></span>
-            <button class="project-gallery-arrow" id="project-gallery-previous" type="button" aria-label="Previous screenshot" aria-controls="project-gallery-track">
+            <button class="project-gallery-arrow" id="project-gallery-previous" type="button" aria-label="Scroll screenshots left" aria-controls="project-gallery-track">
               <i class="fas fa-chevron-left" aria-hidden="true"></i>
             </button>
-            <button class="project-gallery-arrow" id="project-gallery-next" type="button" aria-label="Next screenshot" aria-controls="project-gallery-track">
+            <button class="project-gallery-arrow" id="project-gallery-next" type="button" aria-label="Scroll screenshots right" aria-controls="project-gallery-track">
               <i class="fas fa-chevron-right" aria-hidden="true"></i>
             </button>
           </div>
@@ -483,6 +487,28 @@
         <i class="fas fa-play" aria-hidden="true"></i> Live demo
       </a>
       <button id="project-dialog-demo-unavailable" class="project-dialog-button" type="button" disabled hidden>Demo coming soon</button>
+    </div>
+  </dialog>
+
+  <dialog id="screenshot-preview" class="screenshot-preview" aria-labelledby="screenshot-preview-title">
+    <div class="screenshot-preview-header">
+      <h2 id="screenshot-preview-title">Screenshot preview</h2>
+      <button class="project-gallery-arrow screenshot-preview-close" type="button" aria-label="Close screenshot preview" autofocus>
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
+    </div>
+    <figure class="screenshot-preview-figure">
+      <img id="screenshot-preview-image" alt="">
+      <figcaption id="screenshot-preview-caption"></figcaption>
+    </figure>
+    <div class="screenshot-preview-controls">
+      <button class="project-gallery-arrow" id="screenshot-preview-previous" type="button" aria-label="Previous screenshot">
+        <i class="fas fa-chevron-left" aria-hidden="true"></i>
+      </button>
+      <span id="screenshot-preview-counter" role="status" aria-live="polite" aria-atomic="true"></span>
+      <button class="project-gallery-arrow" id="screenshot-preview-next" type="button" aria-label="Next screenshot">
+        <i class="fas fa-chevron-right" aria-hidden="true"></i>
+      </button>
     </div>
   </dialog>
 
