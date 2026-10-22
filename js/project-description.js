@@ -48,9 +48,7 @@
     ? `<a href="${project.demo}" class="pd-btn pd-btn-secondary" target="_blank" rel="noopener noreferrer" aria-label="Live demo of ${project.title} (opens in a new tab)">
         <i class="fas fa-play" aria-hidden="true"></i> Live Demo
        </a>`
-    : `<a href="under-development.html" class="pd-btn pd-btn-secondary">
-        <i class="far fa-clock" aria-hidden="true"></i> Demo coming soon
-       </a>`;
+    : '';
 
   const renderNeighbor = (neighbor, direction) => `
     <a href="project_description.html?id=${neighbor.id}" class="pd-neighbor" aria-label="${direction} project: ${neighbor.title}" data-page-transition data-project-preview="${neighbor.image}">
