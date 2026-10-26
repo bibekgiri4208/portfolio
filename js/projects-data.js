@@ -4,25 +4,28 @@
 window.PortfolioProjects = [
   {
     id: 0,
-    title: 'Circuit Race',
+    title: 'Cube Dash',
     category: 'Unity Game',
-    image: 'assets/img/circuit_race.webp',
-    imageAlt: 'Circuit Race — 3D lowpoly car racing game',
+    image: 'assets/projects_img/Cube%20Dash%20Icon.png',
+    imageAlt: 'Cube Dash game icon with a red cube, traffic, and collectible coins',
     screenshots: [
-      { src: 'assets/img/car_race.png', alt: 'Circuit Race car selection screen with track settings and practice mode' }
+      { src: 'assets/projects_img/cd_1.webp', alt: 'Cube Dash main menu with Start, Shop, Options, and Quit buttons in a cherry blossom setting' },
+      { src: 'assets/projects_img/cd_2.webp', alt: 'Cube Dash beach gameplay with collectible coins, road obstacles, and an active magnet power-up' },
+      { src: 'assets/projects_img/cd_3.webp', alt: 'Cube Dash skin shop featuring a neon supercar, monster truck, and military van' },
+      { src: 'assets/projects_img/cd_4.webp', alt: 'Cube Dash map selection with City, Jungle, Dynamic, Desert, Beach, and Country Side environments' }
     ],
-    summary: 'A lowpoly racing game with drift-tuned handling, distinct cars, and tracks that reward precision and speed.',
-    description: `Circuit Race is a 3D lowpoly car racing game built in Unity as a final-year academic project. The game features multiple car choices, each with distinct handling characteristics, drift-tuned physics, and a variety of racing tracks designed to test precision and speed.\n\nThe project focuses on delivering a polished gameplay experience with attention to visual detail — from lowpoly environment modeling in Blender to custom sound effects edited in Audacity. The handling model balances arcade accessibility with enough depth to reward skilled driving, making each race feel dynamic and replayable.`,
-    tags: ['Unity', 'C#', 'Blender', 'Audacity'],
+    summary: 'A colorful 3D arcade runner with traffic to dodge, coins to collect, unlockable skins, and six environments to explore.',
+    description: `Cube Dash is a 3D arcade runner built in Unity. Guide a cube along roads filled with traffic and obstacles, collect coins, and push for a new best score. Power-ups such as the coin magnet add another layer to each run.\n\nThe game features six environment choices — City, Jungle, Dynamic, Desert, Beach, and Country Side — alongside a coin-based skin shop. Colorful lowpoly scenery, cherry blossom backdrops, and bold pink-and-red menus give the game a playful visual identity.`,
+    tags: ['Unity', 'C#'],
     features: [
-      'Multiple car models with unique handling and drift physics',
-      'Designed racing tracks with varied terrain and challenge levels',
-      'Lowpoly 3D art style modeled and textured in Blender',
-      'Custom sound effects and engine audio mixed in Audacity',
-      'Polished UI with lap tracking, speedometer, and race timer',
-      'Ongoing visual improvements for final-year project presentation'
+      '3D arcade running with traffic and road obstacles to dodge',
+      'Collectible coins and a timed magnet power-up',
+      'Six environment choices: City, Jungle, Dynamic, Desert, Beach, and Country Side',
+      'Coin-based skin shop with vehicles to unlock and equip',
+      'In-game distance, score, and best-score displays',
+      'Colorful lowpoly environments with bold pink-and-red menus'
     ],
-    source: 'https://github.com/bibekgiri4208/Circuit-Race.git',
+    source: null,
     demo: null
   },
   {

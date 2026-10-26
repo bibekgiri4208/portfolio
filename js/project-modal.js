@@ -293,7 +293,9 @@
     description.replaceChildren(...project.description.split('\n\n').map(text => textElement('p', text)));
     features.replaceChildren(...project.features.map(text => textElement('li', text)));
     renderScreenshots(project);
-    github.href = project.source;
+    github.hidden = !project.source;
+    if (project.source) github.href = project.source;
+    else github.removeAttribute('href');
     github.setAttribute('aria-label', `${project.title} on GitHub (opens in a new tab)`);
     demo.hidden = !project.demo;
     unavailable.hidden = !!project.demo;
