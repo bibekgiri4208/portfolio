@@ -594,39 +594,30 @@ section {
    ENTRANCE ANIMATIONS
    ============================================ */
 
-.hero-eyebrow,
-.hero-title-line,
-.hero-description,
-.hero-stats-grid,
-.hero-cta-group,
-.profile-image-container {
-  opacity: 0;
-  transform: translateY(24px);
+/* Start on first render, independent of JavaScript and slow page assets. */
+.hero .hero-eyebrow,
+.hero .profile-image-container {
+  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.hero.loaded .hero-eyebrow,
-.hero.loaded .profile-image-container {
-  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+.hero .hero-title-line:nth-child(1) {
+  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
 }
 
-.hero.loaded .hero-title-line:nth-child(1) {
-  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+.hero .hero-title-line:nth-child(2) {
+  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
 }
 
-.hero.loaded .hero-title-line:nth-child(2) {
-  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.2s forwards;
+.hero .hero-description {
+  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
 }
 
-.hero.loaded .hero-description {
-  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+.hero .hero-stats-grid {
+  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
 }
 
-.hero.loaded .hero-stats-grid {
-  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
-}
-
-.hero.loaded .hero-cta-group {
-  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+.hero .hero-cta-group {
+  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
 }
 
 @keyframes fadeUp {

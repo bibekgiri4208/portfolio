@@ -87,19 +87,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ============================================
-// HERO ENTRANCE + PAGE LOAD ANIMATIONS
+// INITIAL VIEWPORT REVEALS
 // ============================================
 
-window.addEventListener('load', () => {
-  // Trigger hero staggered entrance
-  const hero = document.querySelector('.hero');
-  if (hero) hero.classList.add('loaded');
-
-  // Instantly reveal elements already in viewport
-  document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-form, .section-kicker, .section-title, .projects-subtitle').forEach(el => {
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.9) {
-      el.classList.add('animate-in', 'reveal');
-    }
-  });
+// This script runs after the page markup; don't wait for images or window.load.
+document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-form, .section-kicker, .section-title, .projects-subtitle').forEach(el => {
+  const rect = el.getBoundingClientRect();
+  if (rect.top < window.innerHeight * 0.9) {
+    el.classList.add('animate-in', 'reveal');
+  }
 });

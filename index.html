@@ -10,13 +10,11 @@
   <script src="js/page-transition.js"></script>
   <link rel="icon" type="image/png" href="assets/img/Logo.png">
 
-  <!-- Preload critical assets -->
-  <link rel="preload" href="assets/img/profile.jpg" as="image">
-  <link rel="preload" href="assets/projects_img/death_derby_img/Death_Derby_thumbnail.webp" as="image">
-  <link rel="preload" href="assets/projects_img/chasing_horizon_img/Chasing_Horizon_thumbnail.webp" as="image">
+  <!-- Prioritize only the image visible on initial arrival. -->
+  <link rel="preload" href="assets/img/profile-780.jpg" as="image" fetchpriority="high">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css?v=mobile-glass-20261022" />
+  <link rel="stylesheet" href="css/style.css?v=initial-load-20261027" />
   <link rel="stylesheet" href="css/sakura.css?v=glass-20261021" />
   <script src="js/sakura.js" defer></script>
   <!-- Retain return-animation styling for direct visits to the fallback page. -->
@@ -72,7 +70,7 @@
         <div class="profile-image-container">
           <!-- Add your profile image here -->
           <div class="profile-image-wrapper">
-            <img src="assets/img/profile.jpg" alt="Bibek Giri - Full Stack Developer" class="profile-image">
+            <img src="assets/img/profile-780.jpg" alt="Bibek Giri - Full Stack Developer" class="profile-image" width="780" height="924" fetchpriority="high" decoding="async">
           </div>
           <div class="profile-badge">
             <i class="fas fa-code"></i>
@@ -261,7 +259,7 @@
 
             <a href="project_description.html?id=0" class="project-card" aria-labelledby="project-card-title-0" aria-haspopup="dialog" aria-controls="project-dialog" data-project-modal="0" data-project-preview="assets/projects_img/cube_dash_img/Cube_Dash_Icon.webp">
               <div class="project-thumb">
-                <img src="assets/projects_img/cube_dash_img/Cube_Dash_thumbnail.webp" alt="Cube Dash thumbnail with a red cube dodging traffic and collecting coins">
+                <img src="assets/projects_img/cube_dash_img/Cube_Dash_thumbnail.webp" alt="Cube Dash thumbnail with a red cube dodging traffic and collecting coins" loading="lazy" decoding="async">
               </div>
               <div class="project-body">
                 <h3 id="project-card-title-0">Cube Dash</h3>
@@ -272,7 +270,7 @@
 
             <a href="project_description.html?id=1" class="project-card" aria-labelledby="project-card-title-1" aria-haspopup="dialog" aria-controls="project-dialog" data-project-modal="1" data-project-preview="assets/projects_img/chasing_horizon_img/Chasing_Horizon_icon.webp">
               <div class="project-thumb">
-                <img src="assets/projects_img/chasing_horizon_img/Chasing_Horizon_thumbnail.webp" alt="Chasing Horizon JDM-themed racing game thumbnail">
+                <img src="assets/projects_img/chasing_horizon_img/Chasing_Horizon_thumbnail.webp" alt="Chasing Horizon JDM-themed racing game thumbnail" loading="lazy" decoding="async">
               </div>
               <div class="project-body">
                 <h3 id="project-card-title-1">Chasing Horizon</h3>
@@ -283,7 +281,7 @@
 
             <a href="project_description.html?id=2" class="project-card" aria-labelledby="project-card-title-2" aria-haspopup="dialog" aria-controls="project-dialog" data-project-modal="2" data-project-preview="assets/projects_img/dino_rush_img/Dino_Rush_icon.webp">
               <div class="project-thumb">
-                <img src="assets/projects_img/dino_rush_img/Dino_Rush_thumbnail.webp" alt="Dino Rush: A Journey Home thumbnail with a blue dinosaur in a pixel-art mountain landscape">
+                <img src="assets/projects_img/dino_rush_img/Dino_Rush_thumbnail.webp" alt="Dino Rush: A Journey Home thumbnail with a blue dinosaur in a pixel-art mountain landscape" loading="lazy" decoding="async">
               </div>
               <div class="project-body">
                 <h3 id="project-card-title-2">Dino Rush</h3>
@@ -294,7 +292,7 @@
 
             <a href="project_description.html?id=3" class="project-card" aria-labelledby="project-card-title-3" aria-haspopup="dialog" aria-controls="project-dialog" data-project-modal="3" data-project-preview="assets/projects_img/death_derby_img/Death_Derby_icon.webp">
               <div class="project-thumb">
-                <img src="assets/projects_img/death_derby_img/Death_Derby_thumbnail.webp" alt="Death Derby thumbnail featuring combat vehicles in a desert wasteland">
+                <img src="assets/projects_img/death_derby_img/Death_Derby_thumbnail.webp" alt="Death Derby thumbnail featuring combat vehicles in a desert wasteland" loading="lazy" decoding="async">
               </div>
               <div class="project-body">
                 <h3 id="project-card-title-3">Death Derby</h3>
@@ -305,7 +303,7 @@
 
             <a href="project_description.html?id=4" class="project-card" aria-labelledby="project-card-title-4" aria-haspopup="dialog" aria-controls="project-dialog" data-project-modal="4" data-project-preview="assets/img/domain_expansion.webp">
               <div class="project-thumb">
-                <img src="assets/img/domain_expansion.webp" alt="Domain Expansion Thumbnail">
+                <img src="assets/img/domain_expansion.webp" alt="Domain Expansion Thumbnail" loading="lazy" decoding="async">
               </div>
               <div class="project-body">
                 <h3 id="project-card-title-4">Domain Expansion</h3>
@@ -316,7 +314,7 @@
 
             <a href="project_description.html?id=5" class="project-card" aria-labelledby="project-card-title-5" aria-haspopup="dialog" aria-controls="project-dialog" data-project-modal="5" data-project-preview="assets/img/3b_transport.webp">
               <div class="project-thumb">
-                <img src="assets/img/parcel.png" alt="3B Transport parcel delivery website">
+                <img src="assets/img/parcel.png" alt="3B Transport parcel delivery website" loading="lazy" decoding="async">
               </div>
               <div class="project-body">
                 <h3 id="project-card-title-5">3B Transport</h3>
@@ -525,7 +523,7 @@
     <p class="footer-subtext">giribibek0101@gmail.com</p>
   </footer>
 
-  <script src="js/script.js"></script>
+  <script src="js/script.js?v=initial-load-20261027"></script>
 </body>
 
 </html>
