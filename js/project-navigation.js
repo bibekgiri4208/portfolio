@@ -144,29 +144,6 @@
     return;
   }
 
-  const pageReturnLink = document.querySelector('a[data-page-return]');
-  if (pageReturnLink) {
-    // Keep the originating page through reloads, and support links opened in a new tab.
-    try {
-      const sourceUrl = new URL(history.state?.pageReturnUrl || document.referrer);
-      if (sourceUrl.origin === window.location.origin && sourceUrl.href !== window.location.href) {
-        pageReturnLink.href = sourceUrl.href;
-        history.replaceState({ ...history.state, pageReturnUrl: sourceUrl.href }, '');
-      }
-    } catch {
-      // Direct visits without a referrer retain the Projects fallback.
-    }
-
-    pageReturnLink.addEventListener('click', event => {
-      if (event.defaultPrevented || event.button !== 0 || event.metaKey ||
-          event.ctrlKey || event.shiftKey || event.altKey || history.length <= 1) return;
-
-      event.preventDefault();
-      history.back();
-    });
-    return;
-  }
-
   const savedPosition = readReturnPosition();
   const isProject = window.location.pathname.endsWith('/project_description.html');
   if (isProject && savedPosition?.projectUrl === window.location.href &&

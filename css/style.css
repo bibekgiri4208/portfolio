@@ -5,7 +5,6 @@
   --text: #17243e;
   --muted: #4e5d78;
   --line: rgba(76, 102, 158, 0.18);
-  --primary: #3658c8;
   --accent: #3658c8;
   --accent-soft: rgba(76, 106, 220, 0.12);
   --glass-tint: rgba(255, 255, 255, 0.46);
@@ -69,11 +68,6 @@ html.restoring-project-position {
 .project-return-restored body.dark-mode .project-card.animate-in:hover {
   background: var(--glass-bg);
   border-color: var(--glass-border);
-}
-
-.project-return-restored .project-link:hover {
-  transform: none;
-  opacity: 1;
 }
 
 body {
@@ -243,10 +237,6 @@ h3 {
   transform: translateY(0) scale(0.94);
   box-shadow: 0 0 0 5px var(--accent-soft);
   transition-duration: 90ms;
-}
-
-.nav-link::after {
-  display: none;
 }
 
 .theme-toggle,
@@ -568,10 +558,6 @@ section {
   text-align: center;
 }
 
-.section-title::after {
-  display: none;
-}
-
 .footer {
   padding: 3rem 1.5rem;
   border-top: 1px solid var(--line);
@@ -659,7 +645,6 @@ body.dark-mode {
   --text: #eef3ff;
   --muted: #b2bfd9;
   --line: rgba(173, 195, 244, 0.18);
-  --primary: #b2c6ff;
   --accent: #b2c6ff;
   --accent-soft: rgba(143, 171, 255, 0.14);
   --glass-tint: rgba(23, 34, 59, 0.55);
@@ -686,8 +671,7 @@ body.dark-mode {
     padding-top: 130px;
   }
 
-  .hero-content,
-  .about-grid {
+  .hero-content {
     grid-template-columns: 1fr;
   }
 
@@ -716,8 +700,6 @@ body.dark-mode {
     justify-content: center;
     margin-left: 0;
   }
-
-  /* skills-grid and project responsive rules moved to per-section files */
 }
 
 @media (max-width: 768px) {
@@ -775,7 +757,6 @@ body.dark-mode {
 
   .nav-menu.active {
     display: flex !important;
-    animation: slideDown 180ms ease;
   }
 
   .nav-link {
@@ -815,8 +796,6 @@ body.dark-mode {
   .cta-btn {
     width: 100%;
   }
-
-  /* projects responsive rules moved to css/index_projects.css */
 }
 
 @media (max-width: 560px) {
@@ -846,10 +825,6 @@ body.dark-mode {
   .section-kicker {
     white-space: nowrap;
   }
-
-  /* about/contact/projects responsive rules moved to per-section files */
-
-  /* detailed project responsive rules moved to css/index_projects.css */
 }
 
 @media (prefers-reduced-motion: reduce) {

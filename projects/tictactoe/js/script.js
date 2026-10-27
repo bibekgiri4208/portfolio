@@ -1,7 +1,6 @@
 let boxes = document.querySelectorAll(".box");
 let turn = "X";
 let isGameOver = false;
-let leaderboard = [];
 let currentScore = { X: 0, O: 0 };
 
 boxes.forEach(e =>{

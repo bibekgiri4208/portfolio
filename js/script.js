@@ -65,7 +65,8 @@ const observer = new IntersectionObserver(entries => {
 }, observerOptions);
 
 // Observe cards, section headers, and content elements
-document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-form, .section-kicker, .section-title, .projects-subtitle').forEach(el => {
+const revealElements = document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-form, .section-kicker, .section-title, .projects-subtitle');
+revealElements.forEach(el => {
   observer.observe(el);
 });
 
@@ -91,7 +92,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ============================================
 
 // This script runs after the page markup; don't wait for images or window.load.
-document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-form, .section-kicker, .section-title, .projects-subtitle').forEach(el => {
+revealElements.forEach(el => {
   const rect = el.getBoundingClientRect();
   if (rect.top < window.innerHeight * 0.9) {
     el.classList.add('animate-in', 'reveal');

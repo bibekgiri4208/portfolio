@@ -1,8 +1,3 @@
-/* Keep negative layers above the body background, but behind all page content. */
-body {
-  isolation: isolate;
-}
-
 .sakura-layer {
   position: fixed;
   inset: 0;
@@ -91,11 +86,6 @@ body {
 .sakura-toggle:hover {
   color: var(--text);
   border-color: #f72585;
-}
-
-.sakura-toggle:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
 }
 
 .sakura-toggle svg {

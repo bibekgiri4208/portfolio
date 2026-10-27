@@ -86,7 +86,6 @@ body {
 }
 
 .box-container {
-    background-color: white;
     border-radius: 10px;
     padding: 20px;
     display: inline-block;
@@ -126,16 +125,13 @@ body {
     cursor: pointer;
     margin: 10px;
     color: black;
+    display: none;
 }
 
 #play-again:hover, #new-game:hover {
     padding: 10px 40px;
     background-color: #2db56d;
     color: black;
-}
-
-#play-again, #new-game {
-    display: none;
 }
 
 #leaderboard {

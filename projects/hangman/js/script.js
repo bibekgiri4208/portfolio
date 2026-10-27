@@ -5,7 +5,6 @@ const newGameContainer = document.getElementById("new-game-container");
 const newGameButton = document.getElementById("new-game-button");
 const canvas = document.getElementById("canvas");
 const resultText = document.getElementById("result-text");
-const leaderboardContainer = document.getElementById("leaderboard-container");
 const leaderboard = document.getElementById("leaderboard").querySelector("tbody");
 
 let options = {
@@ -24,7 +23,6 @@ let winCount = 0;
 let count = 0;
 let chosenWord = "";
 
-let leaderboardData = [];
 const displayOptions = () => {
   optionsContainer.innerHTML += `<h2>Select An Option</h2>`;
   let buttonCon = document.createElement("div");

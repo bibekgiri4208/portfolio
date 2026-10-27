@@ -136,7 +136,7 @@
                 scoreboardBody.innerHTML = '<tr><td colspan="2">No records found</td></tr>';
             } else {
                 // Populate the table with scores
-                scores.forEach((score, index) => {
+                scores.forEach((score) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td>${score.name}</td>
