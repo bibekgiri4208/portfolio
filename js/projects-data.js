@@ -6,7 +6,7 @@ window.PortfolioProjects = [
     id: 0,
     title: 'Cube Dash',
     category: 'Unity Game',
-    image: 'assets/projects_img/cube_dash_img/Cube%20Dash%20Icon.webp',
+    image: 'assets/projects_img/cube_dash_img/Cube_Dash_Icon.webp',
     imageAlt: 'Cube Dash game icon with a red cube, traffic, and collectible coins',
     screenshots: [
       { src: 'assets/projects_img/cube_dash_img/cd_1.webp', alt: 'Main menu' },
@@ -31,33 +31,29 @@ window.PortfolioProjects = [
   },
   {
     id: 1,
-    title: 'Tic Tac Toe',
-    category: 'JavaScript Game',
-    image: 'assets/img/tictactoe.webp',
-    imageAlt: 'Tic Tac Toe — classic browser game with modern UI',
-    screenshots: [
-      { src: 'assets/img/screenshots/tictactoe-game.jpg', alt: 'Tic Tac Toe board during a two-player match' },
-      { src: 'assets/img/screenshots/tictactoe-result.jpg', alt: 'Tic Tac Toe winning row and updated leaderboard' }
-    ],
-    summary: 'A familiar two-player game, reimagined for the browser with a clean interface and responsive gameplay.',
-    description: `Tic Tac Toe is a reimagined version of the classic pencil-and-paper game, rebuilt for the browser with a clean, modern interface. The game supports two players taking turns on a 3x3 grid, with win detection and draw handling built in.\n\nThe focus was on creating a smooth, responsive experience that works across devices. The UI uses subtle animations for piece placement and win highlighting, making the gameplay feel polished without being distracting. It's a simple concept executed with care for the details.`,
-    tags: ['HTML', 'CSS', 'JavaScript'],
+    title: 'Chasing Horizon',
+    category: 'Unity Game',
+    image: 'assets/projects_img/chasing_horizon_img/Chasing_Horizon_icon.webp',
+    imageAlt: 'Chasing Horizon — JDM-themed racing game icon',
+    screenshots: [],
+    summary: 'A JDM-themed racing game built in Unity, bringing together drifting, car racing, and multiplayer competition.',
+    description: `Chasing Horizon is a car racing game built in Unity, inspired by JDM car culture. JDM-themed cars take center stage in an experience that brings together racing and drifting.\n\nMultiplayer adds a competitive dimension, letting players race against one another. From chasing a win to sliding through corners, Chasing Horizon celebrates the thrill of driving and the style of JDM cars.`,
+    tags: ['Unity', 'C#'],
     features: [
-      'Two-player local gameplay with alternating turns',
-      'Real-time win and draw detection',
-      'Clean, responsive layout that works on mobile and desktop',
-      'Subtle animations for piece placement and board feedback',
-      'Score tracking across multiple rounds',
-      'Minimal, distraction-free interface'
+      'JDM-themed cars inspired by Japanese car culture',
+      'Car racing focused on speed and competition',
+      'Drifting gameplay for sliding through corners',
+      'Multiplayer racing against other players',
+      'Built in Unity using C#'
     ],
-    source: 'https://github.com/bibekgiri4208/Tictactoe.git',
-    demo: 'projects/tictactoe/index.html'
+    source: null,
+    demo: null
   },
   {
     id: 2,
     title: 'Dino Rush',
     category: 'Unity Game',
-    image: 'assets/projects_img/dino_rush_img/Dino%20Rush%20icon.webp',
+    image: 'assets/projects_img/dino_rush_img/Dino_Rush_icon.webp',
     imageAlt: 'Dino Rush — A Journey Home game icon',
     screenshots: [
       { src: 'assets/projects_img/dino_rush_img/dr_1.webp', alt: 'Main menu' },
@@ -67,7 +63,7 @@ window.PortfolioProjects = [
       { src: 'assets/projects_img/dino_rush_img/dr_5.webp', alt: 'Gameplay in Forest map' }
     ],
     summary: 'A pixel-art 2D runner with five scenic trails, collectible eggs, unlockable dinosaurs, and customizable trail effects.',
-    description: `Dino Rush: A Journey Home is a 2D side-scrolling runner built with Unity. Guide a dinosaur past obstacles, collect eggs, and chase a new best score through layered pixel-art scenery. Five trails — Forest, Desert, Jungle, Rural, and Snow Mountain — offer distinct backdrops for each run.\n\nCollected eggs feed into a shop where mystery eggs award fragments toward unlocking dinosaur characters. Cosmetic trails such as Frost, Blossom, and Cosmic let players personalize their runs, while mission progress, life hearts, and score displays keep the action easy to follow.`,
+    description: `Dino Rush: A Journey Home is a 2D side-scrolling runner built with Unity. Guide a dinosaur past obstacles, collect eggs, and chase a new best score through layered pixel-art scenery. Five maps: Forest, Desert, Jungle, Rural, and Snow Mountain offer distinct backdrops for each run.\n\nCollected eggs feed into a shop where mystery eggs award fragments toward unlocking dinosaur characters. Cosmetic trails such as Frost, Blossom, and Cosmic let players personalize their runs, while mission progress, life hearts, and score displays keep the action easy to follow.`,
     tags: ['Unity', 'C#'],
     features: [
       '2D side-scrolling running with obstacles and collectible eggs',
@@ -79,7 +75,7 @@ window.PortfolioProjects = [
       'Mission progress, life hearts, and current and best-score displays',
       'Built in Unity using C#'
     ],
-    source: 'https://github.com/bibekgiri4208/Dino-Game.git',
+    source: null,
     demo: null,
     androidDownload: 'https://github.com/bibekgiri4208/Dino-Rush/releases/download/v.1.0/Dino.Rush.apk'
   },
