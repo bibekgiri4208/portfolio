@@ -11,6 +11,8 @@
   const features = document.getElementById('project-dialog-features');
   const github = document.getElementById('project-dialog-github');
   const demo = document.getElementById('project-dialog-demo');
+  const download = document.getElementById('project-dialog-download');
+  const androidDownload = document.getElementById('project-dialog-android-download');
   const unavailable = document.getElementById('project-dialog-demo-unavailable');
   const content = dialog.querySelector('.project-dialog-content');
   const closeButton = dialog.querySelector('.project-dialog-close');
@@ -298,13 +300,29 @@
     else github.removeAttribute('href');
     github.setAttribute('aria-label', `${project.title} on GitHub (opens in a new tab)`);
     demo.hidden = !project.demo;
-    unavailable.hidden = !!project.demo;
+    unavailable.hidden = !!(project.demo || project.windowsDownload || project.androidDownload);
     if (project.demo) {
       demo.href = project.demo;
       demo.setAttribute('aria-label', `${project.title} live demo (opens in a new tab)`);
     } else {
       demo.removeAttribute('href');
       demo.removeAttribute('aria-label');
+    }
+    download.hidden = !project.windowsDownload;
+    if (project.windowsDownload) {
+      download.href = project.windowsDownload;
+      download.setAttribute('aria-label', `Download ${project.title} installer for Windows (.exe)`);
+    } else {
+      download.removeAttribute('href');
+      download.removeAttribute('aria-label');
+    }
+    androidDownload.hidden = !project.androidDownload;
+    if (project.androidDownload) {
+      androidDownload.href = project.androidDownload;
+      androidDownload.setAttribute('aria-label', `Download ${project.title} for Android (.apk)`);
+    } else {
+      androidDownload.removeAttribute('href');
+      androidDownload.removeAttribute('aria-label');
     }
     opener = trigger;
     position = { x: scrollX, y: scrollY };

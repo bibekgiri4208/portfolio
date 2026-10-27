@@ -26,7 +26,8 @@ window.PortfolioProjects = [
       'Colorful lowpoly environments with bold pink-and-red menus'
     ],
     source: null,
-    demo: null
+    demo: null,
+    windowsDownload: 'https://github.com/bibekgiri4208/Cube-Dash/releases/download/v.1.0/CubeDash_Installer.exe'
   },
   {
     id: 1,
@@ -70,15 +71,17 @@ window.PortfolioProjects = [
     tags: ['Unity', 'C#'],
     features: [
       '2D side-scrolling running with obstacles and collectible eggs',
-      'Five trails: Forest, Desert, Jungle, Rural, and Snow Mountain',
+      'Five maps: Forest, Desert, Jungle, Rural, and Snow Mountain',
       'Layered pixel-art scenery and nature-themed menus',
       'Mystery eggs and character fragments to unlock dinosaurs',
-      'Customizable cosmetic trails including Frost, Blossom, and Cosmic',
+      'Customizable cosmetic trails including Frost, Blossom, Cosmic, etc',
+      'Various Slash attack animation such as Fire, Lightning, Water',
       'Mission progress, life hearts, and current and best-score displays',
       'Built in Unity using C#'
     ],
     source: 'https://github.com/bibekgiri4208/Dino-Game.git',
-    demo: null
+    demo: null,
+    androidDownload: 'https://github.com/bibekgiri4208/Dino-Rush/releases/download/v.1.0/Dino.Rush.apk'
   },
   {
     id: 3,

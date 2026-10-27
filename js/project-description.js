@@ -38,6 +38,16 @@
 
   document.querySelector('meta[name="description"]').content = project.summary;
   const projectNumber = String(projectIndex + 1).padStart(2, '0');
+  const downloadButton = project.windowsDownload
+    ? `<a href="${project.windowsDownload}" class="pd-btn pd-btn-primary" target="_blank" rel="noopener noreferrer" aria-label="Download ${project.title} installer for Windows (.exe)">
+        <i class="fab fa-windows" aria-hidden="true"></i> Download for Windows
+       </a>`
+    : '';
+  const androidDownloadButton = project.androidDownload
+    ? `<a href="${project.androidDownload}" class="pd-btn pd-btn-primary" target="_blank" rel="noopener noreferrer" aria-label="Download ${project.title} for Android (.apk)">
+        <i class="fab fa-android" aria-hidden="true"></i> Download for Android
+       </a>`
+    : '';
   const sourceButton = project.source
     ? `<a href="${project.source}" class="pd-btn pd-btn-primary" target="_blank" rel="noopener noreferrer" aria-label="Source code for ${project.title} (opens in a new tab)">
         <i class="fab fa-github" aria-hidden="true"></i> Source Code
@@ -70,7 +80,7 @@
           <span class="pd-category">${project.category}</span>
           <h1 class="pd-title" id="project-title">${project.title}</h1>
           <p class="pd-summary">${project.summary}</p>
-          <div class="pd-actions">${sourceButton}${demoButton}</div>
+          <div class="pd-actions">${downloadButton}${androidDownloadButton}${sourceButton}${demoButton}</div>
         </div>
         <figure class="pd-preview">
           <div class="pd-preview-bar" aria-hidden="true">
@@ -95,7 +105,9 @@
           <h2 id="details-title">At a glance</h2>
           <dl class="pd-facts">
             <div><dt>Project type</dt><dd>${project.category}</dd></div>
-            <div><dt>Live demo</dt><dd>${project.demo ? 'Available to explore' : 'Coming soon'}</dd></div>
+            ${project.windowsDownload ? '<div><dt>Windows download</dt><dd>Installer available (.exe)</dd></div>' : ''}
+            ${project.androidDownload ? '<div><dt>Android download</dt><dd>APK available (.apk)</dd></div>' : ''}
+            ${project.demo || !(project.windowsDownload || project.androidDownload) ? `<div><dt>Live demo</dt><dd>${project.demo ? 'Available to explore' : 'Coming soon'}</dd></div>` : ''}
           </dl>
           <div class="pd-stack">
             <h3>Built with</h3>
