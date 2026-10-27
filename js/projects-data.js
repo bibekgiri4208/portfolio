@@ -81,27 +81,28 @@ window.PortfolioProjects = [
   },
   {
     id: 3,
-    title: 'Hangman Game',
-    category: 'JavaScript Game',
-    image: 'assets/img/hangman.webp',
-    imageAlt: 'Hangman — word guessing game in the browser',
+    title: 'Death Derby',
+    category: 'Unity Game',
+    image: 'assets/projects_img/death_derby_img/Death_Derby_icon.webp',
+    imageAlt: 'Death Derby — desert vehicle combat and zombie survival game icon',
     screenshots: [
-      { src: 'assets/img/screenshots/hangman-categories.jpg', alt: 'Hangman category selection with fruits, animals and countries' },
-      { src: 'assets/img/screenshots/hangman-game.jpg', alt: 'Hangman word guessing with letter controls and drawing progression' }
+      { src: 'assets/projects_img/death_derby_img/dd_1.webp', alt: 'Main menu showcasing the Bone Shaker vehicle outside a desert motel' },
+      { src: 'assets/projects_img/death_derby_img/dd_2.webp', alt: 'Single-player zombie survival with a combat truck in a desert town' },
+      { src: 'assets/projects_img/death_derby_img/dd_3.webp', alt: 'A hot rod driving through a desert arena with ramps and obstacles' }
     ],
-    summary: 'A browser-based word guessing game with visual progression, keyboard controls, and a persistent scoreboard.',
-    description: `Hangman is a browser-based word guessing game where players try to reveal a hidden word one letter at a time. Each incorrect guess brings the hangman figure closer to completion, adding tension with every wrong letter.\n\nThe game includes a curated word list across multiple categories, a visual hangman progression, and a scoreboard to track wins and losses. It was built to practice DOM manipulation and event-driven programming in vanilla JavaScript, with a clean UI that keeps the focus on the gameplay.`,
-    tags: ['HTML', 'CSS', 'JavaScript'],
+    summary: 'A Unity vehicle combat game with single-player zombie survival and local split-screen battles in a desert wasteland.',
+    description: `Death Derby is a vehicle combat and zombie survival game built in Unity. Take control of a combat-focused vehicle and face the undead in a desert wasteland. Single-player mode focuses on surviving zombies, bringing vehicular combat into a hostile, open desert setting.\n\nLocal split-screen multiplayer lets players battle head-to-head in the zombie-infested wasteland on the same screen. A variety of combat-focused vehicles gives players different rides to take into the action, from hot rods to heavy trucks.`,
+    tags: ['Unity', 'C#'],
     features: [
-      'Word guessing with visual hangman progression',
-      'Multiple word categories and difficulty levels',
-      'Keyboard-based letter input with visual feedback',
-      'Win/loss tracking with persistent scoreboard',
-      'Responsive design for desktop and mobile play',
-      'Clean UI with smooth state transitions'
+      'Vehicle combat in a zombie-infested desert wasteland',
+      'Single-player mode focused on zombie survival',
+      'Local split-screen multiplayer for head-to-head vehicle battles',
+      'A variety of combat-focused vehicles, including hot rods and heavy trucks',
+      'Desert environments with abandoned buildings, ramps, and obstacles',
+      'Built in Unity using C#'
     ],
-    source: 'https://github.com/bibekgiri4208/Hangman.git',
-    demo: 'projects/hangman/index.html'
+    source: null,
+    demo: null
   },
   {
     id: 4,
