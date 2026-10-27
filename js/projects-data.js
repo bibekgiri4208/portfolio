@@ -6,20 +6,20 @@ window.PortfolioProjects = [
     id: 0,
     title: 'Cube Dash',
     category: 'Unity Game',
-    image: 'assets/projects_img/Cube%20Dash%20Icon.png',
+    image: 'assets/projects_img/cube_dash_img/Cube%20Dash%20Icon.webp',
     imageAlt: 'Cube Dash game icon with a red cube, traffic, and collectible coins',
     screenshots: [
-      { src: 'assets/projects_img/cd_1.webp', alt: 'Cube Dash main menu with Start, Shop, Options, and Quit buttons in a cherry blossom setting' },
-      { src: 'assets/projects_img/cd_2.webp', alt: 'Cube Dash beach gameplay with collectible coins, road obstacles, and an active magnet power-up' },
-      { src: 'assets/projects_img/cd_3.webp', alt: 'Cube Dash skin shop featuring a neon supercar, monster truck, and military van' },
-      { src: 'assets/projects_img/cd_4.webp', alt: 'Cube Dash map selection with City, Jungle, Dynamic, Desert, Beach, and Country Side environments' }
+      { src: 'assets/projects_img/cube_dash_img/cd_1.webp', alt: 'Cube Dash main menu with Start, Shop, Options, and Quit buttons in a cherry blossom setting' },
+      { src: 'assets/projects_img/cube_dash_img/cd_2.webp', alt: 'Cube Dash beach gameplay with collectible coins, road obstacles, and an active magnet power-up' },
+      { src: 'assets/projects_img/cube_dash_img/cd_3.webp', alt: 'Cube Dash skin shop featuring a neon supercar, monster truck, and military van' },
+      { src: 'assets/projects_img/cube_dash_img/cd_4.webp', alt: 'Cube Dash map selection with City, Jungle, Dynamic, Desert, Beach, and Country Side environments' }
     ],
     summary: 'A colorful 3D arcade runner with traffic to dodge, coins to collect, unlockable skins, and six environments to explore.',
-    description: `Cube Dash is a 3D arcade runner built in Unity. Guide a cube along roads filled with traffic and obstacles, collect coins, and push for a new best score. Power-ups such as the coin magnet add another layer to each run.\n\nThe game features six environment choices — City, Jungle, Dynamic, Desert, Beach, and Country Side — alongside a coin-based skin shop. Colorful lowpoly scenery, cherry blossom backdrops, and bold pink-and-red menus give the game a playful visual identity.`,
+    description: `Cube Dash is a 3D arcade runner built in Unity. Guide a cube along roads filled with traffic and obstacles, collect coins, and push for a new best score. Power-ups such as the coin magnet, Rampage truck, Flight, Shield, etc add another layer to each run.\n\nThe game features six environment choices: City, Jungle, Dynamic, Desert, Beach, and Country Side, alongside a coin-based skin shop. Colorful lowpoly scenery, cherry blossom backdrops, and bold pink-and-red menus give the game a playful visual identity.`,
     tags: ['Unity', 'C#'],
     features: [
       '3D arcade running with traffic and road obstacles to dodge',
-      'Collectible coins and a timed magnet power-up',
+      'Collectible coins and power-ups',
       'Six environment choices: City, Jungle, Dynamic, Desert, Beach, and Country Side',
       'Coin-based skin shop with vehicles to unlock and equip',
       'In-game distance, score, and best-score displays',
@@ -54,23 +54,28 @@ window.PortfolioProjects = [
   },
   {
     id: 2,
-    title: 'Dino Run',
-    category: 'Godot Game',
-    image: 'assets/img/dino_run.webp',
-    imageAlt: 'Dino Run — 2D arcade runner in Godot',
+    title: 'Dino Rush',
+    category: 'Unity Game',
+    image: 'assets/projects_img/dino_rush_img/Dino%20Rush%20icon.webp',
+    imageAlt: 'Dino Rush — A Journey Home game icon',
     screenshots: [
-      { src: 'assets/img/dinorun.png', alt: 'Dino Run dinosaur jumping over a rock in the forest level' }
+      { src: 'assets/projects_img/dino_rush_img/dr_1.webp', alt: 'Dino Rush main menu with Play, Shop, Missions, and Options against a layered forest backdrop' },
+      { src: 'assets/projects_img/dino_rush_img/dr_2.webp', alt: 'Dino Rush dinosaur shop with mystery eggs, character fragments, and unlockable dinosaur colors' },
+      { src: 'assets/projects_img/dino_rush_img/dr_3.webp', alt: 'Dino Rush trail shop showing Frost, Blossom, and Cosmic cosmetic effects' },
+      { src: 'assets/projects_img/dino_rush_img/dr_4.webp', alt: 'Dino Rush map selection with Forest, Desert, Jungle, Rural, and Snow Mountain trails' },
+      { src: 'assets/projects_img/dino_rush_img/dr_5.webp', alt: 'Dino Rush forest gameplay with a blue dinosaur, collectible eggs, obstacles, hearts, and score displays' }
     ],
-    summary: 'A fast-paced 2D runner with layered parallax scenery, escalating difficulty, and a simple goal: keep going.',
-    description: `Dino Run is a fast-paced 2D side-scrolling runner built with the Godot Engine. The game features a dinosaur character sprinting through a procedurally styled environment with parallax backgrounds that give a sense of depth and speed.\n\nThe core loop is simple — run as far as possible while avoiding obstacles. The difficulty ramps up over time, testing reflexes and timing. The parallax scrolling layers create a visually engaging backdrop without sacrificing performance, making it a solid example of lightweight arcade game design.`,
-    tags: ['Godot Engine', 'GDScript'],
+    summary: 'A pixel-art 2D runner with five scenic trails, collectible eggs, unlockable dinosaurs, and customizable trail effects.',
+    description: `Dino Rush: A Journey Home is a 2D side-scrolling runner built with Unity. Guide a dinosaur past obstacles, collect eggs, and chase a new best score through layered pixel-art scenery. Five trails — Forest, Desert, Jungle, Rural, and Snow Mountain — offer distinct backdrops for each run.\n\nCollected eggs feed into a shop where mystery eggs award fragments toward unlocking dinosaur characters. Cosmetic trails such as Frost, Blossom, and Cosmic let players personalize their runs, while mission progress, life hearts, and score displays keep the action easy to follow.`,
+    tags: ['Unity', 'C#'],
     features: [
-      'Side-scrolling arcade runner with increasing difficulty',
-      'Multi-layer parallax background for depth perception',
-      'Lightweight pixel-art inspired visual style',
-      'Responsive controls optimized for keyboard and touch',
-      'Score tracking based on distance traveled',
-      'Built entirely in Godot Engine using GDScript'
+      '2D side-scrolling running with obstacles and collectible eggs',
+      'Five trails: Forest, Desert, Jungle, Rural, and Snow Mountain',
+      'Layered pixel-art scenery and nature-themed menus',
+      'Mystery eggs and character fragments to unlock dinosaurs',
+      'Customizable cosmetic trails including Frost, Blossom, and Cosmic',
+      'Mission progress, life hearts, and current and best-score displays',
+      'Built in Unity using C#'
     ],
     source: 'https://github.com/bibekgiri4208/Dino-Game.git',
     demo: null
