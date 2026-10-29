@@ -25,7 +25,7 @@ window.PortfolioProjects = [
       'In-game distance, score, and best-score displays',
       'Colorful lowpoly environments with bold pink-and-red menus'
     ],
-    source: null,
+    source: 'https://github.com/bibekgiri4208/Cube-Dash.git',
     demo: null,
     windowsDownload: 'https://github.com/bibekgiri4208/Cube-Dash/releases/download/v.1.0/CubeDash_Installer.exe'
   },
@@ -46,7 +46,7 @@ window.PortfolioProjects = [
       'Multiplayer racing against other players',
       'Built in Unity using C#'
     ],
-    source: null,
+    source: 'https://github.com/bibekgiri4208/Chasing-Horizon.git',
     demo: null
   },
   {
@@ -75,7 +75,7 @@ window.PortfolioProjects = [
       'Mission progress, life hearts, and current and best-score displays',
       'Built in Unity using C#'
     ],
-    source: null,
+    source: 'https://github.com/bibekgiri4208/Dino-Rush.git',
     demo: null,
     androidDownload: 'https://github.com/bibekgiri4208/Dino-Rush/releases/download/v.1.0/Dino.Rush.apk'
   },
@@ -101,32 +101,37 @@ window.PortfolioProjects = [
       'Desert environments with abandoned buildings, ramps, and obstacles',
       'Built in Unity using C#'
     ],
-    source: null,
+    source: 'https://github.com/bibekgiri4208/Death-Derby.git',
     demo: null
   },
   {
     id: 4,
-    title: 'Domain Expansion',
-    category: 'Web Game Collection',
-    image: 'assets/img/domain_expansion.webp',
-    imageAlt: 'Domain Expansion — collection of web-based games',
+    title: 'ValoGuide App',
+    category: 'Mobile Application',
+    image: 'assets/projects_img/valoguide_img/Valoguide_icon.webp',
+    imageAlt: 'ValoGuide app icon with a red VG logo on a dark background',
     screenshots: [
-      { src: 'assets/img/domain_expansion.webp', alt: 'Domain Expansion home screen with Play and Score options' }
+      { src: 'assets/projects_img/valoguide_img/vg_1.webp', alt: 'ValoGuide home screen with agent roles in light and dark themes' },
+      { src: 'assets/projects_img/valoguide_img/vg_2.webp', alt: 'Duelist and Controller agent rosters with characters including Jett, Phoenix, Omen, and Viper' },
+      { src: 'assets/projects_img/valoguide_img/vg_3.webp', alt: 'Omen and Jett agent profiles with special abilities and video previews' },
+      { src: 'assets/projects_img/valoguide_img/vg_4.webp', alt: 'Searchable game guides covering core gameplay, gunplay, movement, and economy' },
+      { src: 'assets/projects_img/valoguide_img/vg_5.webp', alt: 'Tactical arsenal with weapon damage, costs, fire rates, and usage tips in light and dark themes' }
     ],
-    summary: 'Five browser games under one roof, connected by shared scoring, persistent leaderboards, and a consistent interface.',
-    description: `Domain Expansion is a collection of five browser-based games bundled into a single web application. It includes Hangman, Card Memory Match, Maze Runner, Number Guessing, and Tic Tac Toe — each built as a standalone game module with shared scoring infrastructure.\n\nThe project was designed as a full-stack exercise, combining a PHP backend for score persistence with a clean frontend built in HTML, CSS, and JavaScript. A leaderboard system tracks high scores across all games, adding a competitive layer to the collection. It's a practical demonstration of modular web development.`,
-    tags: ['HTML', 'CSS', 'JavaScript', 'PHP'],
+    summary: 'A Valorant guide app bringing together agent abilities, tactical roles, game mechanics, and weapon information in one place.',
+    description: `ValoGuide is a mobile guide application for Valorant, designed to help players learn the game and explore their favorite agents. Browse agents by role, discover their special abilities, and view ability video previews to better understand their toolkit.\n\nThe app brings together guides on core gameplay, gunplay, movement, and economy alongside a tactical arsenal with weapon stats and practical tips. Searchable guides and weapon information make it easy to find a topic, while light and dark themes give the interface a consistent Valorant-inspired look.`,
+    tags: ['Android'],
     features: [
-      'Five distinct games in a single application',
-      'Shared scoring and leaderboard system across all games',
-      'PHP backend for persistent score storage and retrieval',
-      'Card Memory Match with flip animations and timer',
-      'Maze Runner with procedurally generated levels',
-      'Number Guessing with hints and attempt tracking',
-      'Unified navigation and consistent UI across all games'
+      'Agent browsing organized by tactical role',
+      'Agent profiles with special abilities and video previews',
+      'Game guides covering objectives, gunplay, movement, and economy',
+      'Tactical arsenal with weapon damage, costs, magazine sizes, and fire rates',
+      'Searchable guides and weapon information',
+      'Practical weapon tips and role-based gameplay guidance',
+      'Light and dark themes with a Valorant-inspired interface'
     ],
-    source: 'https://github.com/bibekgiri4208/Domain-Expansion',
-    demo: null
+    source: 'https://github.com/bibekgiri4208/Valorant-Agent-Guide-App.git',
+    demo: null,
+    androidDownload: 'https://github.com/bibekgiri4208/Valorant-Agent-Guide-App/releases/download/v1.0.2/Valo.Guide.apk'
   },
   {
     id: 5,
