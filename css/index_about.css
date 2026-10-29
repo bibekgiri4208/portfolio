@@ -1,3 +1,12 @@
+.about .section-title {
+  max-width: 100%;
+}
+
+.about-title-phrase {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .about-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
@@ -120,6 +129,10 @@
 }
 
 @media (max-width: 560px) {
+  .about .section-title {
+    font-size: clamp(1rem, 6.5vw, 2rem);
+  }
+
   .about-text {
     border-radius: 24px;
   }
