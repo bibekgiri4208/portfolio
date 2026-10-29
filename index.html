@@ -8,13 +8,13 @@
   <script src="js/theme.js"></script>
   <script src="js/project-navigation.js"></script>
   <script src="js/page-transition.js"></script>
-  <link rel="icon" type="image/png" href="assets/img/Logo.png">
+  <link rel="icon" type="image/png" href="assets/img/Bg_logo.png">
 
   <!-- Prioritize only the image visible on initial arrival. -->
   <link rel="preload" href="assets/img/profile-780.jpg" as="image" fetchpriority="high">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css?v=initial-load-20261027" />
+  <link rel="stylesheet" href="css/style.css?v=transparent-brand-logo-20261029" />
   <link rel="stylesheet" href="css/sakura.css?v=glass-20261021" />
   <script src="js/sakura.js" defer></script>
   <!-- Retain return-animation styling for direct visits to the fallback page. -->
@@ -43,7 +43,9 @@
   <nav class="navbar">
     <div class="container">
       <div class="nav-brand">
-        <span class="logo">BG.</span>
+        <a href="#home" class="logo" aria-label="Bibek Giri — home">
+          <img src="assets/img/Bg_logo.png" alt="" width="46" height="46" decoding="async">
+        </a>
       </div>
       <ul class="nav-menu">
         <li><a href="#home" class="nav-link">Home</a></li>
