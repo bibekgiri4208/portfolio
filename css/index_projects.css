@@ -31,24 +31,6 @@
   transform: translateY(20px);
 }
 
-.project-card.animate-in {
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease,
-    background 0.35s ease,
-    border-color 0.35s ease,
-    box-shadow 0.35s ease;
-}
-
-.project-card.animate-in:hover {
-  transform: translateY(-8px);
-  border-color: var(--accent);
-  background: var(--glass-hover);
-  box-shadow: var(--shadow-md);
-}
-
 .project-thumb {
   aspect-ratio: 16 / 9;
   flex-shrink: 0;

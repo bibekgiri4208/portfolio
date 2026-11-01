@@ -474,6 +474,27 @@ h3 {
   background: var(--glass-hover);
 }
 
+/* Keep skill and project card motion identical. */
+.skill-card.animate-in,
+.project-card.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease,
+    background 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.skill-card.animate-in:hover,
+.project-card.animate-in:hover {
+  transform: translateY(-8px);
+  border-color: var(--accent);
+  background: var(--glass-hover);
+  box-shadow: var(--shadow-md);
+}
+
 .stat-num {
   font-size: clamp(1.8rem, 3vw, 2.55rem);
   font-weight: 900;

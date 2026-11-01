@@ -14,15 +14,15 @@
   <link rel="preload" href="assets/img/profile-780.jpg" as="image" fetchpriority="high">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css?v=circular-brand-logo-fit-20261030" />
+  <link rel="stylesheet" href="css/style.css?v=shared-card-hover-20261101" />
   <link rel="stylesheet" href="css/sakura.css?v=glass-20261021" />
   <script src="js/sakura.js" defer></script>
   <!-- Retain return-animation styling for direct visits to the fallback page. -->
   <link rel="stylesheet" href="css/project_description.css?v=glass-20261021" />
   <link rel="stylesheet" href="css/project_modal.css?v=project-preview-icon-20261021" />
   <link rel="stylesheet" href="css/index_about.css?v=about-title-two-lines-20261029" />
-  <link rel="stylesheet" href="css/index_skills.css?v=glass-20261021" />
-  <link rel="stylesheet" href="css/index_projects.css?v=full-thumbnails-20261027" />
+  <link rel="stylesheet" href="css/index_skills.css?v=shared-card-hover-20261101" />
+  <link rel="stylesheet" href="css/index_projects.css?v=shared-card-hover-20261101" />
   <link rel="stylesheet" href="css/index_contact.css?v=glass-20261021" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
@@ -92,7 +92,7 @@
 
           <div class="hero-stats-grid">
             <div class="stat-item">
-              <div class="stat-num">15+</div>
+              <div class="stat-num">20+</div>
               <div class="stat-text">Projects</div>
             </div>
             <div class="stat-item">
@@ -152,12 +152,12 @@
           <div class="stat-card">
             <span class="about-stat-icon" aria-hidden="true"><i class="fas fa-code"></i></span>
             <h3>4+</h3>
-            <p>Years in Development</p>
+            <p>Years Building Projects</p>
           </div>
           <div class="stat-card">
             <span class="about-stat-icon" aria-hidden="true"><i class="fas fa-rocket"></i></span>
-            <h3>15+</h3>
-            <p>Projects Delivered</p>
+            <h3>20+</h3>
+            <p>Projects Created</p>
           </div>
           <div class="stat-card">
             <span class="about-stat-icon" aria-hidden="true"><i class="fas fa-layer-group"></i></span>
@@ -177,76 +177,42 @@
       <h2 id="skills-title" class="section-title">Skills that bring ideas to life.</h2>
 
       <div class="skills-grid">
-        <article class="skill-card skill-card--wide">
+        <article class="skill-card skill-card--primary" aria-labelledby="skills-primary-title">
           <div class="skill-header">
             <div class="skill-icon" aria-hidden="true"><i class="fas fa-gamepad"></i></div>
+            <h3 id="skills-primary-title">Primary</h3>
           </div>
-          <h3>Game Development</h3>
-          <div class="skill-bar" role="meter" aria-label="Game development skill level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100">
-            <div class="skill-progress" style="width:100%;"></div>
-          </div>
-          <ul class="skill-tags" aria-label="Game development tools">
-            <li>Unity</li>
-            <li>C#</li>
+          <ul class="skill-tags" aria-label="Primary skills">
+            <li><span class="skill-tool-icon" aria-hidden="true"><i class="fab fa-unity"></i></span>Unity</li>
+            <li><span class="skill-tool-icon skill-tool-icon--text" aria-hidden="true">C#</span>C#</li>
+            <li><span class="skill-tool-icon" aria-hidden="true"><i class="fas fa-mobile-alt"></i></span>Flutter</li>
+            <li><span class="skill-tool-icon skill-tool-icon--text" aria-hidden="true">D</span>Dart</li>
           </ul>
         </article>
 
-        <article class="skill-card skill-card--wide">
-          <div class="skill-header">
-            <div class="skill-icon" aria-hidden="true"><i class="fas fa-mobile-alt"></i></div>
-          </div>
-          <h3>Mobile Development</h3>
-          <div class="skill-bar" role="meter" aria-label="Mobile development skill level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="95">
-            <div class="skill-progress" style="width:95%;"></div>
-          </div>
-          <ul class="skill-tags" aria-label="Mobile development tools">
-            <li>Flutter</li>
-            <li>Dart</li>
-            <li>Firebase</li>
-          </ul>
-        </article>
-
-        <article class="skill-card">
+        <article class="skill-card skill-card--comfortable" aria-labelledby="skills-comfortable-title">
           <div class="skill-header">
             <div class="skill-icon" aria-hidden="true"><i class="fas fa-code"></i></div>
+            <h3 id="skills-comfortable-title">Comfortable</h3>
           </div>
-          <h3>Frontend</h3>
-          <div class="skill-bar" role="meter" aria-label="Frontend skill level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="95">
-            <div class="skill-progress" style="width:95%;"></div>
-          </div>
-          <ul class="skill-tags" aria-label="Frontend tools">
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
+          <ul class="skill-tags" aria-label="Comfortable skills">
+            <li><span class="skill-tool-icon" aria-hidden="true"><i class="fab fa-html5"></i></span>HTML</li>
+            <li><span class="skill-tool-icon" aria-hidden="true"><i class="fab fa-css3-alt"></i></span>CSS</li>
+            <li><span class="skill-tool-icon" aria-hidden="true"><i class="fab fa-js"></i></span>JavaScript</li>
+            <li><span class="skill-tool-icon" aria-hidden="true"><i class="fas fa-fire"></i></span>Firebase</li>
+            <li><span class="skill-tool-icon" aria-hidden="true"><i class="fab fa-php"></i></span>PHP</li>
+            <li><span class="skill-tool-icon" aria-hidden="true"><i class="fas fa-database"></i></span>MySQL</li>
           </ul>
         </article>
 
-        <article class="skill-card">
+        <article class="skill-card skill-card--learning" aria-labelledby="skills-learning-title">
           <div class="skill-header">
-            <div class="skill-icon" aria-hidden="true"><i class="fas fa-server"></i></div>
+            <div class="skill-icon" aria-hidden="true"><i class="fas fa-seedling"></i></div>
+            <h3 id="skills-learning-title">Learning</h3>
           </div>
-          <h3>Backend</h3>
-          <div class="skill-bar" role="meter" aria-label="Backend skill level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
-            <div class="skill-progress" style="width:80%;"></div>
-          </div>
-          <ul class="skill-tags" aria-label="Backend tools">
-            <li>PHP</li>
-            <li>Python</li>
-            <li>MySQL</li>
-          </ul>
-        </article>
-
-        <article class="skill-card">
-          <div class="skill-header">
-            <div class="skill-icon" aria-hidden="true"><i class="fas fa-pencil-ruler"></i></div>
-          </div>
-          <h3>Design</h3>
-          <div class="skill-bar" role="meter" aria-label="Design skill level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="85">
-            <div class="skill-progress" style="width:85%;"></div>
-          </div>
-          <ul class="skill-tags" aria-label="Design tools">
-            <li>Blender</li>
-            <li>Figma</li>
+          <ul class="skill-tags" aria-label="Skills currently learning">
+            <li><span class="skill-tool-icon" aria-hidden="true"><i class="fas fa-cube"></i></span>Blender</li>
+            <li><span class="skill-tool-icon" aria-hidden="true"><i class="fas fa-network-wired"></i></span>Netcode</li>
           </ul>
         </article>
       </div>
