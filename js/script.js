@@ -65,7 +65,7 @@ const observer = new IntersectionObserver(entries => {
 }, observerOptions);
 
 // Observe cards, section headers, and content elements
-const revealElements = document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-form, .section-kicker, .section-title, .projects-subtitle');
+const revealElements = document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-details, .contact-form, .section-kicker, .section-title, .projects-subtitle');
 revealElements.forEach(el => {
   observer.observe(el);
 });

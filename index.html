@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
   <title>Bibek Giri</title>
   <script src="js/theme.js"></script>
-  <script src="js/project-navigation.js"></script>
+  <script src="js/project-navigation.js?v=contact-reveal-20261101"></script>
   <script src="js/page-transition.js"></script>
   <link rel="icon" type="image/png" href="assets/img/BG_logo.png">
 
@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="css/index_about.css?v=about-title-two-lines-20261029" />
   <link rel="stylesheet" href="css/index_skills.css?v=shared-card-hover-20261101" />
   <link rel="stylesheet" href="css/index_projects.css?v=shared-card-hover-20261101" />
-  <link rel="stylesheet" href="css/index_contact.css?v=glass-20261021" />
+  <link rel="stylesheet" href="css/index_contact.css?v=contact-layout-20261101" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
   <script src="js/projects-data.js?v=project-github-links-20261029" defer></script>
@@ -303,12 +303,12 @@
       <h2 id="contact-title" class="section-title">Have a project in mind?</h2>
 
       <div class="contact-content">
-        <div class="contact-details">
+        <div class="contact-details" aria-labelledby="contact-details-title">
           <div class="contact-card-heading">
             <span class="contact-card-icon" aria-hidden="true"><i class="far fa-envelope"></i></span>
-            <h3>Let’s connect</h3>
+            <h3 id="contact-details-title">Let’s connect</h3>
           </div>
-          <p class="contact-details-description">Have a question, want to work together, or just want to say hello? Send a message or reach out directly.</p>
+          <p class="contact-details-description">For project enquiries or a quick hello, send a message or reach out directly.</p>
 
           <a class="contact-email" href="mailto:giribibek0101@gmail.com">
             <span class="contact-email-copy">
@@ -322,19 +322,22 @@
             <p class="contact-label">Find me online</p>
             <nav class="social-links" aria-label="Social profiles">
               <a href="https://github.com/bibekgiri4208" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)">
-                <i class="fab fa-github" aria-hidden="true"></i><span>GitHub</span>
+                <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-github"></i></span><span>GitHub</span>
+                <i class="fas fa-arrow-up-right-from-square contact-social-arrow" aria-hidden="true"></i>
               </a>
               <a href="https://www.facebook.com/bibekgiri4208/" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook (opens in a new tab)">
-                <i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook</span>
+                <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-facebook"></i></span><span>Facebook</span>
+                <i class="fas fa-arrow-up-right-from-square contact-social-arrow" aria-hidden="true"></i>
               </a>
               <a href="https://www.instagram.com/bibekgiri4208/" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in a new tab)">
-                <i class="fab fa-instagram" aria-hidden="true"></i><span>Instagram</span>
+                <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-instagram"></i></span><span>Instagram</span>
+                <i class="fas fa-arrow-up-right-from-square contact-social-arrow" aria-hidden="true"></i>
               </a>
             </nav>
           </div>
         </div>
 
-        <form class="contact-form" action="https://formspree.io/f/mdavzylq" method="POST" aria-labelledby="contact-form-title">
+        <form class="contact-form" action="https://formspree.io/f/mdavzylq" method="POST" aria-labelledby="contact-form-title" aria-describedby="contact-form-hint">
           <div class="contact-card-heading">
             <span class="contact-card-icon" aria-hidden="true"><i class="far fa-comment-dots"></i></span>
             <h3 id="contact-form-title">Send a message</h3>
@@ -346,25 +349,27 @@
           <div class="contact-form-row">
             <div class="form-group">
               <label for="name">Your name</label>
-              <input type="text" id="name" name="name" autocomplete="name" required>
+              <input type="text" id="name" name="name" autocomplete="name" placeholder="Your full name" required>
             </div>
 
             <div class="form-group">
               <label for="email">Email address</label>
-              <input type="email" id="email" name="email" autocomplete="email" inputmode="email" required>
+              <input type="email" id="email" name="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required>
             </div>
           </div>
 
           <div class="form-group">
             <label for="message">Your message</label>
-            <textarea id="message" name="message" rows="6" required></textarea>
+            <textarea id="message" name="message" rows="7" placeholder="Tell me about your project or what you need help with." required></textarea>
           </div>
 
-          <p class="contact-form-hint">All fields are required.</p>
-          <button type="submit" class="cta-button">
-            <span>Send message</span>
-            <i class="fas fa-paper-plane" aria-hidden="true"></i>
-          </button>
+          <div class="contact-form-footer">
+            <p id="contact-form-hint" class="contact-form-hint">All fields are required.</p>
+            <button type="submit" class="cta-button">
+              <span>Send message</span>
+              <i class="fas fa-paper-plane" aria-hidden="true"></i>
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -491,7 +496,7 @@
     <p class="footer-subtext">giribibek0101@gmail.com</p>
   </footer>
 
-  <script src="js/script.js?v=initial-load-20261027"></script>
+  <script src="js/script.js?v=contact-reveal-20261101"></script>
 </body>
 
 </html>

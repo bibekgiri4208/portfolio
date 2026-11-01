@@ -70,7 +70,7 @@
         // Match the non-hovered preview instead of jumping by the card's hover lift.
         document.addEventListener('pointermove', releaseRestoredHover, { once: true });
         window.scrollTo({ left: target.x, top: target.y, behavior: 'instant' });
-        document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-form, .section-kicker, .section-title, .projects-subtitle').forEach(element => {
+        document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-details, .contact-form, .section-kicker, .section-title, .projects-subtitle').forEach(element => {
           if (element.getBoundingClientRect().top < innerHeight * 0.9) {
             element.classList.add('animate-in', 'reveal');
           }
