@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -150 1560 1000">
+  <!-- These two letter outlines also define the BG Monogram webfont. -->
+  <style>
+    path { fill: #101d31; }
+    .accent { fill: #0752e9; }
+  </style>
+  <g transform="translate(0 700) scale(1 -1)">
+    <path id="glyph-b" d="M 0 700 L 440 700 Q 690 700 720 530 Q 750 400 650 352 Q 755 290 735 160 Q 710 0 470 0 L 30 0 L 30 510 L 205 510 L 205 170 L 455 170 Q 545 170 550 235 Q 550 290 455 290 L 285 290 L 285 425 L 450 425 Q 535 425 535 485 Q 535 550 450 550 L 35 550 Z"/>
+    <path id="glyph-g" class="accent" transform="translate(740 0)" d="M 800 700 L 290 700 Q 105 700 30 520 Q -40 350 40 170 Q 120 0 300 0 L 755 0 L 755 445 L 370 445 L 370 285 L 585 285 L 585 170 L 310 170 Q 165 170 165 350 Q 165 525 310 525 L 650 525 Z"/>
+  </g>
+</svg>

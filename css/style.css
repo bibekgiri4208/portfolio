@@ -1,3 +1,13 @@
+/* A two-glyph display face gives the brand its squared, cutaway letter shapes. */
+@font-face {
+  font-family: 'BG Monogram';
+  src: url('../assets/fonts/bg-monogram.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  unicode-range: U+0042, U+0047;
+}
+
 :root {
   --bg: #d4deed;
   --surface: #ffffff;
@@ -180,25 +190,28 @@ h3 {
 }
 
 .logo {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  min-height: 46px;
   flex-shrink: 0;
-  padding: 4px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  overflow: hidden;
-  background: var(--surface);
-  box-shadow: var(--shadow-sm);
+  color: var(--text);
+  text-decoration: none;
+  border-radius: 6px;
 }
 
-.logo img {
-  width: 100%;
-  height: 100%;
-  min-width: 0;
-  min-height: 0;
-  object-fit: contain;
+.logo-wordmark {
+  display: inline-flex;
+  font-family: 'BG Monogram', 'Inter', sans-serif;
+  font-size: 2.125rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.logo-wordmark span:last-child {
+  color: var(--accent);
 }
 
 .nav-menu {
@@ -534,7 +547,8 @@ h3 {
 /* Static reflections stay fixed to the surface, independent of pointer movement. */
 :is(.navbar .container, .hero-content, .profile-image-wrapper, .stat-item,
     .stat-card, .skill-card, .project-card, .contact-form, .contact-details,
-    .about-text, .secondary-btn, .theme-toggle, .hamburger) {
+    .about-text, .secondary-btn, .hero .primary-btn, .theme-toggle, .hamburger,
+    .project-dialog, .screenshot-preview) {
   --glass-edge: radial-gradient(ellipse 24% 48% at 14% 0%, var(--glass-edge-bright), var(--glass-edge-soft) 35%, transparent 75%), radial-gradient(ellipse 18% 40% at 86% 100%, var(--glass-edge-bright), var(--glass-edge-soft) 30%, transparent 76%), radial-gradient(ellipse 12% 38% at 100% 70%, var(--glass-edge-cool), transparent 75%);
 }
 
@@ -543,7 +557,8 @@ h3 {
 @supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
   :is(.navbar .container, .hero-content, .profile-image-wrapper, .stat-item,
       .stat-card, .skill-card, .project-card, .contact-form, .contact-details,
-      .about-text, .secondary-btn, .theme-toggle, .hamburger)::after {
+      .about-text, .secondary-btn, .hero .primary-btn, .theme-toggle, .hamburger,
+      .project-dialog, .screenshot-preview)::after {
     content: '';
     position: absolute;
     inset: -1px;
@@ -660,6 +675,17 @@ h3 {
 .cta-button:hover {
   transform: translateY(-3px);
   box-shadow: var(--shadow-lg);
+}
+
+/* Share the secondary buttons' glass outline without changing the blue fill. */
+.hero .primary-btn {
+  position: relative;
+  border-color: var(--glass-border);
+  box-shadow: 0 10px 24px -8px rgba(0, 79, 232, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.hero .primary-btn:hover {
+  box-shadow: 0 14px 28px -10px rgba(0, 79, 232, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.22);
 }
 
 .secondary-btn {
