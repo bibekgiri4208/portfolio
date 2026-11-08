@@ -2,8 +2,8 @@
 (() => {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const smallScreen = window.matchMedia('(max-width: 600px)');
-  const storageKey = 'portfolio-sakura-paused';
-  let paused = false;
+  const storageKey = 'portfolio-sakura-hidden';
+  let petalsHidden = false;
   let layer;
   let toggle;
   let motionFrame = 0;
@@ -13,7 +13,8 @@
   const targetBreeze = { x: 0, y: 0, tilt: 0 };
 
   try {
-    paused = localStorage.getItem(storageKey) === 'true';
+    // Carry over the previous off preference from the old pause control.
+    petalsHidden = (localStorage.getItem(storageKey) ?? localStorage.getItem('portfolio-sakura-paused')) === 'true';
   } catch {
     // The effect and its control still work when storage is unavailable.
   }
@@ -33,7 +34,7 @@
 
   const animateBreeze = timestamp => {
     motionFrame = 0;
-    if (!layer || paused || document.hidden) return;
+    if (!layer || petalsHidden || document.hidden) return;
 
     // Time-based easing feels the same on high-refresh displays and mobile.
     const elapsed = previousFrame ? clamp(timestamp - previousFrame, 1, 48) : 16.67;
@@ -62,7 +63,7 @@
   };
 
   const startBreeze = () => {
-    if (!motionFrame && layer && !paused && !document.hidden && hasBreeze()) {
+    if (!motionFrame && layer && !petalsHidden && !document.hidden && hasBreeze()) {
       motionFrame = window.requestAnimationFrame(animateBreeze);
     }
   };
@@ -71,7 +72,7 @@
     const scrollY = window.scrollY;
     const delta = clamp(scrollY - lastScrollY, -160, 160);
     lastScrollY = scrollY;
-    if (!layer || paused || document.hidden || delta === 0) return;
+    if (!layer || petalsHidden || document.hidden || delta === 0) return;
 
     // Downward scrolling lifts petals; reversing direction reverses the gust.
     targetBreeze.y = clamp(targetBreeze.y - delta * 0.65, -190, 190);
@@ -123,14 +124,16 @@
     layer.replaceChildren(petals);
   };
 
-  const syncPause = () => {
+  const syncVisibility = () => {
     lastScrollY = window.scrollY;
     if (!layer) return;
-    layer.classList.toggle('is-paused', paused || document.hidden);
-    if (paused || document.hidden) stopBreeze();
+    layer.hidden = petalsHidden;
+    layer.classList.toggle('is-paused', petalsHidden || document.hidden);
+    if (petalsHidden || document.hidden) stopBreeze();
     else startBreeze();
-    toggle.querySelector('span').textContent = paused ? 'Resume petals' : 'Pause petals';
-    toggle.setAttribute('aria-label', paused ? 'Resume sakura petals' : 'Pause sakura petals');
+    toggle.querySelector('span').textContent = petalsHidden ? 'Show petals' : 'Hide petals';
+    toggle.setAttribute('aria-label', petalsHidden ? 'Show sakura petals' : 'Hide sakura petals');
+    toggle.setAttribute('aria-pressed', String(!petalsHidden));
   };
 
   const syncMotion = () => {
@@ -157,23 +160,23 @@
     toggle.type = 'button';
     toggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 9C5-2 0 9 8 12c-11 3-4 13 2 5-1 12 11 9 6 1 10 6 14-6 3-6C29 5 16-1 15 9Z"/><circle cx="13" cy="13" r="2"/></svg><span></span>';
     toggle.addEventListener('click', () => {
-      paused = !paused;
-      syncPause();
+      petalsHidden = !petalsHidden;
+      syncVisibility();
       try {
-        localStorage.setItem(storageKey, String(paused));
+        localStorage.setItem(storageKey, String(petalsHidden));
       } catch {
         // Keep the in-memory preference for this page.
       }
     });
 
     populatePetals();
-    syncPause();
+    syncVisibility();
     document.body.append(layer, toggle);
   };
 
   reducedMotion.addEventListener('change', syncMotion);
   smallScreen.addEventListener('change', populatePetals);
-  document.addEventListener('visibilitychange', syncPause);
+  document.addEventListener('visibilitychange', syncVisibility);
   window.addEventListener('scroll', reactToScroll, { passive: true });
   syncMotion();
 })();
