@@ -91,7 +91,7 @@
 .stat-card.animate-in:hover {
   transform: translateY(-6px);
   box-shadow: var(--shadow-md);
-  border-color: var(--accent);
+  border-color: var(--glass-highlight);
   background: var(--glass-hover);
 }
 
