@@ -85,7 +85,16 @@
     screenshotPreview.showModal();
   };
 
-  previewClose.addEventListener('click', () => screenshotPreview.close());
+  const closeScreenshotPreview = () => {
+    if (!screenshotPreview.open) return;
+    window.PortfolioAudio?.play('back');
+    screenshotPreview.close();
+  };
+  previewClose.addEventListener('click', closeScreenshotPreview);
+  screenshotPreview.addEventListener('cancel', event => {
+    event.preventDefault();
+    closeScreenshotPreview();
+  });
   previewPrevious.addEventListener('click', () => showPreviewScreenshot(previewIndex - 1));
   previewNext.addEventListener('click', () => showPreviewScreenshot(previewIndex + 1));
   screenshotPreview.addEventListener('keydown', event => {
@@ -104,7 +113,7 @@
     pressedPreviewBackdrop = event.target === screenshotPreview && isOutsidePreview(event);
   });
   screenshotPreview.addEventListener('click', event => {
-    if (pressedPreviewBackdrop && event.target === screenshotPreview && isOutsidePreview(event)) screenshotPreview.close();
+    if (pressedPreviewBackdrop && event.target === screenshotPreview && isOutsidePreview(event)) closeScreenshotPreview();
     pressedPreviewBackdrop = false;
   });
   screenshotPreview.addEventListener('close', () => {
@@ -351,6 +360,7 @@
   };
   const requestClose = () => {
     if (!dialog.open || dialog.classList.contains('is-closing')) return;
+    window.PortfolioAudio?.play('back');
     if (reducedMotion.matches || typeof dialog.animate !== 'function') {
       finishClose();
       return;
