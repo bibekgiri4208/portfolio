@@ -175,19 +175,6 @@
   }
 }
 
-.contact-details,
-.contact-form {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.contact-details.animate-in,
-.contact-form.animate-in {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.6s ease, transform 0.6s ease, background var(--transition), border-color var(--transition);
-}
-
 .contact-form-row {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

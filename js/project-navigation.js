@@ -70,11 +70,13 @@
         // Match the non-hovered preview instead of jumping by the card's hover lift.
         document.addEventListener('pointermove', releaseRestoredHover, { once: true });
         window.scrollTo({ left: target.x, top: target.y, behavior: 'instant' });
-        document.querySelectorAll('.skill-card, .project-card, .stat-card, .contact-details, .contact-form, .section-kicker, .section-title, .projects-subtitle').forEach(element => {
+        document.querySelectorAll('.about-text, .skill-card, .project-card, .stat-card, .contact-details, .contact-form, .section-kicker, .section-title, .projects-subtitle').forEach(element => {
           if (element.getBoundingClientRect().top < innerHeight * 0.9) {
+            element.classList.remove('reveal-pending');
             element.classList.add('animate-in', 'reveal');
           }
         });
+        window.dispatchEvent(new Event('portfolio:restore'));
         document.querySelector('.navbar')?.classList.toggle('navbar-scrolled', target.y > 50);
         root.style.visibility = '';
         requestAnimationFrame(() => root.classList.remove('restoring-project-position'));

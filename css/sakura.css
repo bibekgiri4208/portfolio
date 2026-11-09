@@ -17,7 +17,6 @@
   animation: sakura-fall var(--fall-duration) var(--fall-delay) linear infinite;
 }
 
-.sakura-current,
 .sakura-sway,
 .sakura-petal {
   display: block;
@@ -25,15 +24,11 @@
   height: 100%;
 }
 
-.sakura-current {
-  /* Separate scroll motion from the continuous falling and flutter animations. */
-  transform:
-    translate3d(
-      calc(var(--sakura-wind-x, 0px) * var(--petal-depth)),
-      calc(var(--sakura-scroll-y, 0px) * var(--petal-depth)),
-      0
-    )
-    rotate(calc(var(--sakura-tilt, 0deg) * var(--petal-depth)));
+.sakura-depth {
+  position: absolute;
+  inset: 0;
+  /* A small, fixed number of composited planes keeps scroll gusts inexpensive. */
+  transform: translate3d(0, 0, 0);
 }
 
 .sakura-sway {

@@ -41,7 +41,11 @@
   --shadow-md: 0 24px 44px -14px rgba(49, 76, 120, 0.32), 0 8px 18px -8px rgba(49, 76, 120, 0.18), var(--glass-bevel);
   --shadow-lg: 0 40px 68px -18px rgba(49, 76, 120, 0.38), 0 14px 28px -14px rgba(49, 76, 120, 0.22), var(--glass-bevel);
   --container: 1220px;
-  --transition: 220ms ease;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --motion-fast: 180ms;
+  --motion-hover: 320ms;
+  --transition: 240ms var(--ease-out);
 }
 
 * {
@@ -71,6 +75,11 @@ html.restoring-project-position {
 .restoring-project-position .animate-in,
 .restoring-project-position .reveal {
   transition: none !important;
+}
+
+.restoring-project-position .reveal-pending {
+  opacity: 1;
+  translate: none;
 }
 
 .project-return-restored .project-card.animate-in:hover {
@@ -165,7 +174,6 @@ h3 {
   width: 100%;
   z-index: 1000;
   background: transparent;
-  transition: var(--transition);
 }
 
 .navbar .container {
@@ -182,6 +190,7 @@ h3 {
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: var(--shadow-md);
+  transition: background-color var(--transition), box-shadow var(--transition);
 }
 
 .navbar-scrolled .container {
@@ -277,7 +286,7 @@ h3 {
   text-decoration: none;
   font-size: 1rem;
   font-weight: 700;
-  transition: color var(--transition), background var(--transition), transform 180ms ease, box-shadow var(--transition);
+  transition: color var(--transition), background-color var(--transition), transform var(--motion-hover) var(--ease-out), box-shadow var(--transition);
 }
 
 .nav-link::before {
@@ -335,7 +344,7 @@ h3 {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: var(--transition);
+  transition: transform var(--motion-hover) var(--ease-out), background-color var(--transition), color var(--transition), box-shadow var(--transition);
   flex-shrink: 0;
   box-shadow: var(--shadow-sm);
   font-size: 1.1rem;
@@ -358,7 +367,7 @@ h3 {
   height: 2px;
   border-radius: 999px;
   background: currentColor;
-  transition: var(--transition);
+  transition: transform var(--motion-hover) var(--ease-out), opacity var(--motion-fast) ease;
 }
 
 .hamburger.active span:nth-child(1) {
@@ -432,7 +441,7 @@ h3 {
   border: 1px solid var(--glass-border);
   background: var(--glass-bg);
   box-shadow: var(--shadow-lg);
-  transition: transform var(--transition), box-shadow var(--transition);
+  transition: transform var(--motion-hover) var(--ease-out);
 }
 
 .profile-image-wrapper:hover {
@@ -541,7 +550,7 @@ h3 {
   box-shadow: var(--shadow-md);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  transition: var(--transition);
+  transition: transform var(--motion-hover) var(--ease-out), background-color var(--transition), border-color var(--transition);
 }
 
 /* Static reflections stay fixed to the surface, independent of pointer movement. */
@@ -602,19 +611,6 @@ h3 {
   background: var(--glass-hover);
 }
 
-/* Keep skill and project card motion identical. */
-.skill-card.animate-in,
-.project-card.animate-in {
-  opacity: 1;
-  transform: translateY(0);
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease,
-    background 0.35s ease,
-    border-color 0.35s ease,
-    box-shadow 0.35s ease;
-}
-
 .skill-card.animate-in:hover,
 .project-card.animate-in:hover {
   transform: translateY(-8px);
@@ -660,7 +656,7 @@ h3 {
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: var(--transition);
+  transition: transform var(--motion-hover) var(--ease-out), background-color var(--transition), color var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
 .primary-btn,
@@ -699,6 +695,14 @@ h3 {
   background: var(--glass-hover);
   transform: translateY(-3px);
   box-shadow: var(--shadow-md);
+}
+
+.cta-btn:active,
+.cta-button:active,
+.theme-toggle:active,
+.hamburger:active {
+  transform: translateY(0) scale(0.97);
+  transition-duration: 100ms;
 }
 
 /* ============================================
@@ -755,54 +759,45 @@ section {
 /* Start on first render, independent of JavaScript and slow page assets. */
 .hero .hero-eyebrow,
 .hero .profile-image-container {
-  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fadeUp 720ms var(--ease-out) backwards;
 }
 
 .hero .hero-title-line:nth-child(1) {
-  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+  animation: fadeUp 720ms var(--ease-out) 70ms backwards;
 }
 
 .hero .hero-title-line:nth-child(2) {
-  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+  animation: fadeUp 720ms var(--ease-out) 140ms backwards;
 }
 
 .hero .hero-description {
-  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+  animation: fadeUp 720ms var(--ease-out) 210ms backwards;
 }
 
 .hero .hero-stats-grid {
-  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+  animation: fadeUp 720ms var(--ease-out) 280ms backwards;
 }
 
 .hero .hero-cta-group {
-  animation: fadeUp 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+  animation: fadeUp 720ms var(--ease-out) 350ms backwards;
 }
 
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translate3d(0, 18px, 0);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 }
 
-/* Scroll reveal for sections */
-.section-kicker,
-.section-title,
-.projects-subtitle {
+/* JavaScript opts in offscreen elements only. Translate keeps reveals independent
+   from hover transforms, and no persistent GPU layers are allocated to every card. */
+.reveal-pending {
   opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.section-kicker.reveal,
-.section-title.reveal,
-.projects-subtitle.reveal {
-  opacity: 1;
-  transform: translateY(0);
+  translate: 0 18px;
 }
 
 /* ============================================
@@ -936,7 +931,7 @@ body.dark-mode {
     top: calc(100% + 10px);
     left: 0;
     right: 0;
-    display: none !important;
+    display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 0.25rem;
@@ -947,10 +942,20 @@ body.dark-mode {
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
     box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate3d(0, -8px, 0) scale(0.985);
+    transform-origin: top center;
+    transition: opacity 200ms ease, transform 300ms var(--ease-out), visibility 0s linear 300ms;
   }
 
   .nav-menu.active {
-    display: flex !important;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0) scale(1);
+    transition-delay: 0s;
   }
 
   .nav-link {
@@ -1051,12 +1056,24 @@ body.dark-mode {
   }
 }
 
+/* Touch taps should not leave cards suspended in a sticky hover state. */
+@media (hover: none) {
+  .stat-item:hover,
+  .stat-card.animate-in:hover,
+  .skill-card.animate-in:hover,
+  .project-card.animate-in:hover,
+  .profile-image-wrapper:hover {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
   }
 
   .hero-eyebrow,
@@ -1067,8 +1084,15 @@ body.dark-mode {
   .profile-image-container,
   .section-kicker,
   .section-title,
-  .projects-subtitle {
+  .projects-subtitle,
+  .reveal-pending {
     opacity: 1 !important;
+    transform: none !important;
+    translate: none !important;
+  }
+
+  :is(.stat-item, .stat-card, .skill-card, .project-card, .profile-image-wrapper,
+      .cta-btn, .cta-button, .theme-toggle, .hamburger):is(:hover, :active) {
     transform: none !important;
   }
 }
@@ -1149,7 +1173,7 @@ html.page-closing body {
 }
 
 .page-close-overlay.is-closing {
-  animation: pageCollapse var(--page-transition-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: pageCollapse var(--page-transition-duration, 600ms) var(--ease-in-out) both;
 }
 
 /* Unmarked links and browser Back remain instant. */
@@ -1171,14 +1195,14 @@ html:active-view-transition-type(page-expand)::view-transition-old(root) {
 html:active-view-transition-type(page-expand)::view-transition-new(root) {
   transform-origin: var(--page-origin-x, 50vw) var(--page-origin-y, 50vh);
   will-change: transform, opacity;
-  animation: pageExpand var(--page-transition-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: pageExpand var(--page-transition-duration, 600ms) var(--ease-out) both;
 }
 
 html:active-view-transition-type(page-collapse)::view-transition-old(root) {
   z-index: 2;
   transform-origin: var(--page-origin-x, 50vw) var(--page-origin-y, 50vh);
   will-change: transform, opacity;
-  animation: pageCollapse var(--page-transition-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: pageCollapse var(--page-transition-duration, 600ms) var(--ease-in-out) both;
 }
 
 html:active-view-transition-type(page-collapse)::view-transition-new(root) {
@@ -1198,7 +1222,7 @@ html.page-expanding body {
 html[data-page-transition-mode="fallback"] body {
   transform-origin: var(--page-origin-x, 50vw) var(--page-origin-y, 50vh);
   will-change: transform, opacity;
-  animation: pageExpand var(--page-transition-duration, 600ms) cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: pageExpand var(--page-transition-duration, 600ms) var(--ease-out) both;
 }
 
 @keyframes pageExpand {

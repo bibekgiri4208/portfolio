@@ -28,6 +28,10 @@ html.project-modal-open {
 .project-dialog.is-animating {
   /* Promote only the dialog, and only while it is moving. */
   will-change: transform, opacity;
+  /* The fixed backdrop already supplies blur. Avoid resampling a second large
+     frosted surface on every frame of the card-to-dialog scale. */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .project-card.is-project-source {
@@ -81,11 +85,11 @@ html.project-modal-open {
   inset: 0;
   background: linear-gradient(100deg, transparent 35%, var(--glass-highlight) 50%, transparent 65%);
   transform: translateX(-100%);
-  animation: projectSkeletonSweep var(--project-open-duration, 580ms) ease-in-out both;
+  animation: projectSkeletonSweep var(--project-open-duration, 540ms) ease-in-out both;
 }
 
 .project-dialog.is-closing .project-skeleton::after {
-  animation-duration: var(--project-close-duration, 380ms);
+  animation-duration: var(--project-close-duration, 340ms);
 }
 
 .project-skeleton-header,
@@ -198,12 +202,12 @@ html.project-modal-open {
   backdrop-filter: var(--overlay-blur);
   -webkit-backdrop-filter: var(--overlay-blur);
   opacity: 0;
-  transition: opacity var(--project-close-duration, 380ms) ease;
+  transition: opacity var(--project-close-duration, 340ms) ease;
 }
 
 .project-dialog[open]::backdrop {
   opacity: 1;
-  transition-duration: var(--project-open-duration, 580ms);
+  transition-duration: var(--project-open-duration, 540ms);
 }
 
 .project-dialog-header {
@@ -456,11 +460,21 @@ html.project-modal-open {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  animation: screenshotPreviewIn 180ms ease-out;
+  animation: screenshotPreviewIn 280ms var(--ease-out);
 }
 
 .screenshot-preview::backdrop {
   background: rgba(9, 17, 38, 0.82);
+  opacity: 1;
+  transition: opacity 180ms ease;
+}
+
+.screenshot-preview.is-closing {
+  pointer-events: none;
+}
+
+.screenshot-preview.is-closing::backdrop {
+  opacity: 0;
 }
 
 .screenshot-preview-header,
@@ -619,11 +633,14 @@ html.project-modal-open {
 
 .project-dialog.is-closing::backdrop {
   opacity: 0;
-  transition-duration: var(--project-close-duration, 380ms);
+  transition-duration: var(--project-close-duration, 340ms);
 }
 
 @starting-style {
   .project-dialog[open]::backdrop {
+    opacity: 0;
+  }
+  .screenshot-preview[open]::backdrop {
     opacity: 0;
   }
 }

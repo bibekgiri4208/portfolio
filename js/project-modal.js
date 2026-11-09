@@ -32,8 +32,8 @@
   const previewNext = document.getElementById('screenshot-preview-next');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const warmedImages = new Map();
-  const openDuration = 580;
-  const closeDuration = 380;
+  const openDuration = 540;
+  const closeDuration = 340;
   dialog.style.setProperty('--project-open-duration', `${openDuration}ms`);
   dialog.style.setProperty('--project-close-duration', `${closeDuration}ms`);
   let opener;
@@ -48,6 +48,10 @@
   let previewIndex = 0;
   let previewOpener;
   let pressedPreviewBackdrop = false;
+  let previewRequest = 0;
+  let previewMotion;
+  let previewImageMotion;
+  let previewCloseTimer;
 
   const textElement = (tag, text) => {
     const element = document.createElement(tag);
@@ -65,13 +69,29 @@
   };
 
   const showPreviewScreenshot = index => {
-    if (!screenshots.length) return;
+    if (!screenshots.length || screenshotPreview.classList.contains('is-closing')) return;
     previewIndex = (index + screenshots.length) % screenshots.length;
     const screenshot = screenshots[previewIndex];
-    previewImage.alt = screenshot.alt || `${title.textContent} screenshot ${previewIndex + 1}`;
-    previewImage.src = screenshot.src;
-    previewCaption.textContent = previewImage.alt;
-    previewCounter.textContent = `${previewIndex + 1} / ${screenshots.length}`;
+    const selectedIndex = previewIndex;
+    const request = ++previewRequest;
+    const decodedImage = new Image();
+    decodedImage.src = screenshot.src;
+    // Keep the previous screenshot painted until the next one has decoded.
+    const ready = decodedImage.decode ? decodedImage.decode().catch(() => {}) : Promise.resolve();
+    ready.then(() => {
+      if (request !== previewRequest || !screenshotPreview.open) return;
+      previewImageMotion?.cancel();
+      previewImage.alt = screenshot.alt || `${title.textContent} screenshot ${selectedIndex + 1}`;
+      previewImage.src = screenshot.src;
+      previewCaption.textContent = previewImage.alt;
+      previewCounter.textContent = `${selectedIndex + 1} / ${screenshots.length}`;
+      if (!reducedMotion.matches && typeof previewImage.animate === 'function') {
+        previewImageMotion = previewImage.animate([
+          { opacity: 0.35, transform: 'translate3d(0, 4px, 0)' },
+          { opacity: 1, transform: 'translate3d(0, 0, 0)' }
+        ], { duration: 220, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+      }
+    });
     previewPrevious.hidden = screenshots.length <= 1;
     previewNext.hidden = screenshots.length <= 1;
   };
@@ -80,15 +100,36 @@
     if (!dialog.open || dialog.classList.contains('is-closing') || screenshotPreview.open) return;
     previewOpener = trigger;
     pressedPreviewBackdrop = false;
+    clearTimeout(previewCloseTimer);
+    previewMotion?.cancel();
+    previewMotion = null;
+    screenshotPreview.classList.remove('is-closing');
+    previewCounter.textContent = `${index + 1} / ${screenshots.length}`;
     showPreviewScreenshot(index);
     // A second native dialog sits above the project and contains keyboard focus.
     screenshotPreview.showModal();
   };
 
   const closeScreenshotPreview = () => {
-    if (!screenshotPreview.open) return;
+    if (!screenshotPreview.open || screenshotPreview.classList.contains('is-closing')) return;
     window.PortfolioAudio?.play('back');
-    screenshotPreview.close();
+    previewRequest += 1;
+    if (reducedMotion.matches || typeof screenshotPreview.animate !== 'function') {
+      screenshotPreview.close();
+      return;
+    }
+    const current = getComputedStyle(screenshotPreview);
+    const start = { opacity: current.opacity, transform: current.transform };
+    screenshotPreview.classList.add('is-closing');
+    previewMotion = screenshotPreview.animate([
+      start, { opacity: 0, transform: 'translate3d(0, 6px, 0) scale(0.985)' }
+    ], { duration: 180, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'forwards' });
+    const finish = () => {
+      clearTimeout(previewCloseTimer);
+      if (screenshotPreview.open) screenshotPreview.close();
+    };
+    previewMotion.finished.then(finish, () => {});
+    previewCloseTimer = setTimeout(finish, 260);
   };
   previewClose.addEventListener('click', closeScreenshotPreview);
   screenshotPreview.addEventListener('cancel', event => {
@@ -118,7 +159,16 @@
   });
   screenshotPreview.addEventListener('close', () => {
     if (screenshotPreview.open) return;
+    clearTimeout(previewCloseTimer);
+    previewRequest += 1;
+    previewMotion?.cancel();
+    previewMotion = null;
+    previewImageMotion?.cancel();
+    previewImageMotion = null;
+    screenshotPreview.classList.remove('is-closing');
     previewImage.removeAttribute('src');
+    previewImage.alt = '';
+    previewCaption.textContent = '';
     if (dialog.open && previewOpener?.isConnected) previewOpener.focus({ preventScroll: true });
     previewOpener = null;
   });
@@ -265,12 +315,12 @@
   };
 
   const detailGroups = () => [
-    { element: dialog.querySelector('.project-dialog-header'), delay: 260, from: 'translateY(-16px)' },
-    { element: dialog.querySelector('.project-dialog-preview'), delay: 250, from: 'translateY(24px) rotate(-4deg) scale(0.94)' },
-    { element: dialog.querySelector('.project-dialog-description'), delay: 290, from: 'translateX(24px)' },
-    { element: gallery, delay: 310, from: 'translateY(24px)' },
-    { element: dialog.querySelector('.project-dialog-features'), delay: 320, from: 'translateY(20px)' },
-    { element: dialog.querySelector('.project-dialog-actions'), delay: 330, from: 'translateY(18px)' }
+    { element: dialog.querySelector('.project-dialog-header'), delay: 170, from: 'translateY(-8px)' },
+    { element: dialog.querySelector('.project-dialog-preview'), delay: 180, from: 'translateY(14px) scale(0.98)' },
+    { element: dialog.querySelector('.project-dialog-description'), delay: 200, from: 'translateX(12px)' },
+    { element: gallery, delay: 220, from: 'translateY(14px)' },
+    { element: dialog.querySelector('.project-dialog-features'), delay: 240, from: 'translateY(12px)' },
+    { element: dialog.querySelector('.project-dialog-actions'), delay: 260, from: 'translateY(10px)' }
   ].filter(({ element }) => element && !element.hidden);
 
   const revealDetails = () => {
@@ -278,11 +328,11 @@
       detailMotions.push(element.animate([
         { opacity: 0, transform: from },
         { opacity: 1, transform: 'none' }
-      ], { delay, duration: 240, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', fill: 'both' }));
+      ], { delay, duration: 260, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both' }));
     });
     // Crossfade placeholders into the staged content without extending the morph.
     detailMotions.push(skeleton.animate([{ opacity: 1 }, { opacity: 0 }], {
-      delay: 230, duration: 240, easing: 'ease-in-out', fill: 'both'
+      delay: 140, duration: 220, easing: 'ease-in-out', fill: 'both'
     }));
     if (morphFace) {
       detailMotions.push(morphFace.animate([{ opacity: 1 }, { opacity: 0 }], {
@@ -344,10 +394,9 @@
       skeleton.hidden = false;
       createMorphFace(geometry);
       animateDialog([
-        { opacity: geometry ? 1 : 0, transform: cardTransform(geometry), easing: 'cubic-bezier(0.16, 1, 0.3, 1)' },
-        { offset: 0.78, opacity: 1, transform: 'translate3d(0, 0, 0) scale(1.012)', easing: 'cubic-bezier(0.4, 0, 0.2, 1)' },
+        { opacity: geometry ? 1 : 0, transform: cardTransform(geometry) },
         { opacity: 1, transform: 'translate3d(0, 0, 0) scale(1)' }
-      ], openDuration, 'linear');
+      ], openDuration, 'cubic-bezier(0.22, 1, 0.36, 1)');
       revealDetails();
     }
   };
@@ -462,6 +511,8 @@
   });
   reducedMotion.addEventListener('change', event => {
     if (!event.matches) return;
+    previewImageMotion?.cancel();
+    if (screenshotPreview.classList.contains('is-closing')) screenshotPreview.close();
     if (dialog.classList.contains('is-closing')) finishClose();
     else cancelMotion();
   });
