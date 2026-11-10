@@ -254,7 +254,6 @@
     morphFace?.remove();
     morphFace = null;
     skeleton.hidden = true;
-    opener?.classList.remove('is-project-source');
     dialog.classList.remove('is-animating');
   };
 
@@ -301,7 +300,6 @@
     face.inert = true;
     face.setAttribute('aria-hidden', 'true');
     const copy = opener.cloneNode(true);
-    copy.classList.remove('is-project-source');
     ['id', 'href', 'aria-labelledby', 'aria-controls', 'aria-haspopup', 'data-project-modal'].forEach(name => copy.removeAttribute(name));
     copy.querySelectorAll('[id]').forEach(element => element.removeAttribute('id'));
     copy.tabIndex = -1;
@@ -311,7 +309,6 @@
     face.append(copy);
     dialog.append(face);
     morphFace = face;
-    opener.classList.add('is-project-source');
   };
 
   const detailGroups = () => [
@@ -325,14 +322,20 @@
 
   const revealDetails = () => {
     detailGroups().forEach(({ element, delay, from }) => {
+      // Preserve the existing movement, but ease opacity separately so text
+      // doesn't flash in while the placeholder bars are still prominent.
       detailMotions.push(element.animate([
-        { opacity: 0, transform: from },
-        { opacity: 1, transform: 'none' }
+        { transform: from },
+        { transform: 'none' }
       ], { delay, duration: 260, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'both' }));
+      detailMotions.push(element.animate([{ opacity: 0 }, { opacity: 1 }], {
+        delay, duration: 260, easing: 'cubic-bezier(0.2, 0.6, 0.3, 1)', fill: 'both'
+      }));
     });
-    // Crossfade placeholders into the staged content without extending the morph.
+    // Clear the skeleton before content becomes fully readable, avoiding the
+    // double-exposed bars/text while keeping the glass surface uninterrupted.
     detailMotions.push(skeleton.animate([{ opacity: 1 }, { opacity: 0 }], {
-      delay: 140, duration: 220, easing: 'ease-in-out', fill: 'both'
+      delay: 100, duration: 180, easing: 'ease-out', fill: 'both'
     }));
     if (morphFace) {
       detailMotions.push(morphFace.animate([{ opacity: 1 }, { opacity: 0 }], {
@@ -473,10 +476,16 @@
     if (!link) return;
     const project = projects.find(project => project.id === Number(link.dataset.projectModal));
     if (!project || warmedImages.has(project.id)) return;
-    const preview = new Image();
-    preview.src = project.image;
-    warmedImages.set(project.id, preview);
-    preview.decode?.().catch(() => {});
+    // Decode the first visible screenshots on intent, rather than competing with
+    // the opening animation for image decoding and layout work.
+    const sources = [project.image, ...(project.screenshots || []).slice(0, 2).map(screenshot => screenshot.src)];
+    const previews = [...new Set(sources.filter(Boolean))].map(src => {
+      const preview = new Image();
+      preview.src = src;
+      preview.decode?.().catch(() => {});
+      return preview;
+    });
+    warmedImages.set(project.id, previews);
   };
   document.addEventListener('pointerover', warmProject);
   document.addEventListener('focusin', warmProject);

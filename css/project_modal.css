@@ -28,14 +28,6 @@ html.project-modal-open {
 .project-dialog.is-animating {
   /* Promote only the dialog, and only while it is moving. */
   will-change: transform, opacity;
-  /* The fixed backdrop already supplies blur. Avoid resampling a second large
-     frosted surface on every frame of the card-to-dialog scale. */
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
-
-.project-card.is-project-source {
-  visibility: hidden;
 }
 
 /* An inert copy bridges the card artwork into the dialog, then yields to details. */
@@ -47,6 +39,7 @@ html.project-modal-open {
   padding: 0;
   margin: 0;
   transform-origin: top left;
+  will-change: transform, opacity;
   pointer-events: none;
   user-select: none;
 }
@@ -59,7 +52,8 @@ html.project-modal-open {
   visibility: visible;
   transform: none;
   transition: none;
-  background: var(--surface);
+  /* Use the dialog's glass underneath instead of covering it with a solid card. */
+  background: transparent;
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
@@ -74,9 +68,14 @@ html.project-modal-open {
   flex-direction: column;
   overflow: hidden;
   border-radius: inherit;
-  background: var(--surface);
+  /* The dialog owns the glass material throughout the morph and content reveal. */
+  background: transparent;
   pointer-events: none;
   user-select: none;
+}
+
+.project-skeleton:not([hidden]) {
+  will-change: opacity;
 }
 
 .project-skeleton::after {
