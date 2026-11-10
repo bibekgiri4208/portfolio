@@ -1211,11 +1211,12 @@ html.page-closing body {
 }
 
 html.theme-transitioning {
-  --theme-reveal-duration: 1050ms;
+  --theme-reveal-duration: var(--theme-water-duration);
   --theme-water-duration: 1500ms;
-  /* End the fade earlier without increasing the wave's travel speed. */
-  --theme-water-reach: 0.9583333333;
-  --theme-reveal-easing: cubic-bezier(0.42, 0, 0.2, 1);
+  /* Reveal and leading tide share one path; leave enough reach for every corner. */
+  --theme-water-reach: 1.06;
+  --theme-reveal-reach: var(--theme-water-reach);
+  --theme-reveal-easing: var(--theme-water-easing);
   --theme-water-easing: linear;
 }
 
@@ -1223,6 +1224,7 @@ html.theme-transitioning {
   html.theme-transitioning {
     /* Mobile keeps just the lightweight circular reveal, without water layers. */
     --theme-reveal-duration: 650ms;
+    --theme-reveal-reach: 1;
     --theme-reveal-easing: var(--ease-in-out);
   }
 }
@@ -1308,7 +1310,7 @@ html.theme-transitioning::view-transition-new(theme-water-light) {
 
 @keyframes themeReveal {
   from { clip-path: circle(0px at var(--theme-origin-x) var(--theme-origin-y)); }
-  to { clip-path: circle(var(--theme-radius) at var(--theme-origin-x) var(--theme-origin-y)); }
+  to { clip-path: circle(calc(var(--theme-radius) * var(--theme-reveal-reach)) at var(--theme-origin-x) var(--theme-origin-y)); }
 }
 
 @keyframes themeRipple {

@@ -10,10 +10,13 @@
   let refraction;
   let displacementTexture;
   let neutralTransfer;
+  let petalRipple;
   const waterMapPadding = 1.15;
 
   const clearTransition = () => {
     themeTransition = null;
+    petalRipple?.finish();
+    petalRipple = null;
     rippleCapture?.remove();
     rippleCapture = null;
     refraction = null;
@@ -124,7 +127,7 @@
     const texture = waterTexture();
     if (!texture) return;
     const styles = getComputedStyle(root);
-    const waveReach = parseFloat(styles.getPropertyValue('--theme-water-reach')) || 0.9583333333;
+    const waveReach = parseFloat(styles.getPropertyValue('--theme-water-reach')) || 1.06;
     const reach = radius * waveReach * waterMapPadding;
     // Increase depth together with wave width, keeping the surface slope smooth.
     const strength = 26;
@@ -238,7 +241,16 @@
     root.style.setProperty('--theme-origin-y', `${y}px`);
     root.style.setProperty('--theme-radius', `${radius}px`);
     root.classList.add('theme-transitioning');
-    if (!mobileView.matches) prepareRipple(x, y, radius);
+    if (!mobileView.matches) {
+      prepareRipple(x, y, radius);
+      const styles = getComputedStyle(root);
+      petalRipple = window.PortfolioSakura?.prepareWater({
+        x, y, radius,
+        duration: parseFloat(styles.getPropertyValue('--theme-water-duration')),
+        reach: parseFloat(styles.getPropertyValue('--theme-water-reach')),
+        rings: [1, 0.52], width: 0.07, strength: 26
+      });
+    }
 
     try {
       // Read the latest request: a skipped transition can still run its callback.
@@ -253,6 +265,7 @@
           refraction.querySelectorAll('animate').forEach(animation => animation.beginElement());
           refraction.unpauseAnimations();
         }
+        petalRipple?.start();
       }, () => {
         if (themeTransition === transition) applyTheme(requestedTheme);
       });

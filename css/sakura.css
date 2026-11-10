@@ -25,11 +25,48 @@
   animation: sakura-fall var(--fall-duration) var(--fall-delay) linear infinite;
 }
 
+.sakura-water,
 .sakura-sway,
 .sakura-petal {
   display: block;
   width: 100%;
   height: 100%;
+}
+
+.sakura-layer.is-water-captured {
+  visibility: hidden;
+}
+
+.sakura-water-surface {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  view-transition-name: sakura-surface;
+  view-transition-class: sakura-ripple;
+}
+
+html.theme-transitioning::view-transition-group(.sakura-ripple) {
+  z-index: 2;
+  animation: none;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+html.theme-transitioning::view-transition-old(.sakura-ripple) {
+  display: none;
+  animation: none;
+  opacity: 0;
+}
+
+html.theme-transitioning::view-transition-image-pair(.sakura-ripple) {
+  isolation: auto;
+}
+
+html.theme-transitioning::view-transition-new(.sakura-ripple) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 .sakura-depth {
