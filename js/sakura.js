@@ -15,6 +15,7 @@
   const isPaused = () => layer?.hidden || document.hidden ||
     window.frameElement?.classList.contains('page-return-preview') ||
     document.documentElement.classList.contains('project-modal-open') ||
+    document.documentElement.classList.contains('theme-transitioning') ||
     document.documentElement.classList.contains('page-closing');
   const breeze = { x: 0, y: 0, tilt: 0 };
   const targetBreeze = { x: 0, y: 0, tilt: 0 };

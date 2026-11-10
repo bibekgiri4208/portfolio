@@ -1188,12 +1188,63 @@ html.page-closing body {
   mix-blend-mode: normal;
 }
 
-/* Reveal the new palette from the toggle, without moving or fading the content. */
+/* Water-drop theme reveal: shaded wave troughs and directional, glassy crests. */
+@property --theme-ring-radius {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+.theme-ripple-capture,
+.theme-ripple-reflection {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.theme-ripple-capture {
+  view-transition-name: theme-wave;
+}
+
+.theme-ripple-reflection {
+  view-transition-name: theme-water-light;
+}
+
+html.theme-transitioning {
+  --theme-reveal-duration: 1050ms;
+  --theme-water-duration: 1800ms;
+  --theme-reveal-easing: cubic-bezier(0.42, 0, 0.2, 1);
+  --theme-water-easing: linear;
+}
+
+@media (max-width: 768px) {
+  html.theme-transitioning {
+    /* Mobile keeps just the lightweight circular reveal, without water layers. */
+    --theme-reveal-duration: 650ms;
+    --theme-reveal-easing: var(--ease-in-out);
+  }
+}
+
+.theme-water-filter {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+html.theme-transitioning::view-transition-image-pair(root) {
+  /* Refract both palettes together, including their moving boundary. */
+  filter: var(--theme-water-filter, none);
+}
+
 html.theme-transitioning *,
 html.theme-transitioning *::before,
 html.theme-transitioning *::after {
   /* Capture the final colors, not intermediate hover/color transitions. */
   transition: none !important;
+  /* Keep the live page aligned with its snapshot until the water settles. */
+  animation-play-state: paused !important;
 }
 
 html.theme-transitioning::view-transition-old(root) {
@@ -1202,16 +1253,82 @@ html.theme-transitioning::view-transition-old(root) {
 
 html.theme-transitioning::view-transition-new(root) {
   z-index: 2;
-  animation: themeReveal 650ms var(--ease-in-out) both;
+  animation: themeReveal var(--theme-reveal-duration) var(--theme-reveal-easing) both;
+}
+
+html.theme-transitioning::view-transition-group(theme-wave) {
+  z-index: 3;
+  background:
+    radial-gradient(circle at var(--theme-origin-x) var(--theme-origin-y),
+      transparent calc(var(--theme-ring-radius) - 16px),
+      rgba(4, 15, 38, 0.18) calc(var(--theme-ring-radius) - 9px),
+      rgba(255, 255, 255, 0.58) calc(var(--theme-ring-radius) - 3px),
+      rgba(170, 210, 255, 0.18) var(--theme-ring-radius),
+      transparent calc(var(--theme-ring-radius) + 10px)),
+    radial-gradient(circle at var(--theme-origin-x) var(--theme-origin-y),
+      transparent calc(var(--theme-ring-radius) * 0.67 - 18px),
+      rgba(4, 15, 38, 0.14) calc(var(--theme-ring-radius) * 0.67 - 9px),
+      rgba(255, 255, 255, 0.42) calc(var(--theme-ring-radius) * 0.67 - 2px),
+      rgba(170, 210, 255, 0.12) calc(var(--theme-ring-radius) * 0.67 + 2px),
+      transparent calc(var(--theme-ring-radius) * 0.67 + 13px)),
+    radial-gradient(circle at var(--theme-origin-x) var(--theme-origin-y),
+      transparent calc(var(--theme-ring-radius) * 0.34 - 20px),
+      rgba(4, 15, 38, 0.09) calc(var(--theme-ring-radius) * 0.34 - 10px),
+      rgba(255, 255, 255, 0.29) calc(var(--theme-ring-radius) * 0.34 - 2px),
+      rgba(170, 210, 255, 0.08) calc(var(--theme-ring-radius) * 0.34 + 3px),
+      transparent calc(var(--theme-ring-radius) * 0.34 + 16px));
+  animation: themeRipple var(--theme-water-duration) var(--theme-water-easing) both,
+    themeWaterFade var(--theme-water-duration) ease-in-out both;
+}
+
+html.theme-transitioning::view-transition-group(theme-water-light) {
+  z-index: 4;
+  /* Light comes from the upper left, rather than outlining every ring evenly. */
+  background: linear-gradient(135deg,
+    rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.5) 24%,
+    rgba(255, 255, 255, 0.06) 46%, rgba(3, 17, 40, 0.22) 66%,
+    rgba(255, 255, 255, 0.46));
+  mask-image:
+    radial-gradient(circle at var(--theme-origin-x) var(--theme-origin-y),
+      transparent calc(var(--theme-ring-radius) - 8px),
+      #000 calc(var(--theme-ring-radius) - 3px),
+      transparent calc(var(--theme-ring-radius) + 3px)),
+    radial-gradient(circle at var(--theme-origin-x) var(--theme-origin-y),
+      transparent calc(var(--theme-ring-radius) * 0.67 - 8px),
+      #000 calc(var(--theme-ring-radius) * 0.67 - 2px),
+      transparent calc(var(--theme-ring-radius) * 0.67 + 4px)),
+    radial-gradient(circle at var(--theme-origin-x) var(--theme-origin-y),
+      transparent calc(var(--theme-ring-radius) * 0.34 - 8px),
+      #000 calc(var(--theme-ring-radius) * 0.34 - 2px),
+      transparent calc(var(--theme-ring-radius) * 0.34 + 5px));
+  mix-blend-mode: soft-light;
+  animation: themeRipple var(--theme-water-duration) var(--theme-water-easing) both,
+    themeWaterFade var(--theme-water-duration) ease-in-out both;
+}
+
+html.theme-transitioning::view-transition-old(theme-wave),
+html.theme-transitioning::view-transition-new(theme-wave),
+html.theme-transitioning::view-transition-old(theme-water-light),
+html.theme-transitioning::view-transition-new(theme-water-light) {
+  animation: none;
+  opacity: 0;
 }
 
 @keyframes themeReveal {
-  from {
-    clip-path: circle(0px at var(--theme-origin-x) var(--theme-origin-y));
-  }
-  to {
-    clip-path: circle(var(--theme-radius) at var(--theme-origin-x) var(--theme-origin-y));
-  }
+  from { clip-path: circle(0px at var(--theme-origin-x) var(--theme-origin-y)); }
+  to { clip-path: circle(var(--theme-radius) at var(--theme-origin-x) var(--theme-origin-y)); }
+}
+
+@keyframes themeRipple {
+  from { --theme-ring-radius: 0px; }
+  to { --theme-ring-radius: calc(var(--theme-radius) * 1.15); }
+}
+
+@keyframes themeWaterFade {
+  0% { opacity: 0; }
+  16% { opacity: 0.95; }
+  62% { opacity: 0.7; }
+  100% { opacity: 0; }
 }
 
 html:active-view-transition-type(page-expand)::view-transition-old(root) {
@@ -1317,6 +1434,12 @@ html[data-page-transition-mode="fallback"] body {
 
   html.theme-transitioning::view-transition-new(root) {
     animation: none;
+  }
+
+  html.theme-transitioning::view-transition-group(theme-wave),
+  html.theme-transitioning::view-transition-group(theme-water-light) {
+    animation: none;
+    background: none;
   }
 
   html.page-expand-pending body {
