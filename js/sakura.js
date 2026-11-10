@@ -6,12 +6,13 @@
   let petalsHidden = false;
   let layer;
   let toggle;
+  let hideTimer;
   let motionFrame = 0;
   let previousFrame = 0;
   let lastScrollY = window.scrollY;
   let depthLayers = [];
   const breezeKeys = ['x', 'y', 'tilt'];
-  const isPaused = () => petalsHidden || document.hidden ||
+  const isPaused = () => layer?.hidden || document.hidden ||
     window.frameElement?.classList.contains('page-return-preview') ||
     document.documentElement.classList.contains('project-modal-open') ||
     document.documentElement.classList.contains('page-closing');
@@ -142,7 +143,6 @@
   const syncVisibility = () => {
     lastScrollY = window.scrollY;
     if (!layer) return;
-    layer.hidden = petalsHidden;
     layer.classList.toggle('is-paused', isPaused());
     if (isPaused()) stopBreeze();
     else startBreeze();
@@ -151,8 +151,38 @@
     toggle.setAttribute('aria-pressed', String(!petalsHidden));
   };
 
+  const finishHide = () => {
+    clearTimeout(hideTimer);
+    if (!layer || !petalsHidden) return;
+    layer.hidden = true;
+    syncVisibility();
+  };
+
+  const animateVisibility = () => {
+    clearTimeout(hideTimer);
+    if (!layer) return;
+    if (reducedMotion.matches || document.hidden) {
+      layer.hidden = petalsHidden;
+      layer.classList.toggle('is-hidden', petalsHidden);
+    } else if (petalsHidden) {
+      // Let the petals keep drifting until the fade finishes, then stop all work.
+      layer.classList.add('is-hidden');
+      hideTimer = setTimeout(finishHide, 1000);
+    } else {
+      if (layer.hidden) {
+        layer.hidden = false;
+        // Establish the transparent starting state after display:none.
+        void layer.offsetWidth;
+      }
+      // CSS transitions reverse naturally if the control is clicked mid-fade.
+      layer.classList.remove('is-hidden');
+    }
+    syncVisibility();
+  };
+
   const syncMotion = () => {
     if (reducedMotion.matches) {
+      clearTimeout(hideTimer);
       stopBreeze();
       breezeKeys.forEach(key => {
         breeze[key] = 0;
@@ -170,14 +200,40 @@
     layer = document.createElement('div');
     layer.className = 'sakura-layer';
     layer.setAttribute('aria-hidden', 'true');
+    // Respect the saved preference on arrival without playing a toggle animation.
+    layer.hidden = petalsHidden;
+    layer.classList.toggle('is-hidden', petalsHidden);
+    layer.addEventListener('transitionend', event => {
+      if (event.target === layer && event.propertyName === 'opacity' && petalsHidden) finishHide();
+    });
 
     toggle = document.createElement('button');
     toggle.className = 'sakura-toggle';
     toggle.type = 'button';
-    toggle.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 9C5-2 0 9 8 12c-11 3-4 13 2 5-1 12 11 9 6 1 10 6 14-6 3-6C29 5 16-1 15 9Z"/><circle cx="13" cy="13" r="2"/></svg><span></span>';
+    // Same artwork as assets/img/sakura-petal.svg, framed tightly for the control.
+    toggle.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="4 3 52 56" width="24" height="24" fill="none" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="sakura-toggle-pink" x1="15" y1="8" x2="36" y2="54" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#ffd5ed"/>
+            <stop offset=".32" stop-color="#ff8dc8"/>
+            <stop offset=".72" stop-color="#ff56a7"/>
+            <stop offset="1" stop-color="#ee3189"/>
+          </linearGradient>
+          <linearGradient id="sakura-toggle-light" x1="12" y1="14" x2="28" y2="40" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#fff1fa" stop-opacity=".95"/>
+            <stop offset="1" stop-color="#ffbddf" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+        <path d="M13 57C17 46 6 34 7 22 8 11 17 5 27 7l4 7 6-8c12 2 20 13 15 25-6 14-22 23-39 26Z" fill="url(#sakura-toggle-pink)"/>
+        <path d="M13 57c19-13 28-28 24-51 12 2 20 13 15 25-6 14-22 23-39 26Z" fill="#f43892" fill-opacity=".24"/>
+        <path d="M12 27C9 15 17 8 25 10l4 7c-9-3-15 3-17 10Z" fill="url(#sakura-toggle-light)"/>
+        <path d="M9 22C9 12 18 6 27 8l4 6" stroke="#ffe5f4" stroke-opacity=".7" stroke-width="1.1" stroke-linecap="round"/>
+      </svg>
+      <span></span>`;
     toggle.addEventListener('click', () => {
       petalsHidden = !petalsHidden;
-      syncVisibility();
+      animateVisibility();
       try {
         localStorage.setItem(storageKey, String(petalsHidden));
       } catch {
