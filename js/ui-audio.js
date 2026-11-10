@@ -2,7 +2,7 @@
 (() => {
   const base = new URL('../assets/audio/', document.currentScript.src);
   const clips = {};
-  for (const [name, file] of Object.entries({ selection: 'selection-button.mp3', back: 'back-button.mp3' })) {
+  for (const [name, file] of Object.entries({ selection: 'selection-button.mp3', back: 'back-button.mp3', water: 'water_droplet.mp3' })) {
     const audio = new Audio();
     audio.preload = 'auto';
     audio.volume = 0.4;

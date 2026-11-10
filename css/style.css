@@ -1212,7 +1212,9 @@ html.page-closing body {
 
 html.theme-transitioning {
   --theme-reveal-duration: 1050ms;
-  --theme-water-duration: 1800ms;
+  --theme-water-duration: 1500ms;
+  /* End the fade earlier without increasing the wave's travel speed. */
+  --theme-water-reach: 0.9583333333;
   --theme-reveal-easing: cubic-bezier(0.42, 0, 0.2, 1);
   --theme-water-easing: linear;
 }
@@ -1260,23 +1262,17 @@ html.theme-transitioning::view-transition-group(theme-wave) {
   z-index: 3;
   background:
     radial-gradient(circle at var(--theme-origin-x) var(--theme-origin-y),
-      transparent calc(var(--theme-ring-radius) - 16px),
-      rgba(4, 15, 38, 0.18) calc(var(--theme-ring-radius) - 9px),
-      rgba(255, 255, 255, 0.58) calc(var(--theme-ring-radius) - 3px),
-      rgba(170, 210, 255, 0.18) var(--theme-ring-radius),
-      transparent calc(var(--theme-ring-radius) + 10px)),
+      transparent calc(var(--theme-ring-radius) - 30px),
+      rgba(4, 15, 38, 0.2) calc(var(--theme-ring-radius) - 18px),
+      rgba(255, 255, 255, 0.5) calc(var(--theme-ring-radius) - 6px),
+      rgba(170, 210, 255, 0.2) calc(var(--theme-ring-radius) + 2px),
+      transparent calc(var(--theme-ring-radius) + 20px)),
     radial-gradient(circle at var(--theme-origin-x) var(--theme-origin-y),
-      transparent calc(var(--theme-ring-radius) * 0.67 - 18px),
-      rgba(4, 15, 38, 0.14) calc(var(--theme-ring-radius) * 0.67 - 9px),
-      rgba(255, 255, 255, 0.42) calc(var(--theme-ring-radius) * 0.67 - 2px),
-      rgba(170, 210, 255, 0.12) calc(var(--theme-ring-radius) * 0.67 + 2px),
-      transparent calc(var(--theme-ring-radius) * 0.67 + 13px)),
-    radial-gradient(circle at var(--theme-origin-x) var(--theme-origin-y),
-      transparent calc(var(--theme-ring-radius) * 0.34 - 20px),
-      rgba(4, 15, 38, 0.09) calc(var(--theme-ring-radius) * 0.34 - 10px),
-      rgba(255, 255, 255, 0.29) calc(var(--theme-ring-radius) * 0.34 - 2px),
-      rgba(170, 210, 255, 0.08) calc(var(--theme-ring-radius) * 0.34 + 3px),
-      transparent calc(var(--theme-ring-radius) * 0.34 + 16px));
+      transparent calc(var(--theme-ring-radius) * 0.52 - 30px),
+      rgba(4, 15, 38, 0.15) calc(var(--theme-ring-radius) * 0.52 - 18px),
+      rgba(255, 255, 255, 0.38) calc(var(--theme-ring-radius) * 0.52 - 5px),
+      rgba(170, 210, 255, 0.13) calc(var(--theme-ring-radius) * 0.52 + 4px),
+      transparent calc(var(--theme-ring-radius) * 0.52 + 22px));
   animation: themeRipple var(--theme-water-duration) var(--theme-water-easing) both,
     themeWaterFade var(--theme-water-duration) ease-in-out both;
 }
@@ -1290,17 +1286,13 @@ html.theme-transitioning::view-transition-group(theme-water-light) {
     rgba(255, 255, 255, 0.46));
   mask-image:
     radial-gradient(circle at var(--theme-origin-x) var(--theme-origin-y),
-      transparent calc(var(--theme-ring-radius) - 8px),
-      #000 calc(var(--theme-ring-radius) - 3px),
-      transparent calc(var(--theme-ring-radius) + 3px)),
+      transparent calc(var(--theme-ring-radius) - 14px),
+      #000 calc(var(--theme-ring-radius) - 4px),
+      transparent calc(var(--theme-ring-radius) + 8px)),
     radial-gradient(circle at var(--theme-origin-x) var(--theme-origin-y),
-      transparent calc(var(--theme-ring-radius) * 0.67 - 8px),
-      #000 calc(var(--theme-ring-radius) * 0.67 - 2px),
-      transparent calc(var(--theme-ring-radius) * 0.67 + 4px)),
-    radial-gradient(circle at var(--theme-origin-x) var(--theme-origin-y),
-      transparent calc(var(--theme-ring-radius) * 0.34 - 8px),
-      #000 calc(var(--theme-ring-radius) * 0.34 - 2px),
-      transparent calc(var(--theme-ring-radius) * 0.34 + 5px));
+      transparent calc(var(--theme-ring-radius) * 0.52 - 14px),
+      #000 calc(var(--theme-ring-radius) * 0.52 - 4px),
+      transparent calc(var(--theme-ring-radius) * 0.52 + 9px));
   mix-blend-mode: soft-light;
   animation: themeRipple var(--theme-water-duration) var(--theme-water-easing) both,
     themeWaterFade var(--theme-water-duration) ease-in-out both;
@@ -1321,13 +1313,13 @@ html.theme-transitioning::view-transition-new(theme-water-light) {
 
 @keyframes themeRipple {
   from { --theme-ring-radius: 0px; }
-  to { --theme-ring-radius: calc(var(--theme-radius) * 1.15); }
+  to { --theme-ring-radius: calc(var(--theme-radius) * var(--theme-water-reach)); }
 }
 
 @keyframes themeWaterFade {
   0% { opacity: 0; }
-  16% { opacity: 0.95; }
-  62% { opacity: 0.7; }
+  19.2% { opacity: 0.95; }
+  74.4% { opacity: 0.7; }
   100% { opacity: 0; }
 }
 

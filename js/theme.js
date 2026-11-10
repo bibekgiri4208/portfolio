@@ -72,7 +72,7 @@
       const context = canvas.getContext('2d');
       if (!context) return null;
       const image = context.createImageData(size, size);
-      const rings = [1, 0.67, 0.34];
+      const rings = [1, 0.52];
       for (let py = 0; py < size; py++) {
         for (let px = 0; px < size; px++) {
           const nx = ((px + 0.5) / size * 2 - 1) * waterMapPadding;
@@ -81,9 +81,9 @@
           let slope = 0;
           let coverage = 0;
           rings.forEach((radius, index) => {
-            // Keep the optical disturbance near the crest, rather than bending
-            // whole paragraphs between waves. Smooth tails return to neutral.
-            const t = (distance - radius) / 0.04;
+            // Broad tides support deeper refraction without the steep gradients
+            // that make narrow, strong ripples tear thin lines and letterforms.
+            const t = (distance - radius) / 0.07;
             if (Math.abs(t) < 3) {
               slope += -t * 1.8 * Math.exp(-t * t * 1.2) * (1 - index * 0.18);
               coverage = Math.max(coverage, Math.exp(-t * t * 0.6));
@@ -123,10 +123,11 @@
   const prepareRefraction = (x, y, radius) => {
     const texture = waterTexture();
     if (!texture) return;
-    const reach = radius * 1.15 * waterMapPadding;
-    // Keep the lens gentle enough that letterforms bend instead of folding
-    // over themselves when a crest crosses smaller text.
-    const strength = 14;
+    const styles = getComputedStyle(root);
+    const waveReach = parseFloat(styles.getPropertyValue('--theme-water-reach')) || 0.9583333333;
+    const reach = radius * waveReach * waterMapPadding;
+    // Increase depth together with wave width, keeping the surface slope smooth.
+    const strength = 26;
     // Use a consistent subpixel feather on thin borders at different display
     // densities; high-DPI screens need less smoothing in CSS pixels.
     const edgeSmoothing = Math.max(0.28, 0.65 / Math.max(1, window.devicePixelRatio || 1));
@@ -136,12 +137,11 @@
       const side = weight / 8;
       return [corner, side, corner, side, 1 - weight * 0.75, side, corner, side, corner].join(' ');
     };
-    const styles = getComputedStyle(root);
-    const duration = styles.getPropertyValue('--theme-water-duration').trim() || '1800ms';
+    const duration = styles.getPropertyValue('--theme-water-duration').trim() || '1500ms';
     const curve = styles.getPropertyValue('--theme-water-easing').match(/cubic-bezier\(([^)]+)\)/)?.[1].replace(/,/g, ' ') || '0 0 1 1';
     const animation = (attribute, values, extra = '') => `<animate attributeName="${attribute}" values="${values}" dur="${duration}" begin="indefinite" fill="freeze" calcMode="spline" ${extra}/>`;
     const travel = `keyTimes="0;1" keySplines="${curve}"`;
-    const envelope = 'keyTimes="0;0.18;0.62;1" keySplines="0.35 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"';
+    const envelope = 'keyTimes="0;0.216;0.744;1" keySplines="0.35 0 0.2 1;0.4 0 0.2 1;0.4 0 0.2 1"';
     // Correct the 8-bit midpoint and make transparent samples neutral without
     // introducing a displacement seam at fractional image bounds.
     neutralTransfer ||= Array.from({ length: 256 }, (_, index) =>
