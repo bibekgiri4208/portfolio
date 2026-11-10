@@ -24,11 +24,12 @@
   <link rel="stylesheet" href="css/index_about.css?v=smooth-motion-20261109" />
   <link rel="stylesheet" href="css/index_skills.css?v=smooth-motion-20261109" />
   <link rel="stylesheet" href="css/index_projects.css?v=smooth-motion-20261109" />
-  <link rel="stylesheet" href="css/index_contact.css?v=smooth-motion-20261109" />
+  <link rel="stylesheet" href="css/index_contact.css?v=contact-balanced-20261110" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
   <script src="js/projects-data.js?v=project-github-links-20261029" defer></script>
   <script src="js/project-modal.js?v=smooth-motion-20261109" defer></script>
+  <script src="js/contact.js?v=contact-panel-20261109" defer></script>
   <script src="js/cache.js" defer></script>
 
   <!-- Improved Google Fonts -->
@@ -305,42 +306,44 @@
 
       <div class="contact-content">
         <div class="contact-details" aria-labelledby="contact-details-title">
-          <div class="contact-card-heading">
-            <span class="contact-card-icon" aria-hidden="true"><i class="far fa-envelope"></i></span>
+          <div class="contact-intro">
+            <div class="contact-availability">
+              <span class="contact-availability-dot" aria-hidden="true"></span>
+              Available for freelance projects
+            </div>
             <h3 id="contact-details-title">Let’s connect</h3>
+            <p class="contact-details-description">Tell me what you have in mind. Let’s build it together.</p>
           </div>
-          <p class="contact-details-description">For project enquiries or a quick hello, send a message or reach out directly.</p>
 
-          <a class="contact-email" href="mailto:giribibek0101@gmail.com">
-            <span class="contact-email-copy">
-              <span class="contact-label">Email</span>
-              <span class="contact-email-address">giribibek0101@gmail.com</span>
-            </span>
-            <i class="fas fa-arrow-up-right-from-square contact-email-arrow" aria-hidden="true"></i>
-          </a>
+          <div class="contact-channels">
+            <div class="contact-email-tools">
+              <a class="contact-email" href="mailto:giribibek0101@gmail.com">
+                <span class="contact-email-address">giribibek0101@gmail.com</span>
+              </a>
+              <button class="contact-copy-email" type="button" aria-label="Copy email address" title="Copy email address" hidden>
+                <i class="far fa-copy" aria-hidden="true"></i>
+              </button>
+              <span class="contact-copy-status" role="status" aria-live="polite" aria-atomic="true"></span>
+            </div>
 
-          <div class="contact-socials">
-            <p class="contact-label">Find me online</p>
-            <nav class="social-links" aria-label="Social profiles">
-              <a href="https://github.com/bibekgiri4208" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)">
-                <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-github"></i></span><span>GitHub</span>
-                <i class="fas fa-arrow-up-right-from-square contact-social-arrow" aria-hidden="true"></i>
-              </a>
-              <a href="https://www.facebook.com/bibekgiri4208/" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook (opens in a new tab)">
-                <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-facebook"></i></span><span>Facebook</span>
-                <i class="fas fa-arrow-up-right-from-square contact-social-arrow" aria-hidden="true"></i>
-              </a>
-              <a href="https://www.instagram.com/bibekgiri4208/" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in a new tab)">
-                <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-instagram"></i></span><span>Instagram</span>
-                <i class="fas fa-arrow-up-right-from-square contact-social-arrow" aria-hidden="true"></i>
-              </a>
-            </nav>
+            <div class="contact-socials">
+              <nav class="social-links" aria-label="Social profiles">
+                <a href="https://github.com/bibekgiri4208" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)">
+                  <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-github"></i></span><span>GitHub</span>
+                </a>
+                <a href="https://www.facebook.com/bibekgiri4208/" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook (opens in a new tab)">
+                  <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-facebook"></i></span><span>Facebook</span>
+                </a>
+                <a href="https://www.instagram.com/bibekgiri4208/" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in a new tab)">
+                  <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-instagram"></i></span><span>Instagram</span>
+                </a>
+              </nav>
+            </div>
           </div>
         </div>
 
         <form class="contact-form" action="https://formspree.io/f/mdavzylq" method="POST" aria-labelledby="contact-form-title" aria-describedby="contact-form-hint">
           <div class="contact-card-heading">
-            <span class="contact-card-icon" aria-hidden="true"><i class="far fa-comment-dots"></i></span>
             <h3 id="contact-form-title">Send a message</h3>
           </div>
 
@@ -361,14 +364,14 @@
 
           <div class="form-group">
             <label for="message">Your message</label>
-            <textarea id="message" name="message" rows="7" placeholder="Tell me about your project or what you need help with." required></textarea>
+            <textarea id="message" name="message" rows="5" placeholder="What would you like to build?" required></textarea>
           </div>
 
           <div class="contact-form-footer">
             <p id="contact-form-hint" class="contact-form-hint">All fields are required.</p>
             <button type="submit" class="cta-button">
               <span>Send message</span>
-              <i class="fas fa-paper-plane" aria-hidden="true"></i>
+              <i class="fas fa-arrow-right" aria-hidden="true"></i>
             </button>
           </div>
         </form>
