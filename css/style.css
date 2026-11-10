@@ -1188,6 +1188,32 @@ html.page-closing body {
   mix-blend-mode: normal;
 }
 
+/* Reveal the new palette from the toggle, without moving or fading the content. */
+html.theme-transitioning *,
+html.theme-transitioning *::before,
+html.theme-transitioning *::after {
+  /* Capture the final colors, not intermediate hover/color transitions. */
+  transition: none !important;
+}
+
+html.theme-transitioning::view-transition-old(root) {
+  z-index: 1;
+}
+
+html.theme-transitioning::view-transition-new(root) {
+  z-index: 2;
+  animation: themeReveal 650ms var(--ease-in-out) both;
+}
+
+@keyframes themeReveal {
+  from {
+    clip-path: circle(0px at var(--theme-origin-x) var(--theme-origin-y));
+  }
+  to {
+    clip-path: circle(var(--theme-radius) at var(--theme-origin-x) var(--theme-origin-y));
+  }
+}
+
 html:active-view-transition-type(page-expand)::view-transition-old(root) {
   animation: pagePreviousFade var(--page-transition-duration, 600ms) ease both;
 }
@@ -1287,6 +1313,10 @@ html[data-page-transition-mode="fallback"] body {
 @media (prefers-reduced-motion: reduce) {
   @view-transition {
     navigation: none;
+  }
+
+  html.theme-transitioning::view-transition-new(root) {
+    animation: none;
   }
 
   html.page-expand-pending body {
