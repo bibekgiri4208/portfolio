@@ -1,7 +1,7 @@
 // Shared, dependency-free sakura decoration for the portfolio pages.
 (() => {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const smallScreen = window.matchMedia('(max-width: 600px)');
+  const mobileView = window.matchMedia('(max-width: 768px), (hover: none) and (pointer: coarse)');
   const storageKey = 'portfolio-sakura-hidden';
   let petalsHidden = false;
   let layer;
@@ -16,7 +16,7 @@
   const spriteBase = new URL('../assets/img/', document.currentScript.src);
   const waterSprites = new Map();
   const warmWaterSprites = () => {
-    if (innerWidth <= 768 || reducedMotion.matches || waterSprites.size) return;
+    if (mobileView.matches || reducedMotion.matches || waterSprites.size) return;
     ['sakura-petal.svg', 'sakura-petal-curled.svg', 'sakura-petal-side.svg'].forEach(file => {
       const image = new Image();
       const sprite = { image, sharp: null };
@@ -118,7 +118,7 @@
     warmWaterSprites();
     waterSession?.finish();
     waterPetals = [];
-    const count = smallScreen.matches ? 12 : 26;
+    const count = 26;
     const petals = document.createDocumentFragment();
     depthLayers = [0.55, 0.85, 1.15].map(depth => {
       const element = document.createElement('div');
@@ -142,7 +142,7 @@
 
       const properties = {
         '--petal-left': `${(index / count) * 105 - 5}%`,
-        '--petal-size': `${((smallScreen.matches ? 22 : 30) * depth).toFixed(1)}px`,
+        '--petal-size': `${(30 * depth).toFixed(1)}px`,
         '--petal-opacity': random(0.78, 1).toFixed(2),
         '--petal-softness': depth < 0.65 ? '0.4px' : '0px',
         '--petal-drift': `${random(-80, 160).toFixed(0)}px`,
@@ -258,7 +258,7 @@
   };
 
   const prepareWater = options => {
-    if (!layer || layer.hidden || petalsHidden || document.hidden || reducedMotion.matches || innerWidth <= 768 ||
+    if (!layer || layer.hidden || petalsHidden || document.hidden || reducedMotion.matches || mobileView.matches ||
         !CSS.supports('selector(::view-transition-group(.sakura-ripple))')) return null;
     waterSession?.finish();
     warmWaterSprites();
@@ -540,7 +540,7 @@
   };
 
   const syncMotion = () => {
-    if (reducedMotion.matches) {
+    if (reducedMotion.matches || mobileView.matches) {
       waterSession?.finish();
       clearTimeout(hideTimer);
       stopBreeze();
@@ -608,7 +608,7 @@
   };
 
   reducedMotion.addEventListener('change', syncMotion);
-  smallScreen.addEventListener('change', populatePetals);
+  mobileView.addEventListener('change', syncMotion);
   document.addEventListener('visibilitychange', syncVisibility);
   new MutationObserver(syncVisibility).observe(document.documentElement, {
     attributes: true, attributeFilter: ['class']

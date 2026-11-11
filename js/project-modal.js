@@ -31,6 +31,7 @@
   const previewPrevious = document.getElementById('screenshot-preview-previous');
   const previewNext = document.getElementById('screenshot-preview-next');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const lightweightView = matchMedia('(max-width: 768px), (hover: none) and (pointer: coarse)');
   const warmedImages = new Map();
   const openDuration = 540;
   const closeDuration = 340;
@@ -348,6 +349,8 @@
     if (dialog.open) return;
     clearTimeout(closeTimer);
     cancelMotion();
+    dialog.style.setProperty('--project-open-duration', `${lightweightView.matches ? 180 : openDuration}ms`);
+    dialog.style.setProperty('--project-close-duration', `${lightweightView.matches ? 140 : closeDuration}ms`);
     dialog.classList.remove('is-closing');
     pressedBackdrop = false;
     const sourceRect = trigger.getBoundingClientRect();
@@ -393,6 +396,14 @@
     galleryTrack.scrollTo({ left: 0, behavior: 'instant' });
     content.scrollTop = 0;
     if (!reducedMotion.matches && typeof dialog.animate === 'function') {
+      if (lightweightView.matches) {
+        // One small movement, no scaled full-dialog clone or staggered layers.
+        animateDialog([
+          { opacity: 0, transform: 'translate3d(0, 8px, 0)' },
+          { opacity: 1, transform: 'translate3d(0, 0, 0)' }
+        ], 180, 'cubic-bezier(0.22, 1, 0.36, 1)');
+        return;
+      }
       const geometry = getCardGeometry(sourceRect);
       skeleton.hidden = false;
       createMorphFace(geometry);
@@ -409,6 +420,9 @@
     cancelMotion();
     if (screenshotPreview.open) screenshotPreview.close();
     if (dialog.open) dialog.close();
+    // Native close events are queued; release scrolling immediately, including
+    // reduced-motion closes, rather than leaving an invisible modal lock behind.
+    root.classList.remove('project-modal-open');
   };
   const requestClose = () => {
     if (!dialog.open || dialog.classList.contains('is-closing')) return;
@@ -420,6 +434,14 @@
     // Start from the painted frame, including an unfinished entrance animation.
     const current = getComputedStyle(dialog);
     const start = { opacity: current.opacity, transform: current.transform };
+    if (lightweightView.matches) {
+      cancelMotion();
+      dialog.style.setProperty('--project-close-duration', '140ms');
+      dialog.classList.add('is-closing');
+      animateDialog([start, { opacity: 0, transform: 'translate3d(0, 6px, 0)' }], 140, 'ease-in', finishClose);
+      closeTimer = setTimeout(finishClose, 240);
+      return;
+    }
     const faceOpacity = morphFace ? getComputedStyle(morphFace).opacity : '0';
     const skeletonOpacity = skeleton.hidden ? '0' : getComputedStyle(skeleton).opacity;
     const details = detailGroups().map(({ element }) => {
@@ -471,7 +493,8 @@
   }, true);
 
   const warmProject = event => {
-    if (navigator.connection?.saveData) return;
+    // A touch on a card is usually the start of a scroll, not intent to open it.
+    if (lightweightView.matches || navigator.connection?.saveData) return;
     const link = event.target.closest('a[data-project-modal]');
     if (!link) return;
     const project = projects.find(project => project.id === Number(link.dataset.projectModal));

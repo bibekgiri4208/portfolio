@@ -162,11 +162,11 @@ html.theme-transitioning::view-transition-new(.sakura-ripple) {
   100% { transform: rotate(var(--petal-rotation)) rotateY(0deg) rotateX(12deg); }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  /* JS also removes these nodes and cancels their animation work on resize. */
+  .sakura-layer,
   .sakura-toggle {
-    right: 12px;
-    bottom: max(12px, env(safe-area-inset-bottom));
-    padding-inline: 12px;
+    display: none;
   }
 }
 

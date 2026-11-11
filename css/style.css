@@ -1220,7 +1220,7 @@ html.theme-transitioning {
   --theme-water-easing: linear;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
   html.theme-transitioning {
     /* Mobile keeps just the lightweight circular reveal, without water layers. */
     --theme-reveal-duration: 650ms;

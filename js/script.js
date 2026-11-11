@@ -2,6 +2,7 @@
   const root = document.documentElement;
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const mobileNavigation = matchMedia('(max-width: 768px)');
+  const lightweightView = matchMedia('(max-width: 768px), (hover: none) and (pointer: coarse)');
   const hamburger = document.querySelector('.hamburger');
   const navMenu = document.querySelector('.nav-menu');
   const navbar = document.querySelector('.navbar');
@@ -16,6 +17,7 @@
   let capsuleFrame = 0;
 
   const positionNavCapsule = (animate = true) => {
+    if (mobileNavigation.matches && !navMenu?.classList.contains('active')) return;
     if (!navMenu || !activeNavLink || !navMenu.offsetWidth) return;
     // Layout coordinates stay accurate while the mobile menu itself is scaling.
     const x = activeNavLink.offsetLeft;
@@ -113,13 +115,13 @@
   });
   if ('ResizeObserver' in window) {
     // Measure actual layout changes, not the transforms used by our animations.
-    const resizeObserver = new ResizeObserver(measureLayout);
+    const resizeObserver = new ResizeObserver(scheduleLayout);
     resizeObserver.observe(document.body);
     navSections.forEach(section => resizeObserver.observe(section));
     if (navMenu) resizeObserver.observe(navMenu);
     navLinks.forEach(link => resizeObserver.observe(link));
   }
-  window.addEventListener('resize', measureLayout, { passive: true });
+  window.addEventListener('resize', scheduleLayout, { passive: true });
   window.addEventListener('pageshow', scheduleLayout);
   document.fonts?.ready.then(scheduleLayout);
 
@@ -156,10 +158,17 @@
     if (!element.classList.contains('reveal-pending')) return;
     markRevealed(element);
     if (immediate || reducedMotion.matches || root.classList.contains('restoring-project-position')) return;
-    const animation = element.animate([
+    // Fade the real glass in place on phones; translating a live backdrop-filter
+    // forces it to sample a different background throughout the entrance.
+    const frames = lightweightView.matches ? [{ opacity: 0 }, { opacity: 1 }] : [
       { opacity: 0, translate: '0 18px' },
       { opacity: 1, translate: '0 0' }
-    ], { duration: 620, delay, easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards' });
+    ];
+    const animation = element.animate(frames, {
+      duration: lightweightView.matches ? 360 : 620,
+      delay: lightweightView.matches ? Math.min(delay, 65) : delay,
+      easing: 'cubic-bezier(0.22, 1, 0.36, 1)', fill: 'backwards'
+    });
     revealMotions.set(element, animation);
     const cleanup = () => {
       if (revealMotions.get(element) === animation) revealMotions.delete(element);

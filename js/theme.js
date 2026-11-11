@@ -2,7 +2,7 @@
 (() => {
   const root = document.documentElement;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const mobileView = window.matchMedia('(max-width: 768px)');
+  const mobileView = window.matchMedia('(max-width: 768px), (hover: none) and (pointer: coarse)');
   let currentTheme = 'light';
   let requestedTheme = currentTheme;
   let themeTransition;

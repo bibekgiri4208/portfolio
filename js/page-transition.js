@@ -4,6 +4,8 @@
   const DURATION = 600;
   const root = document.documentElement;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const lightweightView = window.matchMedia('(max-width: 768px), (hover: none) and (pointer: coarse)');
+  const skipMotion = () => reducedMotion.matches || lightweightView.matches;
   const supportsNativeScale = CSS.supports('selector(:active-view-transition-type(page-expand))');
   root.style.setProperty('--page-transition-duration', `${DURATION}ms`);
   let incoming;
@@ -32,7 +34,7 @@
   let returnArrival = isReturnArrival(incoming);
 
   const shouldExpand = incoming?.kind !== 'close' && incoming?.href === window.location.href &&
-    Number.isFinite(incoming.x) && Number.isFinite(incoming.y) && !reducedMotion.matches;
+    Number.isFinite(incoming.x) && Number.isFinite(incoming.y) && !skipMotion();
   const setOrigin = position => {
     root.style.setProperty('--page-origin-x', `${Math.round(Math.max(0, Math.min(1, position.x)) * window.innerWidth)}px`);
     root.style.setProperty('--page-origin-y', `${Math.round(Math.max(0, Math.min(1, position.y)) * window.innerHeight)}px`);
@@ -40,7 +42,7 @@
   };
   let navigationStyle;
   const enableNativeNavigation = () => {
-    if (!supportsNativeScale || reducedMotion.matches || navigationStyle) return;
+    if (!supportsNativeScale || skipMotion() || navigationStyle) return;
     navigationStyle = document.createElement('style');
     navigationStyle.textContent = '@view-transition { navigation: auto; }';
     document.head.append(navigationStyle);
@@ -97,7 +99,7 @@
 
   const startFallback = async () => {
     if (phase === 'preparing' || phase === 'fallback' || phase === 'done') return;
-    if (reducedMotion.matches) {
+    if (skipMotion()) {
       reset();
       return;
     }
@@ -120,7 +122,7 @@
     ]);
     clearTimeout(assetTimer);
     if (generation !== activeGeneration) return;
-    if (reducedMotion.matches) {
+    if (skipMotion()) {
       reset();
       return;
     }
@@ -144,7 +146,7 @@
   // Warm the next page while the visitor hovers/focuses a project, especially its preview.
   const warmedAssets = new Set();
   const warmProject = event => {
-    if (navigator.connection?.saveData || reducedMotion.matches) return;
+    if (navigator.connection?.saveData || skipMotion()) return;
     const link = event.target.closest('a[data-page-transition]');
     if (!link || new URL(link.href).pathname !== new URL('project_description.html', window.location.href).pathname) return;
     const assets = [
@@ -174,7 +176,7 @@
     if (!link || event.defaultPrevented || event.button !== 0 ||
         event.metaKey || event.ctrlKey || event.shiftKey || event.altKey ||
         (link.target && link.target !== '_self') || link.hasAttribute('download') ||
-        reducedMotion.matches) return;
+        skipMotion()) return;
 
     const url = new URL(link.href, window.location.href);
     if (url.origin !== window.location.origin ||
@@ -263,7 +265,7 @@
     return returnPreviewReady;
   };
   const warmReturnLink = event => {
-    if (navigator.connection?.saveData || reducedMotion.matches) return;
+    if (navigator.connection?.saveData || skipMotion()) return;
     if (!event.target.closest('a[data-project-return]')) return;
     try {
       const saved = JSON.parse(sessionStorage.getItem('portfolioProjectReturn'));
@@ -278,7 +280,7 @@
   window.PortfolioPageTransition = {
     async close(navigate, origin, href) {
       if (phase.startsWith('closing-')) return;
-      if (reducedMotion.matches) {
+      if (skipMotion()) {
         navigate();
         return;
       }
@@ -370,7 +372,7 @@
   };
   window.addEventListener('pageswap', event => {
     observeTransition(event.viewTransition);
-    if (!outgoing || reducedMotion.matches || !supportsNativeScale) {
+    if (!outgoing || skipMotion() || !supportsNativeScale) {
       // Browser-toolbar Back can happen before the current entrance has finished.
       event.viewTransition?.skipTransition();
       return;
@@ -381,6 +383,11 @@
   });
   window.addEventListener('pagereveal', event => {
     observeTransition(event.viewTransition);
+    if (skipMotion()) {
+      event.viewTransition?.skipTransition();
+      reset();
+      return;
+    }
     if (returnArrival) {
       window.PortfolioProjectNavigation?.restore();
       if (event.viewTransition) {
@@ -396,7 +403,7 @@
       }
       return;
     }
-    if (!event.viewTransition || !arrivalPending || reducedMotion.matches) return;
+    if (!event.viewTransition || !arrivalPending || skipMotion()) return;
     arrivalPending = false;
     nativeTransition = event.viewTransition;
     if (!supportsNativeScale || !nativeTransition.types) {
@@ -452,11 +459,13 @@
     returnArrival = returning;
     nativeTransition = null;
   });
-  reducedMotion.addEventListener('change', event => {
-    if (!event.matches) return;
+  const settleMotion = () => {
+    if (!skipMotion()) return;
     const navigate = closeNavigation;
     nativeTransition?.skipTransition();
     reset();
     navigate?.();
-  });
+  };
+  reducedMotion.addEventListener('change', settleMotion);
+  lightweightView.addEventListener('change', settleMotion);
 })();
