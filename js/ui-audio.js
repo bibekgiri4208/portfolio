@@ -1,14 +1,8 @@
 // Short, gesture-triggered UI sounds shared by both portfolio pages.
 (() => {
   const base = new URL('../assets/audio/', document.currentScript.src);
+  const files = { selection: 'selection-button.mp3', back: 'back-button.mp3', water: 'water_droplet.mp3' };
   const clips = {};
-  for (const [name, file] of Object.entries({ selection: 'selection-button.mp3', back: 'back-button.mp3', water: 'water_droplet.mp3' })) {
-    const audio = new Audio();
-    audio.preload = 'auto';
-    audio.volume = 0.4;
-    audio.src = new URL(file, base).href;
-    clips[name] = audio;
-  }
 
   const stop = () => {
     Object.values(clips).forEach(audio => {
@@ -18,7 +12,15 @@
   };
 
   const play = name => {
-    if (!Object.hasOwn(clips, name) || document.hidden) return;
+    if (!Object.hasOwn(files, name) || document.hidden) return;
+    // Do not compete with the portrait/fonts for bandwidth on initial arrival.
+    if (!clips[name]) {
+      const audio = new Audio();
+      audio.preload = 'none';
+      audio.volume = 0.4;
+      audio.src = new URL(files[name], base).href;
+      clips[name] = audio;
+    }
     stop();
     try {
       // Reuse and restart the clips: rapid clicks never build up overlapping audio.

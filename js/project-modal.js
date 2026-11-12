@@ -548,4 +548,12 @@
     if (dialog.classList.contains('is-closing')) finishClose();
     else cancelMotion();
   });
+  window.PortfolioProjectModal = Object.freeze({
+    open(id, trigger) {
+      const project = projects.find(project => project.id === id);
+      if (!project) return false;
+      openProject(project, trigger);
+      return true;
+    }
+  });
 })();

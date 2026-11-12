@@ -8,7 +8,7 @@
   <script src="js/theme.js?v=mobile-performance-20261111"></script>
   <script src="js/project-navigation.js?v=smooth-motion-20261109"></script>
   <script src="js/page-transition.js?v=mobile-performance-20261111"></script>
-  <script src="js/ui-audio.js?v=water-toggle-audio-20261110" defer></script>
+  <script src="js/ui-audio.js?v=mobile-smooth-20261112" defer></script>
   <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg?v=angular-black-blue-20261108">
 
   <!-- Prioritize only the image visible on initial arrival. -->
@@ -16,27 +16,21 @@
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/style.css?v=mobile-glass-quality-20261111" />
-  <link rel="stylesheet" href="css/sakura.css?v=mobile-performance-20261111" />
-  <script src="js/sakura.js?v=mobile-performance-20261111" defer></script>
-  <!-- Retain return-animation styling for direct visits to the fallback page. -->
-  <link rel="stylesheet" href="css/project_description.css?v=glass-20261021" />
-  <link rel="stylesheet" href="css/project_modal.css?v=project-motion-fixes-20261110" />
   <link rel="stylesheet" href="css/index_about.css?v=smooth-motion-20261109" />
   <link rel="stylesheet" href="css/index_skills.css?v=smooth-motion-20261109" />
   <link rel="stylesheet" href="css/index_projects.css?v=smooth-motion-20261109" />
   <link rel="stylesheet" href="css/index_contact.css?v=contact-balanced-20261110" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="css/mobile-performance.css?v=mobile-smooth-20261112" />
 
-  <script src="js/projects-data.js?v=project-github-links-20261029" defer></script>
-  <script src="js/project-modal.js?v=mobile-glass-quality-20261111" defer></script>
-  <script src="js/contact.js?v=contact-panel-20261109" defer></script>
+  <script src="js/enhancements.js?v=mobile-smooth-20261112" defer></script>
   <script src="js/cache.js" defer></script>
 
   <!-- Improved Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet">
 </head>
 
@@ -379,7 +373,8 @@
     </div>
   </section>
 
-  <!-- Project details open here; standalone links remain available for new tabs. -->
+  <!-- Inert until Projects approaches the viewport; real links work without JS. -->
+  <template id="project-dialog-template">
   <dialog id="project-dialog" class="project-dialog" aria-labelledby="project-dialog-title">
     <!-- Decorative transition layer; real content remains available to assistive technology. -->
     <div class="project-skeleton" aria-hidden="true" inert hidden>
@@ -493,13 +488,14 @@
     </div>
   </dialog>
 
+  </template>
   <!-- Footer -->
   <footer class="footer">
     <p>&copy; 2026 Bibek Giri. All rights reserved.</p>
     <p class="footer-subtext">giribibek0101@gmail.com</p>
   </footer>
 
-  <script src="js/script.js?v=mobile-glass-quality-20261111"></script>
+  <script src="js/script.js?v=mobile-smooth-20261112"></script>
 </body>
 
 </html>

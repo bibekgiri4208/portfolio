@@ -158,8 +158,7 @@
     if (!element.classList.contains('reveal-pending')) return;
     markRevealed(element);
     if (immediate || reducedMotion.matches || root.classList.contains('restoring-project-position')) return;
-    // Fade the real glass in place on phones; translating a live backdrop-filter
-    // forces it to sample a different background throughout the entrance.
+    // Mobile uses one short fade over static glass instead of a layered stagger.
     const frames = lightweightView.matches ? [{ opacity: 0 }, { opacity: 1 }] : [
       { opacity: 0, translate: '0 18px' },
       { opacity: 1, translate: '0 0' }

@@ -1,0 +1,127 @@
+/* Static glass on phones/tablets: these gradients are already soft, so there is
+   no reason to sample and blur the scrolling page behind every surface. */
+@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+  :root,
+  html[data-theme="dark"],
+  body.dark-mode {
+    --glass-blur: none;
+    --overlay-blur: none;
+    --shadow-sm: 0 4px 10px -5px rgba(15, 30, 60, 0.22), var(--glass-bevel);
+    --shadow-md: 0 8px 20px -9px rgba(15, 30, 60, 0.24), var(--glass-bevel);
+    --shadow-lg: 0 12px 28px -12px rgba(15, 30, 60, 0.28), var(--glass-bevel);
+  }
+
+  :root {
+    --glass-tint: rgba(235, 243, 255, 0.8);
+    --glass-strong: rgba(233, 241, 253, 0.97);
+    --glass-hover: rgba(244, 249, 255, 0.9);
+  }
+
+  html[data-theme="dark"],
+  body.dark-mode {
+    --glass-tint: rgba(28, 45, 72, 0.86);
+    --glass-strong: rgba(21, 31, 54, 0.98);
+    --glass-hover: rgba(45, 62, 100, 0.94);
+  }
+
+  /* Avoid an extra full-screen fixed paint surface during native scrolling. */
+  body::before {
+    position: absolute;
+    height: 100svh;
+    bottom: auto;
+  }
+
+  /* Fine masked reflections cost extra offscreen surfaces. A normal highlight
+     border and the existing static fill preserve the material without masks. */
+  :is(.navbar .container, .hero-content, .profile-image-wrapper, .stat-item,
+      .stat-card, .skill-card, .project-card, .contact-form, .contact-details,
+      .about-text, .secondary-btn, .hero .primary-btn, .theme-toggle, .hamburger,
+      .project-dialog, .screenshot-preview, .contact-content)::after {
+    content: none;
+  }
+
+  :is(.navbar .container, .hero-content, .profile-image-wrapper, .stat-item,
+      .stat-card, .skill-card, .project-card, .about-text, .contact-content) {
+    border-top-color: var(--glass-highlight);
+  }
+
+  /* Never interpolate a shadow or background gradient on a touch interaction.
+     Shadows remain static; feedback uses compositor-friendly transforms. */
+  :is(.navbar .container, .nav-link, .theme-toggle, .hamburger, .cta-btn,
+      .cta-button, .project-link, .pd-btn, .pd-neighbor,
+      .contact .form-group input, .contact .form-group textarea) {
+    transition-property: transform, opacity, color, border-color;
+  }
+
+  .nav-menu.capsule-ready::before {
+    transition-property: transform;
+  }
+
+  /* Paint/decode thumbnail contents only near the viewport. The explicit aspect
+     ratio reserves their exact height, avoiding scroll/anchor layout shifts. */
+  .project-thumb {
+    content-visibility: auto;
+  }
+
+  /* Show the LCP portrait immediately rather than fading it in from invisible. */
+  .hero .profile-image-container {
+    animation: none;
+  }
+
+  .profile-image {
+    filter: none;
+  }
+
+  .hero .hero-title-line:nth-child(n),
+  .hero :is(.hero-eyebrow, .hero-description,
+      .hero-stats-grid, .hero-cta-group) {
+    animation: mobileFadeIn 240ms ease-out backwards;
+  }
+
+  .reveal-pending {
+    translate: none;
+  }
+
+  .screenshot-preview[open]:not(.is-closing) {
+    animation-duration: 180ms;
+  }
+}
+
+@keyframes mobileFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (hover: none) {
+  /* Touch browsers can retain :hover after tapping. Keep static elevation. */
+  :is(.stat-item, .stat-card, .skill-card, .project-card, .profile-image-wrapper,
+      .cta-btn, .cta-button, .theme-toggle, .hamburger, .pd-btn, .pd-neighbor):hover {
+    transform: none !important;
+  }
+
+  :is(.stat-item, .theme-toggle, .hamburger, .secondary-btn):hover {
+    box-shadow: var(--shadow-sm);
+  }
+
+  :is(.primary-btn, .cta-button):hover {
+    box-shadow: 0 10px 24px -8px rgba(0, 79, 232, 0.42), var(--glass-bevel);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root,
+  html[data-theme="dark"],
+  body.dark-mode {
+    --glass-tint: var(--surface);
+    --glass-strong: var(--surface);
+    --glass-hover: var(--surface);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero-title-line:nth-child(n),
+  .hero :is(.hero-eyebrow, .hero-description,
+      .hero-stats-grid, .hero-cta-group) {
+    animation: none;
+  }
+}
