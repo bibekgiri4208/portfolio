@@ -82,6 +82,36 @@
     translate: none;
   }
 
+  /* A growing full-screen clip can repaint on mobile GPUs. Blend the two
+     frozen palettes instead: only snapshot opacity changes during the effect. */
+  html.theme-transitioning {
+    --theme-reveal-duration: 180ms;
+  }
+
+  html.theme-transitioning::view-transition-group(root) {
+    animation: none;
+  }
+
+  html.theme-transitioning::view-transition-new(root) {
+    clip-path: none;
+    animation: mobileFadeIn 180ms ease-out both;
+  }
+
+  /* An opaque base avoids blending a large moving surface with the page.
+     The static highlight preserves the dialog's glass-style appearance. */
+  .project-dialog[open] {
+    background: linear-gradient(135deg, var(--glass-highlight), transparent 45%), var(--surface);
+  }
+
+  .project-dialog[open].is-animating {
+    will-change: opacity;
+  }
+
+  .project-dialog[open]::backdrop {
+    /* Animate just the panel, not a second full-viewport surface as well. */
+    transition: none;
+  }
+
   .screenshot-preview[open]:not(.is-closing) {
     animation-duration: 180ms;
   }
@@ -119,6 +149,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html.theme-transitioning::view-transition-new(root) {
+    animation: none;
+  }
+
   .hero .hero-title-line:nth-child(n),
   .hero :is(.hero-eyebrow, .hero-description,
       .hero-stats-grid, .hero-cta-group) {

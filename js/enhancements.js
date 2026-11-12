@@ -49,7 +49,7 @@
     projectReady = Promise.all([
       load('css/project_modal.css?v=mobile-smooth-20261112', true),
       load('js/projects-data.js?v=project-github-links-20261029')
-    ]).then(() => load('js/project-modal.js?v=mobile-smooth-20261112'))
+    ]).then(() => load('js/project-modal.js?v=mobile-transitions-20261112'))
       .then(() => {
         if (!window.PortfolioProjectModal) throw new Error('Project dialog unavailable');
       }).catch(error => {

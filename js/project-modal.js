@@ -53,6 +53,15 @@
   let previewMotion;
   let previewImageMotion;
   let previewCloseTimer;
+  let mediaVersion = 0;
+  let pendingMedia;
+  image.decoding = 'async';
+
+  const loadPendingMedia = () => {
+    const load = pendingMedia;
+    pendingMedia = null;
+    load?.();
+  };
 
   const textElement = (tag, text) => {
     const element = document.createElement(tag);
@@ -174,7 +183,7 @@
     previewOpener = null;
   });
 
-  const renderScreenshots = project => {
+  const renderScreenshots = (project, deferImages = false) => {
     screenshots = (project.screenshots || []).filter(screenshot => screenshot.src);
     screenshotCount = screenshots.length;
     gallery.hidden = screenshotCount === 0;
@@ -202,7 +211,10 @@
         slide.style.setProperty('--screenshot-ratio', screenshotImage.naturalWidth / screenshotImage.naturalHeight);
         updateGalleryControls();
       }, { once: true });
-      screenshotImage.src = screenshot.src;
+      // Keep the gallery's layout reserved, but don't decode/upload large
+      // screenshots while the mobile panel is being composited into view.
+      if (deferImages) screenshotImage.dataset.src = screenshot.src;
+      else screenshotImage.src = screenshot.src;
       screenshotImage.draggable = false;
       const expandIcon = document.createElement('span');
       expandIcon.className = 'project-gallery-expand-icon';
@@ -218,7 +230,6 @@
       slide.append(expand);
       return slide;
     }));
-    updateGalleryControls();
   };
 
   const scrollScreenshots = left => {
@@ -349,17 +360,42 @@
     if (dialog.open) return;
     clearTimeout(closeTimer);
     cancelMotion();
-    dialog.style.setProperty('--project-open-duration', `${lightweightView.matches ? 180 : openDuration}ms`);
-    dialog.style.setProperty('--project-close-duration', `${lightweightView.matches ? 140 : closeDuration}ms`);
+    const mobile = lightweightView.matches;
+    const version = ++mediaVersion;
+    pendingMedia = null;
+    dialog.style.setProperty('--project-open-duration', `${mobile ? 160 : openDuration}ms`);
+    dialog.style.setProperty('--project-close-duration', `${mobile ? 120 : closeDuration}ms`);
     dialog.classList.remove('is-closing');
     pressedBackdrop = false;
-    const sourceRect = trigger.getBoundingClientRect();
+    const sourceRect = mobile ? null : trigger.getBoundingClientRect();
     title.textContent = project.title;
-    image.src = project.image;
+    const thumbnail = mobile ? trigger.querySelector('.project-thumb img') : null;
+    const initialImage = thumbnail?.currentSrc || thumbnail?.getAttribute('src');
+    if (mobile && initialImage) image.src = initialImage;
+    else if (!mobile) image.src = project.image;
+    else image.removeAttribute('src');
     image.alt = project.imageAlt;
     description.replaceChildren(...project.description.split('\n\n').map(text => textElement('p', text)));
     features.replaceChildren(...project.features.map(text => textElement('li', text)));
-    renderScreenshots(project);
+    renderScreenshots(project, mobile);
+    if (mobile) {
+      pendingMedia = () => {
+        if (!dialog.open || dialog.classList.contains('is-closing') || mediaVersion !== version) return;
+        galleryTrack.querySelectorAll('img[data-src]').forEach(screenshot => {
+          screenshot.src = screenshot.dataset.src;
+          delete screenshot.dataset.src;
+        });
+        // Keep the already-loaded card artwork visible until the full preview
+        // has decoded. A late response from a closed/previous project is ignored.
+        const fullImage = new Image();
+        fullImage.decoding = 'async';
+        fullImage.src = project.image;
+        const ready = fullImage.decode ? fullImage.decode() : Promise.resolve();
+        ready.then(() => {
+          if (dialog.open && !dialog.classList.contains('is-closing') && mediaVersion === version) image.src = project.image;
+        }, () => { /* Keep the thumbnail if the full preview fails to load. */ });
+      };
+    }
     github.hidden = !project.source;
     if (project.source) github.href = project.source;
     else github.removeAttribute('href');
@@ -395,13 +431,14 @@
     dialog.showModal();
     galleryTrack.scrollTo({ left: 0, behavior: 'instant' });
     content.scrollTop = 0;
+    updateGalleryControls();
     if (!reducedMotion.matches && typeof dialog.animate === 'function') {
-      if (lightweightView.matches) {
-        // One small movement, no scaled full-dialog clone or staggered layers.
+      if (mobile) {
+        // Opacity only: no moving text, card morph, or media uploads mid-motion.
         animateDialog([
-          { opacity: 0, transform: 'translate3d(0, 8px, 0)' },
-          { opacity: 1, transform: 'translate3d(0, 0, 0)' }
-        ], 180, 'cubic-bezier(0.22, 1, 0.36, 1)');
+          { opacity: 0 },
+          { opacity: 1 }
+        ], 160, 'ease-out', loadPendingMedia);
         return;
       }
       const geometry = getCardGeometry(sourceRect);
@@ -413,6 +450,7 @@
       ], openDuration, 'cubic-bezier(0.22, 1, 0.36, 1)');
       revealDetails();
     }
+    loadPendingMedia();
   };
 
   const finishClose = () => {
@@ -426,6 +464,8 @@
   };
   const requestClose = () => {
     if (!dialog.open || dialog.classList.contains('is-closing')) return;
+    pendingMedia = null;
+    mediaVersion += 1;
     window.PortfolioAudio?.play('back');
     if (reducedMotion.matches || typeof dialog.animate !== 'function') {
       finishClose();
@@ -436,9 +476,9 @@
     const start = { opacity: current.opacity, transform: current.transform };
     if (lightweightView.matches) {
       cancelMotion();
-      dialog.style.setProperty('--project-close-duration', '140ms');
+      dialog.style.setProperty('--project-close-duration', '120ms');
       dialog.classList.add('is-closing');
-      animateDialog([start, { opacity: 0, transform: 'translate3d(0, 6px, 0)' }], 140, 'ease-in', finishClose);
+      animateDialog([{ opacity: start.opacity }, { opacity: 0 }], 120, 'ease-in', finishClose);
       closeTimer = setTimeout(finishClose, 240);
       return;
     }
@@ -532,6 +572,10 @@
     pressedBackdrop = false;
   });
   dialog.addEventListener('close', () => {
+    // A close event from a rapid close/reopen must not clear the new project.
+    if (dialog.open) return;
+    pendingMedia = null;
+    mediaVersion += 1;
     clearTimeout(closeTimer);
     cancelMotion();
     if (screenshotPreview.open) screenshotPreview.close();
@@ -546,7 +590,10 @@
     previewImageMotion?.cancel();
     if (screenshotPreview.classList.contains('is-closing')) screenshotPreview.close();
     if (dialog.classList.contains('is-closing')) finishClose();
-    else cancelMotion();
+    else {
+      cancelMotion();
+      loadPendingMedia();
+    }
   });
   window.PortfolioProjectModal = Object.freeze({
     open(id, trigger) {
