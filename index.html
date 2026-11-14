@@ -15,7 +15,7 @@
   <link rel="preload" href="assets/img/profile-780.jpg" as="image" fetchpriority="high">
 
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/style.css?v=mobile-glass-quality-20261111" />
+  <link rel="stylesheet" href="css/style.css?v=desktop-clock-20261114" />
   <link rel="stylesheet" href="css/index_about.css?v=smooth-motion-20261109" />
   <link rel="stylesheet" href="css/index_skills.css?v=smooth-motion-20261109" />
   <link rel="stylesheet" href="css/index_projects.css?v=smooth-motion-20261109" />
@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="css/mobile-performance.css?v=mobile-transitions-20261112" />
 
   <script src="js/enhancements.js?v=mobile-transitions-20261112" defer></script>
+  <script src="js/desktop-clock.js?v=desktop-clock-20261114" defer></script>
   <script src="js/cache.js" defer></script>
 
   <!-- Improved Google Fonts -->
@@ -50,6 +51,10 @@
         <li><a href="#projects" class="nav-link">Projects</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
+      <time class="desktop-clock" aria-live="off" hidden>
+        <span class="desktop-clock-digits" data-clock-time aria-hidden="true"></span>
+        <span class="desktop-clock-period" data-clock-period aria-hidden="true"></span>
+      </time>
       <button class="theme-toggle" type="button" aria-label="Enable dark mode" title="Toggle theme" data-ui-sound="water">
         <i class="fas fa-moon" aria-hidden="true"></i>
       </button>
