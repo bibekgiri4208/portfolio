@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="css/index_about.css?v=smooth-motion-20261109" />
   <link rel="stylesheet" href="css/index_skills.css?v=smooth-motion-20261109" />
   <link rel="stylesheet" href="css/index_projects.css?v=smooth-motion-20261109" />
-  <link rel="stylesheet" href="css/index_contact.css?v=contact-balanced-20261110" />
+  <link rel="stylesheet" href="css/index_contact.css?v=contact-modular-labels-20261116" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <link rel="stylesheet" href="css/mobile-performance.css?v=mobile-transitions-20261112" />
 
@@ -304,44 +304,15 @@
       <h2 id="contact-title" class="section-title">Have a project in mind?</h2>
 
       <div class="contact-content">
-        <div class="contact-details" aria-labelledby="contact-details-title">
-          <div class="contact-intro">
-            <div class="contact-availability">
-              <span class="contact-availability-dot" aria-hidden="true"></span>
-              Available for freelance projects
-            </div>
-            <h3 id="contact-details-title">Let’s connect</h3>
-            <p class="contact-details-description">Tell me what you have in mind. Let’s build it together.</p>
+        <div class="contact-module contact-details contact-intro" aria-labelledby="contact-details-title">
+          <div class="contact-availability">
+            Available for freelance projects
           </div>
-
-          <div class="contact-channels">
-            <div class="contact-email-tools">
-              <a class="contact-email" href="mailto:giribibek0101@gmail.com">
-                <span class="contact-email-address">giribibek0101@gmail.com</span>
-              </a>
-              <button class="contact-copy-email" type="button" aria-label="Copy email address" title="Copy email address" hidden>
-                <i class="far fa-copy" aria-hidden="true"></i>
-              </button>
-              <span class="contact-copy-status" role="status" aria-live="polite" aria-atomic="true"></span>
-            </div>
-
-            <div class="contact-socials">
-              <nav class="social-links" aria-label="Social profiles">
-                <a href="https://github.com/bibekgiri4208" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)">
-                  <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-github"></i></span><span>GitHub</span>
-                </a>
-                <a href="https://www.facebook.com/bibekgiri4208/" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook (opens in a new tab)">
-                  <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-facebook"></i></span><span>Facebook</span>
-                </a>
-                <a href="https://www.instagram.com/bibekgiri4208/" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in a new tab)">
-                  <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-instagram"></i></span><span>Instagram</span>
-                </a>
-              </nav>
-            </div>
-          </div>
+          <h3 id="contact-details-title">Let’s connect</h3>
+          <p class="contact-details-description">Tell me what you have in mind. Let’s build it together.</p>
         </div>
 
-        <form class="contact-form" action="https://formspree.io/f/mdavzylq" method="POST" aria-labelledby="contact-form-title" aria-describedby="contact-form-hint">
+        <form class="contact-module contact-form" action="https://formspree.io/f/mdavzylq" method="POST" aria-labelledby="contact-form-title" aria-describedby="contact-form-hint">
           <div class="contact-card-heading">
             <h3 id="contact-form-title">Send a message</h3>
           </div>
@@ -361,7 +332,7 @@
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group contact-message">
             <label for="message">Your message</label>
             <textarea id="message" name="message" rows="5" placeholder="What would you like to build?" required></textarea>
           </div>
@@ -374,6 +345,39 @@
             </button>
           </div>
         </form>
+
+        <div class="contact-module contact-channels">
+          <div class="contact-email-card">
+            <span class="contact-channel-label">Email me directly</span>
+            <div class="contact-email-tools">
+              <a class="contact-email" href="mailto:giribibek0101@gmail.com">
+                <span class="contact-email-address">giribibek0101@gmail.com</span>
+              </a>
+              <button class="contact-copy-email" type="button" aria-label="Copy email address" title="Copy email address" hidden>
+                <i class="far fa-copy" aria-hidden="true"></i>
+              </button>
+              <span class="contact-copy-status" role="status" aria-live="polite" aria-atomic="true"></span>
+            </div>
+          </div>
+
+          <div class="contact-socials">
+            <span class="contact-channel-label">Find me online</span>
+            <nav class="social-links" aria-label="Social profiles">
+              <a href="https://github.com/bibekgiri4208" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in a new tab)">
+                <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-github"></i></span><span>GitHub</span>
+                <span class="contact-social-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a href="https://www.facebook.com/bibekgiri4208/" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook (opens in a new tab)">
+                <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-facebook"></i></span><span>Facebook</span>
+                <span class="contact-social-arrow" aria-hidden="true">↗</span>
+              </a>
+              <a href="https://www.instagram.com/bibekgiri4208/" class="contact-social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram (opens in a new tab)">
+                <span class="contact-social-icon" aria-hidden="true"><i class="fab fa-instagram"></i></span><span>Instagram</span>
+                <span class="contact-social-arrow" aria-hidden="true">↗</span>
+              </a>
+            </nav>
+          </div>
+        </div>
       </div>
     </div>
   </section>
