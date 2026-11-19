@@ -82,21 +82,6 @@
     translate: none;
   }
 
-  /* A growing full-screen clip can repaint on mobile GPUs. Blend the two
-     frozen palettes instead: only snapshot opacity changes during the effect. */
-  html.theme-transitioning {
-    --theme-reveal-duration: 180ms;
-  }
-
-  html.theme-transitioning::view-transition-group(root) {
-    animation: none;
-  }
-
-  html.theme-transitioning::view-transition-new(root) {
-    clip-path: none;
-    animation: mobileFadeIn 180ms ease-out both;
-  }
-
   /* An opaque base avoids blending a large moving surface with the page.
      The static highlight preserves the dialog's glass-style appearance. */
   .project-dialog[open] {

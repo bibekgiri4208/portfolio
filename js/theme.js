@@ -2,7 +2,7 @@
 (() => {
   const root = document.documentElement;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const mobileView = window.matchMedia('(max-width: 768px), (hover: none) and (pointer: coarse)');
+  const mobileView = window.matchMedia('(max-width: 768px)');
   let currentTheme = 'light';
   let requestedTheme = currentTheme;
   let themeTransition;
@@ -11,17 +11,21 @@
   let displacementTexture;
   let neutralTransfer;
   let petalRipple;
+  let transitionFrame = 0;
   const waterMapPadding = 1.15;
 
   const clearTransition = () => {
+    cancelAnimationFrame(transitionFrame);
+    transitionFrame = 0;
     themeTransition = null;
     petalRipple?.finish();
     petalRipple = null;
     rippleCapture?.remove();
     rippleCapture = null;
+    refraction?.remove();
     refraction = null;
-    root.classList.remove('theme-transitioning');
-    ['--theme-origin-x', '--theme-origin-y', '--theme-radius', '--theme-water-filter'].forEach(property => root.style.removeProperty(property));
+    root.classList.remove('theme-transitioning', 'theme-refracting');
+    ['--theme-origin-x', '--theme-origin-y', '--theme-radius', '--theme-water-filter', '--theme-scroll-y'].forEach(property => root.style.removeProperty(property));
   };
 
   const cancelTransition = () => {
@@ -129,6 +133,10 @@
     const styles = getComputedStyle(root);
     const waveReach = parseFloat(styles.getPropertyValue('--theme-water-reach')) || 1.06;
     const reach = radius * waveReach * waterMapPadding;
+    // The live body uses document coordinates; the reveal/rings use viewport
+    // coordinates. Bound filter work to the visible area, even on a long page.
+    const top = window.scrollY;
+    y += top;
     // Increase depth together with wave width, keeping the surface slope smooth.
     const strength = 26;
     // Use a consistent subpixel feather on thin borders at different display
@@ -156,14 +164,14 @@
     refraction.setAttribute('height', '0');
     refraction.setAttribute('aria-hidden', 'true');
     refraction.innerHTML = `<defs>
-      <filter id="theme-water-refraction" x="0" y="0" width="${innerWidth}" height="${innerHeight}" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <filter id="theme-water-refraction" x="0" y="${top}" width="${innerWidth}" height="${innerHeight}" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
         <feImage href="${texture}" x="${x - waterMapPadding}" y="${y - waterMapPadding}" width="${waterMapPadding * 2}" height="${waterMapPadding * 2}" preserveAspectRatio="none" result="waves">
           ${animation('x', `${x - waterMapPadding};${x - reach}`, travel)}
           ${animation('y', `${y - waterMapPadding};${y - reach}`, travel)}
           ${animation('width', `${waterMapPadding * 2};${reach * 2}`, travel)}
           ${animation('height', `${waterMapPadding * 2};${reach * 2}`, travel)}
         </feImage>
-        <feComponentTransfer in="waves" x="0" y="0" width="${innerWidth}" height="${innerHeight}" result="displacement">
+        <feComponentTransfer in="waves" x="0" y="${top}" width="${innerWidth}" height="${innerHeight}" result="displacement">
           <feFuncR type="table" tableValues="${neutralTransfer}"/>
           <feFuncG type="table" tableValues="${neutralTransfer}"/>
           <feFuncB type="identity"/>
@@ -181,19 +189,18 @@
         <!-- Anti-alias the displaced contour, not just its vector field. Keep
              the untouched snapshot beneath it so thin borders/viewport edges
              never turn into transparent, pixel-stepped gaps. -->
-        <!-- A single 3x3 pass replaces the two-pass animated Gaussian while
-             preserving subpixel edge coverage and fading back to sharpness. -->
-        <feConvolveMatrix in="refracted-water" order="3" kernelMatrix="${edgeKernel(0)}" divisor="1" targetX="1" targetY="1" edgeMode="duplicate" preserveAlpha="false" result="antialiased-water">
-          ${animation('kernelMatrix', `${edgeKernel(0)};${edgeKernel(1)};${edgeKernel(0.8)};${edgeKernel(0)}`, envelope)}
-        </feConvolveMatrix>
+        <!-- Keep subpixel coverage, but use one stable kernel. Animating its
+             coefficients rebuilds the full-screen filter on every frame. -->
+        <feConvolveMatrix in="refracted-water" order="3" kernelMatrix="${edgeKernel(0.7)}" divisor="1" targetX="1" targetY="1" edgeMode="duplicate" preserveAlpha="false" result="antialiased-water"/>
         <feMerge>
           <feMergeNode in="SourceGraphic"/>
           <feMergeNode in="antialiased-water"/>
         </feMerge>
       </filter>
     </defs>`;
-    rippleCapture.append(refraction);
+    document.body.append(refraction);
     root.style.setProperty('--theme-water-filter', 'url(#theme-water-refraction)');
+    root.classList.add('theme-refracting');
   };
 
   const prepareRipple = (x, y, radius) => {
@@ -240,34 +247,62 @@
     root.style.setProperty('--theme-origin-x', `${x}px`);
     root.style.setProperty('--theme-origin-y', `${y}px`);
     root.style.setProperty('--theme-radius', `${radius}px`);
-    root.classList.add('theme-transitioning');
-    if (!mobileView.matches) {
-      prepareRipple(x, y, radius);
-      const styles = getComputedStyle(root);
-      petalRipple = window.PortfolioSakura?.prepareWater({
-        x, y, radius,
-        duration: parseFloat(styles.getPropertyValue('--theme-water-duration')),
-        reach: parseFloat(styles.getPropertyValue('--theme-water-reach')),
-        rings: [1, 0.52], width: 0.07, strength: 26
-      });
-    }
-
+    root.style.setProperty('--theme-scroll-y', `${window.scrollY}px`);
     try {
+      root.classList.add('theme-transitioning');
+      if (!mobileView.matches) {
+        prepareRipple(x, y, radius);
+        const styles = getComputedStyle(root);
+        petalRipple = window.PortfolioSakura?.prepareWater({
+          x, y, radius,
+          duration: parseFloat(styles.getPropertyValue('--theme-water-duration')),
+          reach: parseFloat(styles.getPropertyValue('--theme-water-reach')),
+          rings: [1, 0.52], width: 0.07, strength: 26
+        });
+      }
+
       // Read the latest request: a skipped transition can still run its callback.
       const transition = document.startViewTransition(() => applyTheme(requestedTheme));
       themeTransition = transition;
       transition.ready.then(() => {
         if (themeTransition !== transition) return;
+        const animations = document.getAnimations().filter(animation =>
+          ['themeReveal', 'themeRipple', 'themeWaterFade'].includes(animation.animationName));
+        animations.forEach(animation => {
+          animation.pause();
+          animation.currentTime = 0;
+        });
         if (refraction) {
-          // Begin every primitive at exactly the same SVG time.
           refraction.pauseAnimations();
           refraction.setCurrentTime(0);
           refraction.querySelectorAll('animate').forEach(animation => animation.beginElement());
-          refraction.unpauseAnimations();
         }
-        petalRipple?.start();
+        // Paint the frozen palettes/filter once before starting motion, so a
+        // cold GPU/filter setup cannot consume the beginning of the reveal.
+        transitionFrame = requestAnimationFrame(() => {
+          transitionFrame = requestAnimationFrame(() => {
+            transitionFrame = 0;
+            if (themeTransition !== transition) return;
+            try {
+              petalRipple?.start();
+              const startTime = document.timeline.currentTime;
+              animations.forEach(animation => {
+                animation.play();
+                animation.startTime = startTime;
+              });
+              refraction?.unpauseAnimations();
+            } catch {
+              cancelTransition();
+              applyTheme(requestedTheme);
+            }
+          });
+        });
       }, () => {
         if (themeTransition === transition) applyTheme(requestedTheme);
+      }).catch(() => {
+        if (themeTransition !== transition) return;
+        cancelTransition();
+        applyTheme(requestedTheme);
       });
       transition.updateCallbackDone.catch(() => {});
       const finish = () => {
@@ -301,6 +336,19 @@
     if (event.key === 'theme' || event.key === null) syncTheme();
   });
   window.addEventListener('pagehide', cancelTransition);
+  const finishForViewportChange = () => {
+    if (!themeTransition) return;
+    cancelTransition();
+    applyTheme(requestedTheme);
+  };
+  window.addEventListener('resize', finishForViewportChange, { passive: true });
+  window.addEventListener('scroll', () => {
+    // The refraction field and frozen palette belong to the captured viewport.
+    // Finish cleanly rather than revealing a clipped/shifted image on a scroll.
+    if (Math.abs(window.scrollY - parseFloat(root.style.getPropertyValue('--theme-scroll-y'))) > 1) {
+      finishForViewportChange();
+    }
+  }, { passive: true });
   reducedMotion.addEventListener('change', event => {
     if (!event.matches) return;
     cancelTransition();

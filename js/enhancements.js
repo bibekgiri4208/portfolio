@@ -1,8 +1,6 @@
 // Optional features load on proximity/intent, not on the critical rendering path.
 (() => {
   const base = new URL('../', document.currentScript.src);
-  const mobileView = matchMedia('(max-width: 768px), (hover: none) and (pointer: coarse)');
-  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const resources = new Map();
 
   const load = (path, stylesheet = false) => {
@@ -81,22 +79,4 @@
   }
 
   near(document.getElementById('contact'), () => { load('js/contact.js').catch(() => {}); });
-
-  // Phones never download/parse desktop-only petal physics. Recheck on resize
-  // and preference changes so rotating/resizing into desktop still works.
-  const loadDecoration = () => {
-    if (mobileView.matches || reducedMotion.matches || navigator.connection?.saveData) return;
-    const start = () => {
-      if (mobileView.matches || reducedMotion.matches || navigator.connection?.saveData) return;
-      load('css/sakura.css?v=mobile-performance-20261111', true)
-        .then(() => load('js/sakura.js?v=mobile-performance-20261111'))
-        .catch(() => {});
-    };
-    if ('requestIdleCallback' in window) requestIdleCallback(start, { timeout: 2500 });
-    else setTimeout(start, 0);
-  };
-  mobileView.addEventListener('change', loadDecoration);
-  reducedMotion.addEventListener('change', loadDecoration);
-  if (document.readyState === 'complete') loadDecoration();
-  else window.addEventListener('load', loadDecoration, { once: true });
 })();

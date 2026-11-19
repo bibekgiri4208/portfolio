@@ -332,53 +332,6 @@ h3 {
   transition-duration: 90ms;
 }
 
-/* PS5-inspired system time: quiet typography, stable digits, a cool blue edge.
-   Keep the CSS query in sync with js/desktop-clock.js. */
-.desktop-clock {
-  display: none;
-}
-
-@media (min-width: 1025px) and (hover: hover) and (pointer: fine) {
-  .desktop-clock:not([hidden]) {
-    position: relative;
-    display: inline-flex;
-    align-items: baseline;
-    justify-content: flex-end;
-    flex: 0 0 auto;
-    gap: 0.4rem;
-    min-width: 7.5rem;
-    padding-left: 1.1rem;
-    color: var(--text);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-  }
-
-  .desktop-clock::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 1px;
-    height: 24px;
-    transform: translateY(-50%);
-    background: linear-gradient(transparent, var(--accent), transparent);
-  }
-
-  .desktop-clock-digits {
-    font-size: 1.5rem;
-    font-weight: 400;
-    line-height: 1.2;
-    letter-spacing: -0.045em;
-  }
-
-  .desktop-clock-period {
-    color: var(--muted);
-    font-size: 0.65rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-  }
-}
-
 .theme-toggle,
 .hamburger {
   width: 44px;
@@ -1259,7 +1212,7 @@ html.page-closing body {
 
 html.theme-transitioning {
   --theme-reveal-duration: var(--theme-water-duration);
-  --theme-water-duration: 1500ms;
+  --theme-water-duration: 1200ms;
   /* Reveal and leading tide share one path; leave enough reach for every corner. */
   --theme-water-reach: 1.06;
   --theme-reveal-reach: var(--theme-water-reach);
@@ -1267,7 +1220,7 @@ html.theme-transitioning {
   --theme-water-easing: linear;
 }
 
-@media (max-width: 768px), (hover: none) and (pointer: coarse) {
+@media (max-width: 768px) {
   html.theme-transitioning {
     /* Mobile keeps just the lightweight circular reveal, without water layers. */
     --theme-reveal-duration: 650ms;
@@ -1284,9 +1237,38 @@ html.theme-transitioning {
   pointer-events: none;
 }
 
-html.theme-transitioning::view-transition-image-pair(root) {
-  /* Refract both palettes together, including their moving boundary. */
+html.theme-refracting body {
+  /* SVG filters on the live view-transition pseudo-image are ignored by some
+     browsers. Refract the actual page; its live snapshot is clipped separately.
+     Filtering the image-pair instead can expose the whole new theme at once. */
   filter: var(--theme-water-filter, none);
+}
+
+/* A filtered body becomes the containing block for fixed descendants. Preserve
+   their viewport geometry so toggling while scrolled cannot move the navbar,
+   background or water/petal capture surfaces. */
+html.theme-refracting .navbar,
+html.theme-refracting .pd-skip-link {
+  translate: 0 var(--theme-scroll-y);
+}
+
+html.theme-refracting body::before,
+html.theme-refracting .sakura-layer,
+html.theme-refracting .sakura-water-surface,
+html.theme-refracting .theme-ripple-capture {
+  top: var(--theme-scroll-y);
+  bottom: auto;
+  height: 100vh;
+}
+
+html.theme-refracting .theme-ripple-reflection {
+  position: absolute;
+}
+
+html.theme-refracting .sakura-toggle {
+  top: calc(var(--theme-scroll-y) + 100vh - max(20px, env(safe-area-inset-bottom)));
+  bottom: auto;
+  translate: 0 -100%;
 }
 
 html.theme-transitioning *,
